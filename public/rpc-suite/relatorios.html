@@ -1,0 +1,2579 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>RPC Industrial Suite - Relatórios</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/fontawesome-all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+     <link rel="icon" type="image/x-icon" href="/images/icon.svg">
+    <script src="/js/chart.min.js"></script>
+    <style>
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: #15151e;
+            --bg-light: #1e1e2b;
+            --primary: #00e68a;
+            --secondary: #00cc77;
+            --accent: #5e8cff;
+            --warning: #ffb020;
+            --danger: #ff5252;
+            --success: #00d68f;
+            --info: #17a2b8;
+            --text: #f5f5f7;
+            --text-muted: #a0a0b0;
+            --border: #2a2a3a;
+            --shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--bg-card) 0%, #1a1a25 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--bg-dark);
+        }
+
+        .logo h1 {
+            font-size: 22px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .demo-badge {
+            background: rgba(0, 230, 138, 0.1);
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            border: 1px solid rgba(0, 230, 138, 0.2);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .notifications {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--danger);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--bg-dark);
+        }
+
+        .logout-btn {
+            padding: 8px 20px;
+            background: rgba(255, 82, 82, 0.1);
+            border: 1px solid rgba(255, 82, 82, 0.3);
+            color: var(--danger);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 82, 82, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 70px;
+            width: 260px;
+            height: calc(100vh - 70px);
+            background: var(--bg-card);
+            border-right: 1px solid var(--border);
+            padding: 20px 0;
+            overflow-y: auto;
+            transition: width 0.3s ease;
+        }
+
+        .nav-section {
+            margin-bottom: 25px;
+        }
+
+        .nav-section-title {
+            padding: 0 20px 10px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 10px;
+        }
+
+        .nav-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-left: 3px solid transparent;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            padding-left: 25px;
+        }
+
+        .nav-item.active {
+            background: rgba(0, 230, 138, 0.1);
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+
+        .nav-text {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-badge {
+            margin-left: auto;
+            background: var(--accent);
+            color: white;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 260px;
+            margin-top: 70px;
+            padding: 25px;
+            min-height: calc(100vh - 70px);
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Alert */
+        .demo-alert {
+            background: rgba(255, 176, 32, 0.1);
+            border-left: 4px solid var(--warning);
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 176, 32, 0.2);
+        }
+
+        .demo-alert i {
+            font-size: 24px;
+            color: var(--warning);
+        }
+
+        /* Dashboard Header */
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-title h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            background: linear-gradient(90deg, var(--text), #ffffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .dashboard-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .action-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 14px;
+        }
+
+        .action-btn:hover {
+            background: var(--bg-light);
+            transform: translateY(-2px);
+        }
+
+        .action-btn.primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--bg-dark);
+            border: none;
+            font-weight: 600;
+        }
+
+        /* Grid System */
+        .grid {
+            display: grid;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .grid-4 { grid-template-columns: repeat(4, 1fr); }
+        .grid-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-1 { grid-template-columns: 1fr; }
+
+        /* Cards */
+        .card {
+            background: linear-gradient(135deg, var(--bg-card) 0%, #1a1a25 100%);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .card-action-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: var(--bg-light);
+            border: none;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .card-action-btn:hover {
+            background: var(--border);
+            color: var(--text);
+        }
+
+        /* KPI Cards */
+        .kpi-card {
+            text-align: center;
+            padding: 25px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        .kpi-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: rgba(0, 230, 138, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 24px;
+            color: var(--primary);
+        }
+
+        .kpi-value {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 10px 0;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .kpi-label {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .kpi-detail {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 10px;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .tab:hover {
+            color: var(--text);
+        }
+
+        .tab.active {
+            color: var(--primary);
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px 3px 0 0;
+        }
+
+        /* Filtros */
+        .filters-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .filter-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .filter-select, .filter-input {
+            padding: 10px 12px;
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        .filter-select:focus, .filter-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .filter-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        /* Lista de Relatórios */
+        .reports-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .report-card {
+            background: linear-gradient(135deg, var(--bg-card) 0%, #1a1a25 100%);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .report-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .report-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .report-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .report-description {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        .report-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .report-status {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .status-ready { background: rgba(0, 230, 138, 0.2); color: var(--success); }
+        .status-processing { background: rgba(255, 176, 32, 0.2); color: var(--warning); }
+        .status-error { background: rgba(255, 82, 82, 0.2); color: var(--danger); }
+
+        .report-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        /* Tabela de Relatórios */
+        .reports-table-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .table-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .table-search {
+            position: relative;
+            width: 300px;
+        }
+
+        .table-search input {
+            width: 100%;
+            padding: 10px 16px 10px 40px;
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        .table-search i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        /* Estilos da tabela */
+        .reports-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .reports-table th {
+            text-align: left;
+            padding: 16px;
+            background: var(--bg-light);
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .reports-table td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+
+        .reports-table tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            height: 6px;
+            background: var(--bg-light);
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 8px 0;
+            width: 100%;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        /* Modal de Configuração */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 10, 15, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+            display: none;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-header {
+            padding: 25px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: var(--bg-light);
+            border: none;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background: var(--border);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Badges */
+        .badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-success { background: rgba(0, 230, 138, 0.2); color: var(--success); }
+        .badge-warning { background: rgba(255, 176, 32, 0.2); color: var(--warning); }
+        .badge-danger { background: rgba(255, 82, 82, 0.2); color: var(--danger); }
+        .badge-info { background: rgba(94, 140, 255, 0.2); color: var(--accent); }
+        .badge-primary { background: rgba(0, 230, 138, 0.2); color: var(--primary); }
+
+        /* Animações */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .pulsing {
+            animation: pulse 2s infinite;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+
+        /* Responsivo */
+        @media (max-width: 1200px) {
+            .filter-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .reports-list {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+            
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 70px;
+                overflow: hidden;
+            }
+            
+            .sidebar .nav-text,
+            .sidebar .nav-section-title,
+            .sidebar .nav-badge {
+                display: none;
+            }
+            
+            .main-content {
+                margin-left: 70px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .reports-list {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid-4,
+            .grid-3,
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .dashboard-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .user-info {
+                gap: 10px;
+            }
+            
+            .user-profile .username {
+                display: none;
+            }
+            
+            .table-search {
+                width: 100%;
+            }
+            
+            .reports-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .table-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .tabs {
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="/css/rpc-theme.css">
+    <script src="/js/rpc-theme.js"></script>
+    <script src="/js/rpc-i18n.js" defer></script>
+</head>
+<body data-rpc-i18n-title="title.doc.reports">
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <img src="/images/icon.svg" alt="RP Caconde" class="rpc-header-logo">
+            <div>
+                <h1>RPC Industrial Suite</h1>
+                <div class="demo-badge" data-i18n="common.demo">DEMO</div>
+            </div>
+        </div>
+        
+        <div class="user-info">
+            <div class="notifications">
+                <i class="fas fa-bell" style="font-size: 20px; color: var(--text-muted);"></i>
+                <div class="notification-badge" id="notification-count">3</div>
+            </div>
+            
+            <div class="user-profile">
+                <div class="avatar">V</div>
+                <div>
+                    <div style="font-weight: bold" data-i18n="common.visitor">visitante</div>
+                    <div style="font-size: 12px; color: var(--text-muted)" data-i18n="common.operator">Operador</div>
+                </div>
+            </div>
+            
+            <a href="/" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> <span data-i18n="common.backToSite">Voltar ao site</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+   <nav class="sidebar">
+        <div class="nav-section">
+            <div class="nav-section-title" data-i18n="nav.section.main">Principal</div>
+            <a href="/rpc-dashboard" class="nav-item">
+                <i class="fas fa-chart-line"></i>
+                <span class="nav-text" data-i18n="nav.dashboard">Dashboard</span>
+            </a>
+            <a href="/rpc-suite/monitoramento.html" class="nav-item">
+                <i class="fas fa-industry"></i>
+                <span class="nav-text" data-i18n="nav.monitoring">Monitoramento</span>
+                <span class="nav-badge">6</span>
+            </a>
+            <a href="/rpc-suite/ordens.html" class="nav-item">
+                <i class="fas fa-clipboard-list"></i>
+                <span class="nav-text" data-i18n="nav.orders">Ordens de Produção</span>
+                <span class="nav-badge">5</span>
+            </a>
+            <a href="/rpc-suite/manutencao.html" class="nav-item">
+                <i class="fas fa-tools"></i>
+                <span class="nav-text" data-i18n="nav.maintenance">Manutenção</span>
+                <span class="nav-badge">7</span>
+            </a>
+        </div>
+        
+        <div class="nav-section">
+            <div class="nav-section-title" data-i18n="nav.section.analytics">Analytics</div>
+            <a href="/rpc-suite/relatorios.html" class="nav-item active">
+                <i class="fas fa-chart-bar"></i>
+                <span class="nav-text" data-i18n="nav.reports">Relatórios</span>
+            </a>
+            <a href="/rpc-suite/energia.html" class="nav-item">
+                <i class="fas fa-bolt"></i>
+                <span class="nav-text" data-i18n="nav.energy">Energia</span>
+            </a>
+            <a href="/rpc-suite/estoque.html" class="nav-item">
+                <i class="fas fa-boxes"></i>
+                <span class="nav-text" data-i18n="nav.stock">Estoque</span>
+            </a>
+            <a href="/rpc-suite/analises.html" class="nav-item">
+                <i class="fas fa-chart-pie"></i>
+                <span class="nav-text" data-i18n="nav.analytics">Análises</span>
+            </a>
+        </div>
+        
+        <div class="nav-section">
+            <div class="nav-section-title" data-i18n="nav.section.system">Sistema</div>
+            <a href="/rpc-suite/configuracoes.html" class="nav-item">
+                <i class="fas fa-cog"></i>
+                <span class="nav-text" data-i18n="nav.settings">Configurações</span>
+            </a>
+            <a href="/rpc-suite/usuarios.html" class="nav-item">
+                <i class="fas fa-users"></i>
+                <span class="nav-text" data-i18n="nav.users">Usuários</span>
+            </a>
+            <a href="/rpc-suite/historico.html" class="nav-item">
+                <i class="fas fa-history"></i>
+                <span class="nav-text" data-i18n="nav.history">Histórico</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Alert -->
+        <div class="demo-alert fade-in">
+            <i class="fas fa-chart-bar"></i>
+            <div>
+                <strong>📊 ANÁLISE DE DADOS AVANÇADA</strong><br>
+                Gere relatórios personalizados, exporte dados e monitore KPIs em tempo real.
+            </div>
+        </div>
+
+        <!-- Page Header -->
+        <div class="dashboard-header">
+            <div class="dashboard-title">
+                <h2>Relatórios & Analytics</h2>
+                <div style="color: var(--text-muted); font-size: 14px;">
+                    <i class="fas fa-chart-line"></i> 42 Relatórios Disponíveis | 
+                    <i class="fas fa-clock"></i> Última atualização: <span id="last-update">--:--</span>
+                </div>
+            </div>
+            
+            <div class="dashboard-actions">
+                <button class="action-btn" id="filter-toggle-btn">
+                    <i class="fas fa-filter"></i> Filtros
+                </button>
+                <button class="action-btn" id="schedule-report-btn">
+                    <i class="fas fa-calendar-alt"></i> Agendar
+                </button>
+                <button class="action-btn primary" id="new-report-btn">
+                    <i class="fas fa-plus"></i> Novo Relatório
+                </button>
+            </div>
+        </div>
+
+        <!-- Filtros -->
+        <div class="filters-container fade-in" id="filters-container">
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label class="filter-label">Período</label>
+                    <select class="filter-select" id="period-filter">
+                        <option value="today">Hoje</option>
+                        <option value="yesterday">Ontem</option>
+                        <option value="week" selected>Esta Semana</option>
+                        <option value="month">Este Mês</option>
+                        <option value="quarter">Este Trimestre</option>
+                        <option value="year">Este Ano</option>
+                        <option value="custom">Personalizado</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label class="filter-label">Tipo de Relatório</label>
+                    <select class="filter-select" id="type-filter">
+                        <option value="all">Todos</option>
+                        <option value="production">Produção</option>
+                        <option value="inventory">Estoque</option>
+                        <option value="maintenance">Manutenção</option>
+                        <option value="quality">Qualidade</option>
+                        <option value="financial">Financeiro</option>
+                        <option value="energy">Energia</option>
+                        <option value="performance">Desempenho</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label class="filter-label">Status</label>
+                    <select class="filter-select" id="status-filter">
+                        <option value="all">Todos</option>
+                        <option value="ready" selected>Prontos</option>
+                        <option value="processing">Processando</option>
+                        <option value="scheduled">Agendados</option>
+                        <option value="error">Com Erro</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label class="filter-label">Formato</label>
+                    <select class="filter-select" id="format-filter">
+                        <option value="all">Todos</option>
+                        <option value="pdf">PDF</option>
+                        <option value="excel">Excel</option>
+                        <option value="csv">CSV</option>
+                        <option value="html">HTML</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div id="custom-date-range" style="display: none;">
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label class="filter-label">Data Inicial</label>
+                        <input type="date" class="filter-input" id="start-date">
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">Data Final</label>
+                        <input type="date" class="filter-input" id="end-date">
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">Comparação</label>
+                        <select class="filter-select" id="compare-period">
+                            <option value="none">Sem Comparação</option>
+                            <option value="previous">Período Anterior</option>
+                            <option value="year">Ano Anterior</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="filter-actions">
+                <button class="action-btn" id="clear-filters-btn">
+                    <i class="fas fa-times"></i> Limpar Filtros
+                </button>
+                <button class="action-btn primary" id="apply-filters-btn">
+                    <i class="fas fa-check"></i> Aplicar Filtros
+                </button>
+            </div>
+        </div>
+
+        <!-- KPIs -->
+        <div class="grid grid-4 fade-in">
+            <div class="card kpi-card">
+                <div class="kpi-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="kpi-value" id="total-reports">42</div>
+                <div class="kpi-label">Relatórios Gerados</div>
+                <div class="kpi-detail">+12% vs mês anterior</div>
+            </div>
+            
+            <div class="card kpi-card">
+                <div class="kpi-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="kpi-value" id="avg-time">1.2s</div>
+                <div class="kpi-label">Tempo Médio</div>
+                <div class="kpi-detail">Por geração de relatório</div>
+            </div>
+            
+            <div class="card kpi-card">
+                <div class="kpi-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <div class="kpi-value" id="data-processed">2.4GB</div>
+                <div class="kpi-label">Dados Processados</div>
+                <div class="kpi-detail">Últimos 7 dias</div>
+            </div>
+            
+            <div class="card kpi-card">
+                <div class="kpi-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="kpi-value" id="active-users">18</div>
+                <div class="kpi-label">Usuários Ativos</div>
+                <div class="kpi-detail">Acessando relatórios</div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" data-tab="all">Todos (42)</button>
+            <button class="tab" data-tab="production">Produção (15)</button>
+            <button class="tab" data-tab="inventory">Estoque (8)</button>
+            <button class="tab" data-tab="maintenance">Manutenção (6)</button>
+            <button class="tab" data-tab="quality">Qualidade (5)</button>
+            <button class="tab" data-tab="financial">Financeiro (4)</button>
+            <button class="tab" data-tab="energy">Energia (4)</button>
+        </div>
+
+        <!-- Cards de Relatórios -->
+        <div class="reports-list" id="reports-list">
+            <!-- Relatórios serão renderizados via JavaScript -->
+        </div>
+
+        <!-- Gráficos -->
+        <div class="grid grid-2">
+            <div class="card fade-in">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-chart-bar"></i> Relatórios por Tipo
+                    </div>
+                    <div class="card-actions">
+                        <button class="card-action-btn" title="Configurar">
+                            <i class="fas fa-cog"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="chart-container" style="height: 300px;">
+                    <canvas id="reports-by-type-chart"></canvas>
+                </div>
+            </div>
+            
+            <div class="card fade-in">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-chart-line"></i> Tendência Mensal
+                    </div>
+                    <div class="card-actions">
+                        <button class="card-action-btn" title="Exportar">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="chart-container" style="height: 300px;">
+                    <canvas id="monthly-trend-chart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabela de Relatórios -->
+        <div class="reports-table-container fade-in">
+            <div class="table-header">
+                <h3 style="font-size: 18px;">
+                    <i class="fas fa-list"></i> Histórico de Relatórios
+                </h3>
+                <div class="table-actions">
+                    <div class="table-search">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="search-reports" placeholder="Buscar relatório...">
+                    </div>
+                    <button class="action-btn" id="refresh-table">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div style="overflow-x: auto;">
+                <table class="reports-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 120px;">ID</th>
+                            <th>Nome</th>
+                            <th style="width: 100px;">Tipo</th>
+                            <th style="width: 100px;">Data</th>
+                            <th style="width: 100px;">Status</th>
+                            <th style="width: 100px;">Formato</th>
+                            <th style="width: 80px;">Tamanho</th>
+                            <th style="width: 120px;">Gerado por</th>
+                            <th style="width: 100px;">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reports-table-body">
+                        <!-- Relatórios serão renderizados via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div style="padding: 20px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                <div style="color: var(--text-muted); font-size: 14px;">
+                    Mostrando <span id="showing-count">10</span> de <span id="total-count">42</span> relatórios
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="action-btn" id="prev-page" disabled>
+                        <i class="fas fa-chevron-left"></i> Anterior
+                    </button>
+                    <button class="action-btn" id="next-page">
+                        Próxima <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Relatórios Programados -->
+        <div class="card fade-in">
+            <div class="card-header">
+                <div class="card-title">
+                    <i class="fas fa-calendar-alt"></i> Relatórios Programados
+                </div>
+                <div class="card-actions">
+                    <button class="card-action-btn" title="Adicionar Agendamento">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div id="scheduled-reports">
+                <!-- Relatórios programados serão renderizados via JavaScript -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Novo Relatório -->
+    <div class="modal-overlay" id="new-report-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 style="font-size: 22px;">
+                    <i class="fas fa-plus-circle"></i> Configurar Novo Relatório
+                </h3>
+                <button class="modal-close" id="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label" for="report-name">
+                        <i class="fas fa-tag"></i> Nome do Relatório *
+                    </label>
+                    <input type="text" class="form-control" id="report-name" placeholder="Ex: Análise de Produção Mensal">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="report-type">
+                            <i class="fas fa-folder"></i> Tipo de Relatório *
+                        </label>
+                        <select class="form-control" id="report-type">
+                            <option value="">Selecione um tipo</option>
+                            <option value="production">Produção</option>
+                            <option value="inventory">Estoque</option>
+                            <option value="maintenance">Manutenção</option>
+                            <option value="quality">Qualidade</option>
+                            <option value="financial">Financeiro</option>
+                            <option value="energy">Energia</option>
+                            <option value="performance">Desempenho</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="report-format">
+                            <i class="fas fa-file-export"></i> Formato de Saída *
+                        </label>
+                        <select class="form-control" id="report-format">
+                            <option value="pdf">PDF</option>
+                            <option value="excel">Excel</option>
+                            <option value="csv">CSV</option>
+                            <option value="html">HTML</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="report-period">
+                            <i class="fas fa-calendar"></i> Período *
+                        </label>
+                        <select class="form-control" id="report-period">
+                            <option value="today">Hoje</option>
+                            <option value="yesterday">Ontem</option>
+                            <option value="week" selected>Esta Semana</option>
+                            <option value="month">Este Mês</option>
+                            <option value="quarter">Este Trimestre</option>
+                            <option value="year">Este Ano</option>
+                            <option value="custom">Personalizado</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="report-frequency">
+                            <i class="fas fa-redo"></i> Frequência
+                        </label>
+                        <select class="form-control" id="report-frequency">
+                            <option value="once">Uma vez</option>
+                            <option value="daily">Diário</option>
+                            <option value="weekly">Semanal</option>
+                            <option value="monthly">Mensal</option>
+                            <option value="quarterly">Trimestral</option>
+                            <option value="yearly">Anual</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="report-description">
+                        <i class="fas fa-sticky-note"></i> Descrição
+                    </label>
+                    <textarea class="form-control" id="report-description" rows="3" placeholder="Descreva o objetivo deste relatório..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-filter"></i> Filtros Avançados
+                    </label>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 10px;">
+                        <label style="display: flex; align-items: center; gap: 8px;">
+                            <input type="checkbox" id="filter-production" checked>
+                            <span style="font-size: 14px;">Dados de Produção</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 8px;">
+                            <input type="checkbox" id="filter-inventory">
+                            <span style="font-size: 14px;">Dados de Estoque</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 8px;">
+                            <input type="checkbox" id="filter-quality">
+                            <span style="font-size: 14px;">Dados de Qualidade</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 8px;">
+                            <input type="checkbox" id="filter-energy">
+                            <span style="font-size: 14px;">Dados de Energia</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button class="action-btn" id="cancel-report-btn">
+                        Cancelar
+                    </button>
+                    <button class="action-btn primary" id="generate-report-btn">
+                        <i class="fas fa-play"></i> Gerar Agora
+                    </button>
+                    <button class="action-btn" id="schedule-report-modal-btn">
+                        <i class="fas fa-calendar-alt"></i> Agendar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Detalhes do Relatório -->
+    <div class="modal-overlay" id="report-details-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 style="font-size: 22px;" id="details-report-title">
+                    <i class="fas fa-info-circle"></i> Detalhes do Relatório
+                </h3>
+                <button class="modal-close" id="details-modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="grid grid-2" style="margin-bottom: 20px;">
+                    <div class="card">
+                        <div class="card-title">
+                            <i class="fas fa-info-circle"></i> Informações
+                        </div>
+                        <div id="report-details-info">
+                            <!-- Informações serão preenchidas via JS -->
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-title">
+                            <i class="fas fa-chart-line"></i> Estatísticas
+                        </div>
+                        <div id="report-details-stats">
+                            <!-- Estatísticas serão preenchidas via JS -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">
+                        <i class="fas fa-history"></i> Histórico de Execuções
+                    </div>
+                    <div id="report-executions">
+                        <!-- Execuções serão preenchidas via JS -->
+                    </div>
+                </div>
+                
+                <div class="form-actions" style="margin-top: 25px;">
+                    <button class="action-btn" id="edit-report-btn">
+                        <i class="fas fa-edit"></i> Editar
+                    </button>
+                    <button class="action-btn primary" id="regenerate-report-btn">
+                        <i class="fas fa-redo"></i> Regenerar
+                    </button>
+                    <button class="action-btn" id="schedule-report-details-btn">
+                        <i class="fas fa-calendar-alt"></i> Reagendar
+                    </button>
+                    <button class="action-btn" style="background: rgba(255, 82, 82, 0.1); color: var(--danger);" id="delete-report-btn">
+                        <i class="fas fa-trash"></i> Excluir
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dados dos relatórios
+        const reportsData = [
+            {
+                id: 'REP-001',
+                name: 'Relatório de Produção Diária',
+                type: 'production',
+                description: 'Produção por linha e turno com indicadores de eficiência',
+                status: 'ready',
+                format: 'pdf',
+                size: '2.4 MB',
+                created: '07/12/2024 08:30',
+                createdBy: 'Sistema Automático',
+                frequency: 'daily',
+                lastRun: '07/12/2024 08:30',
+                nextRun: '08/12/2024 08:30',
+                executionTime: '1.2s',
+                dataPoints: 12500
+            },
+            {
+                id: 'REP-002',
+                name: 'Análise de Estoque Mensal',
+                type: 'inventory',
+                description: 'Movimentações, giro de estoque e itens críticos',
+                status: 'ready',
+                format: 'excel',
+                size: '3.8 MB',
+                created: '05/12/2024 14:15',
+                createdBy: 'Almoxarifado',
+                frequency: 'monthly',
+                lastRun: '01/12/2024 00:00',
+                nextRun: '01/01/2025 00:00',
+                executionTime: '2.8s',
+                dataPoints: 85400
+            },
+            {
+                id: 'REP-003',
+                name: 'Relatório de Manutenção Preventiva',
+                type: 'maintenance',
+                description: 'Status de manutenções preventivas e corretivas',
+                status: 'processing',
+                format: 'pdf',
+                size: '1.2 MB',
+                created: '07/12/2024 10:45',
+                createdBy: 'Técnico',
+                frequency: 'weekly',
+                lastRun: '07/12/2024 10:45',
+                nextRun: '14/12/2024 10:45',
+                executionTime: '0.8s',
+                dataPoints: 4200
+            },
+            {
+                id: 'REP-004',
+                name: 'Controle de Qualidade Trimestral',
+                type: 'quality',
+                description: 'Índices de qualidade e não conformidades',
+                status: 'scheduled',
+                format: 'html',
+                size: '4.5 MB',
+                created: '01/12/2024 09:00',
+                createdBy: 'Qualidade',
+                frequency: 'quarterly',
+                lastRun: '01/10/2024 00:00',
+                nextRun: '01/01/2025 00:00',
+                executionTime: '3.2s',
+                dataPoints: 120000
+            },
+            {
+                id: 'REP-005',
+                name: 'Análise Financeira Mensal',
+                type: 'financial',
+                description: 'Custos, receitas e indicadores financeiros',
+                status: 'ready',
+                format: 'excel',
+                size: '5.2 MB',
+                created: '06/12/2024 16:30',
+                createdBy: 'Financeiro',
+                frequency: 'monthly',
+                lastRun: '30/11/2024 18:00',
+                nextRun: '31/12/2024 18:00',
+                executionTime: '4.5s',
+                dataPoints: 185000
+            },
+            {
+                id: 'REP-006',
+                name: 'Consumo de Energia Semanal',
+                type: 'energy',
+                description: 'Consumo por setor e máquina com análise de picos',
+                status: 'ready',
+                format: 'pdf',
+                size: '1.8 MB',
+                created: '07/12/2024 07:00',
+                createdBy: 'Sistema Automático',
+                frequency: 'weekly',
+                lastRun: '07/12/2024 07:00',
+                nextRun: '14/12/2024 07:00',
+                executionTime: '1.5s',
+                dataPoints: 25600
+            },
+            {
+                id: 'REP-007',
+                name: 'Desempenho de Equipamentos',
+                type: 'performance',
+                description: 'OEE, disponibilidade e eficiência por máquina',
+                status: 'error',
+                format: 'csv',
+                size: '6.1 MB',
+                created: '06/12/2024 22:15',
+                createdBy: 'Engenharia',
+                frequency: 'daily',
+                lastRun: '06/12/2024 22:15',
+                nextRun: '07/12/2024 22:15',
+                executionTime: '5.2s',
+                dataPoints: 210000
+            },
+            {
+                id: 'REP-008',
+                name: 'Relatório de Segurança',
+                type: 'quality',
+                description: 'Incidentes e inspeções de segurança',
+                status: 'ready',
+                format: 'pdf',
+                size: '0.9 MB',
+                created: '05/12/2024 11:20',
+                createdBy: 'Segurança',
+                frequency: 'monthly',
+                lastRun: '05/12/2024 11:20',
+                nextRun: '05/01/2025 11:20',
+                executionTime: '0.6s',
+                dataPoints: 3200
+            }
+        ];
+
+        // Histórico de execuções
+        const reportExecutions = {
+            'REP-001': [
+                { date: '07/12/2024 08:30', status: 'success', duration: '1.2s', size: '2.4 MB' },
+                { date: '06/12/2024 08:30', status: 'success', duration: '1.1s', size: '2.3 MB' },
+                { date: '05/12/2024 08:30', status: 'success', duration: '1.3s', size: '2.5 MB' }
+            ],
+            'REP-007': [
+                { date: '06/12/2024 22:15', status: 'error', duration: '5.2s', size: '6.1 MB' },
+                { date: '05/12/2024 22:15', status: 'success', duration: '4.8s', size: '5.9 MB' }
+            ]
+        };
+
+        // Relatórios programados
+        const scheduledReports = [
+            { id: 'REP-009', name: 'Backup Diário', type: 'system', time: '23:00', frequency: 'daily', status: 'active' },
+            { id: 'REP-010', name: 'Consolidação Mensal', type: 'financial', time: '01/01/2025 00:00', frequency: 'monthly', status: 'active' },
+            { id: 'REP-011', name: 'Auditoria Trimestral', type: 'quality', time: '01/01/2025 09:00', frequency: 'quarterly', status: 'pending' }
+        ];
+
+        // Variáveis globais
+        let currentTab = 'all';
+        let currentSearch = '';
+        let currentPage = 1;
+        const itemsPerPage = 10;
+        let typeChart = null;
+        let trendChart = null;
+        let selectedReportId = null;
+        let filtersVisible = true;
+
+        // Funções de inicialização
+        function init() {
+            renderReportsList();
+            renderReportsTable();
+            renderStats();
+            renderScheduledReports();
+            updateLastUpdate();
+            initCharts();
+            initEventListeners();
+            updateFilters();
+        }
+
+        // Renderiza a lista de relatórios
+        function renderReportsList() {
+            const list = document.getElementById('reports-list');
+            list.innerHTML = '';
+            
+            const filteredReports = filterReports();
+            const displayedReports = filteredReports.slice(0, 6); // Mostra apenas 6 no grid
+            
+            displayedReports.forEach(report => {
+                const card = createReportCard(report);
+                list.appendChild(card);
+            });
+        }
+
+        // Renderiza a tabela de relatórios
+        function renderReportsTable() {
+            const tbody = document.getElementById('reports-table-body');
+            tbody.innerHTML = '';
+            
+            const filteredReports = filterReports();
+            const paginatedReports = paginateReports(filteredReports);
+            
+            paginatedReports.forEach(report => {
+                const row = createReportTableRow(report);
+                tbody.appendChild(row);
+            });
+            
+            updatePagination(filteredReports.length);
+            updateShowingCount(filteredReports.length, paginatedReports.length);
+        }
+
+        // Filtra relatórios com base na tab e busca
+        function filterReports() {
+            let filtered = reportsData;
+            
+            // Filtro por tab
+            if (currentTab !== 'all') {
+                filtered = filtered.filter(report => report.type === currentTab);
+            }
+            
+            // Filtro por busca
+            if (currentSearch) {
+                const searchLower = currentSearch.toLowerCase();
+                filtered = filtered.filter(report => 
+                    report.id.toLowerCase().includes(searchLower) ||
+                    report.name.toLowerCase().includes(searchLower) ||
+                    report.description.toLowerCase().includes(searchLower)
+                );
+            }
+            
+            // Aplica filtros avançados
+            const typeFilter = document.getElementById('type-filter').value;
+            const statusFilter = document.getElementById('status-filter').value;
+            const formatFilter = document.getElementById('format-filter').value;
+            
+            if (typeFilter !== 'all') {
+                filtered = filtered.filter(report => report.type === typeFilter);
+            }
+            
+            if (statusFilter !== 'all') {
+                filtered = filtered.filter(report => report.status === statusFilter);
+            }
+            
+            if (formatFilter !== 'all') {
+                filtered = filtered.filter(report => report.format === formatFilter);
+            }
+            
+            return filtered;
+        }
+
+        // Pagina os relatórios
+        function paginateReports(reports) {
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            return reports.slice(startIndex, endIndex);
+        }
+
+        // Cria um card para relatório na lista
+        function createReportCard(report) {
+            const card = document.createElement('div');
+            card.className = 'report-card';
+            card.dataset.reportId = report.id;
+            
+            const iconColor = getReportTypeColor(report.type);
+            const iconBg = iconColor + '20';
+            const statusClass = 'status-' + report.status;
+            const statusText = getStatusText(report.status);
+            const typeText = getTypeText(report.type);
+            
+            card.innerHTML = '<div class="report-icon" style="background: ' + iconBg + '; color: ' + iconColor + ';">' +
+                                '<i class="' + getReportIcon(report.type) + '"></i>' +
+                             '</div>' +
+                             '<div class="report-title">' + report.name + '</div>' +
+                             '<div class="report-description">' + report.description + '</div>' +
+                             '<div class="report-meta">' +
+                                '<div>' +
+                                    '<div style="font-weight: 600;">' + typeText + '</div>' +
+                                    '<div>' + report.created + '</div>' +
+                                '</div>' +
+                                '<span class="report-status ' + statusClass + '">' + statusText + '</span>' +
+                             '</div>' +
+                             '<div class="report-actions">' +
+                                '<button class="action-btn" data-report-id="' + report.id + '" data-action="view" style="flex: 1; padding: 8px;">' +
+                                    '<i class="fas fa-eye"></i> Detalhes' +
+                                '</button>' +
+                                '<button class="action-btn" data-report-id="' + report.id + '" data-action="download" style="flex: 1; padding: 8px;">' +
+                                    '<i class="fas fa-download"></i> Baixar' +
+                                '</button>' +
+                             '</div>';
+            
+            return card;
+        }
+
+        // Cria uma linha da tabela para um relatório
+        function createReportTableRow(report) {
+            const row = document.createElement('tr');
+            const statusClass = 'status-' + report.status;
+            const statusText = getStatusText(report.status);
+            const typeText = getTypeText(report.type);
+            
+            row.innerHTML = '<td>' + report.id + '</td>' +
+                           '<td>' + report.name + '</td>' +
+                           '<td><span class="badge badge-primary">' + typeText + '</span></td>' +
+                           '<td>' + report.created.split(' ')[0] + '</td>' +
+                           '<td><span class="report-status ' + statusClass + '">' + statusText + '</span></td>' +
+                           '<td>' + report.format.toUpperCase() + '</td>' +
+                           '<td>' + report.size + '</td>' +
+                           '<td>' + report.createdBy + '</td>' +
+                           '<td>' +
+                               '<button class="card-action-btn" data-report-id="' + report.id + '" data-action="view">' +
+                                   '<i class="fas fa-eye"></i>' +
+                               '</button>' +
+                               '<button class="card-action-btn" data-report-id="' + report.id + '" data-action="download">' +
+                                   '<i class="fas fa-download"></i>' +
+                               '</button>' +
+                           '</td>';
+            
+            return row;
+        }
+
+        // Renderiza estatísticas
+        function renderStats() {
+            const totalReports = reportsData.length;
+            const readyReports = reportsData.filter(r => r.status === 'ready').length;
+            const processingReports = reportsData.filter(r => r.status === 'processing').length;
+            const errorReports = reportsData.filter(r => r.status === 'error').length;
+            
+            // Calcula tempo médio
+            const avgTime = (reportsData.reduce((sum, report) => {
+                const time = parseFloat(report.executionTime);
+                return sum + (isNaN(time) ? 0 : time);
+            }, 0) / reportsData.length).toFixed(1);
+            
+            // Calcula tamanho total
+            const totalSize = reportsData.reduce((sum, report) => {
+                const size = parseFloat(report.size);
+                return sum + (isNaN(size) ? 0 : size);
+            }, 0).toFixed(1);
+            
+            document.getElementById('total-reports').textContent = totalReports;
+            document.getElementById('avg-time').textContent = avgTime + 's';
+            document.getElementById('data-processed').textContent = totalSize + ' MB';
+            
+            // Atualiza tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                const tabType = tab.dataset.tab;
+                let count = 0;
+                
+                switch(tabType) {
+                    case 'all': count = totalReports; break;
+                    case 'production': count = reportsData.filter(r => r.type === 'production').length; break;
+                    case 'inventory': count = reportsData.filter(r => r.type === 'inventory').length; break;
+                    case 'maintenance': count = reportsData.filter(r => r.type === 'maintenance').length; break;
+                    case 'quality': count = reportsData.filter(r => r.type === 'quality').length; break;
+                    case 'financial': count = reportsData.filter(r => r.type === 'financial').length; break;
+                    case 'energy': count = reportsData.filter(r => r.type === 'energy').length; break;
+                }
+                
+                tab.textContent = tab.textContent.replace(/\(\d+\)/, '(' + count + ')');
+            });
+        }
+
+        // Renderiza relatórios programados
+        function renderScheduledReports() {
+            const container = document.getElementById('scheduled-reports');
+            container.innerHTML = '';
+            
+            scheduledReports.forEach(scheduled => {
+                const item = document.createElement('div');
+                item.className = 'demo-alert';
+                item.style.marginBottom = '10px';
+                item.style.animation = 'none';
+                
+                const statusIcon = scheduled.status === 'active' ? 'check-circle' : 'clock';
+                const statusColor = scheduled.status === 'active' ? 'var(--success)' : 'var(--warning)';
+                
+                item.innerHTML = '<i class="fas fa-' + statusIcon + '" style="color: ' + statusColor + ';"></i>' +
+                                '<div style="flex: 1;">' +
+                                    '<strong>' + scheduled.name + ' (' + scheduled.id + ')</strong><br>' +
+                                    '<span style="font-size: 13px;">' + 
+                                        getFrequencyText(scheduled.frequency) + ' • ' + scheduled.time +
+                                    '</span>' +
+                                '</div>' +
+                                '<button class="card-action-btn" data-scheduled-id="' + scheduled.id + '">' +
+                                    '<i class="fas fa-times"></i>' +
+                                '</button>';
+                
+                container.appendChild(item);
+            });
+        }
+
+        // Inicializa gráficos
+        function initCharts() {
+            initReportsByTypeChart();
+            initMonthlyTrendChart();
+        }
+
+        function initReportsByTypeChart() {
+            const ctx = document.getElementById('reports-by-type-chart').getContext('2d');
+            
+            // Conta relatórios por tipo
+            const typeCounts = {
+                production: reportsData.filter(r => r.type === 'production').length,
+                inventory: reportsData.filter(r => r.type === 'inventory').length,
+                maintenance: reportsData.filter(r => r.type === 'maintenance').length,
+                quality: reportsData.filter(r => r.type === 'quality').length,
+                financial: reportsData.filter(r => r.type === 'financial').length,
+                energy: reportsData.filter(r => r.type === 'energy').length,
+                performance: reportsData.filter(r => r.type === 'performance').length
+            };
+            
+            typeChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Produção', 'Estoque', 'Manutenção', 'Qualidade', 'Financeiro', 'Energia', 'Desempenho'],
+                    datasets: [{
+                        label: 'Quantidade de Relatórios',
+                        data: [
+                            typeCounts.production,
+                            typeCounts.inventory,
+                            typeCounts.maintenance,
+                            typeCounts.quality,
+                            typeCounts.financial,
+                            typeCounts.energy,
+                            typeCounts.performance
+                        ],
+                        backgroundColor: [
+                            'rgba(0, 230, 138, 0.8)',
+                            'rgba(94, 140, 255, 0.8)',
+                            'rgba(255, 176, 32, 0.8)',
+                            'rgba(255, 82, 82, 0.8)',
+                            'rgba(160, 160, 176, 0.8)',
+                            'rgba(0, 204, 119, 0.8)',
+                            'rgba(138, 43, 226, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(0, 230, 138, 1)',
+                            'rgba(94, 140, 255, 1)',
+                            'rgba(255, 176, 32, 1)',
+                            'rgba(255, 82, 82, 1)',
+                            'rgba(160, 160, 176, 1)',
+                            'rgba(0, 204, 119, 1)',
+                            'rgba(138, 43, 226, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255,255,255,0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(255,255,255,0.7)',
+                                stepSize: 1
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: 'rgba(255,255,255,0.7)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function initMonthlyTrendChart() {
+            const ctx = document.getElementById('monthly-trend-chart').getContext('2d');
+            
+            // Dados simulados para tendência mensal
+            const monthlyData = [12, 18, 22, 25, 28, 32, 35, 38, 42, 45, 48, 42];
+            const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+            
+            trendChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: months,
+                    datasets: [{
+                        label: 'Relatórios Gerados',
+                        data: monthlyData,
+                        borderColor: 'rgba(0, 230, 138, 1)',
+                        backgroundColor: 'rgba(0, 230, 138, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'rgba(255,255,255,0.7)'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255,255,255,0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(255,255,255,0.7)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255,255,255,0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(255,255,255,0.7)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Inicializa event listeners
+        function initEventListeners() {
+            // Tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    currentTab = this.dataset.tab;
+                    currentPage = 1;
+                    renderReportsList();
+                    renderReportsTable();
+                });
+            });
+            
+            // Busca
+            document.getElementById('search-reports').addEventListener('input', function() {
+                currentSearch = this.value;
+                currentPage = 1;
+                renderReportsList();
+                renderReportsTable();
+            });
+            
+            // Paginação
+            document.getElementById('prev-page').addEventListener('click', function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderReportsTable();
+                }
+            });
+            
+            document.getElementById('next-page').addEventListener('click', function() {
+                const filteredReports = filterReports();
+                const totalPages = Math.ceil(filteredReports.length / itemsPerPage);
+                
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderReportsTable();
+                }
+            });
+            
+            // Botão novo relatório
+            document.getElementById('new-report-btn').addEventListener('click', function() {
+                showNewReportModal();
+            });
+            
+            // Botão atualizar tabela
+            document.getElementById('refresh-table').addEventListener('click', function() {
+                renderReportsList();
+                renderReportsTable();
+                renderStats();
+                this.style.transform = 'rotate(360deg)';
+                setTimeout(() => {
+                    this.style.transform = 'rotate(0deg)';
+                }, 500);
+            });
+            
+            // Botão toggle filtros
+            document.getElementById('filter-toggle-btn').addEventListener('click', function() {
+                filtersVisible = !filtersVisible;
+                document.getElementById('filters-container').style.display = filtersVisible ? 'block' : 'none';
+                this.innerHTML = filtersVisible ? 
+                    '<i class="fas fa-filter"></i> Ocultar Filtros' : 
+                    '<i class="fas fa-filter"></i> Mostrar Filtros';
+            });
+            
+            // Botão aplicar filtros
+            document.getElementById('apply-filters-btn').addEventListener('click', function() {
+                currentPage = 1;
+                renderReportsList();
+                renderReportsTable();
+            });
+            
+            // Botão limpar filtros
+            document.getElementById('clear-filters-btn').addEventListener('click', function() {
+                document.getElementById('type-filter').value = 'all';
+                document.getElementById('status-filter').value = 'all';
+                document.getElementById('format-filter').value = 'all';
+                document.getElementById('period-filter').value = 'week';
+                document.getElementById('custom-date-range').style.display = 'none';
+                currentPage = 1;
+                renderReportsList();
+                renderReportsTable();
+            });
+            
+            // Filtro de período personalizado
+            document.getElementById('period-filter').addEventListener('change', function() {
+                const isCustom = this.value === 'custom';
+                document.getElementById('custom-date-range').style.display = isCustom ? 'block' : 'none';
+            });
+            
+            // Modal novo relatório
+            document.getElementById('modal-close').addEventListener('click', function() {
+                document.getElementById('new-report-modal').classList.remove('active');
+            });
+            
+            document.getElementById('cancel-report-btn').addEventListener('click', function() {
+                document.getElementById('new-report-modal').classList.remove('active');
+            });
+            
+            document.getElementById('generate-report-btn').addEventListener('click', function() {
+                generateNewReport();
+            });
+            
+            // Modal detalhes do relatório
+            document.getElementById('details-modal-close').addEventListener('click', function() {
+                document.getElementById('report-details-modal').classList.remove('active');
+            });
+            
+            // Event delegation para botões dos cards e tabela
+            document.getElementById('reports-list').addEventListener('click', function(e) {
+                const btn = e.target.closest('.action-btn');
+                if (!btn) return;
+                
+                const reportId = btn.dataset.reportId;
+                const action = btn.dataset.action;
+                
+                handleReportAction(reportId, action);
+            });
+            
+            document.getElementById('reports-table-body').addEventListener('click', function(e) {
+                const btn = e.target.closest('.card-action-btn');
+                if (!btn) return;
+                
+                const reportId = btn.dataset.reportId;
+                const action = btn.dataset.action;
+                
+                handleReportAction(reportId, action);
+            });
+            
+            // Event delegation para relatórios programados
+            document.getElementById('scheduled-reports').addEventListener('click', function(e) {
+                const btn = e.target.closest('.card-action-btn');
+                if (!btn) return;
+                
+                const scheduledId = btn.dataset.scheduledId;
+                cancelScheduledReport(scheduledId);
+            });
+        }
+
+        // Atualiza a paginação
+        function updatePagination(totalItems) {
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
+            const prevBtn = document.getElementById('prev-page');
+            const nextBtn = document.getElementById('next-page');
+            
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+        }
+
+        // Atualiza contador mostrando
+        function updateShowingCount(total, showing) {
+            document.getElementById('showing-count').textContent = showing;
+            document.getElementById('total-count').textContent = total;
+        }
+
+        // Atualiza timestamp
+        function updateLastUpdate() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('pt-BR', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+            document.getElementById('last-update').textContent = timeString;
+        }
+
+        // Atualiza filtros baseados na tab atual
+        function updateFilters() {
+            if (currentTab !== 'all') {
+                document.getElementById('type-filter').value = currentTab;
+            }
+        }
+
+        // Mostra modal de novo relatório
+        function showNewReportModal() {
+            // Limpa campos
+            document.getElementById('report-name').value = '';
+            document.getElementById('report-type').value = '';
+            document.getElementById('report-format').value = 'pdf';
+            document.getElementById('report-period').value = 'week';
+            document.getElementById('report-frequency').value = 'once';
+            document.getElementById('report-description').value = '';
+            
+            document.getElementById('new-report-modal').classList.add('active');
+        }
+
+        // Gera novo relatório
+        function generateNewReport() {
+            const name = document.getElementById('report-name').value.trim();
+            const type = document.getElementById('report-type').value;
+            const format = document.getElementById('report-format').value;
+            const frequency = document.getElementById('report-frequency').value;
+            const description = document.getElementById('report-description').value.trim();
+            
+            // Validação
+            if (!name) {
+                alert('Por favor, insira o nome do relatório.');
+                return;
+            }
+            
+            if (!type) {
+                alert('Por favor, selecione o tipo de relatório.');
+                return;
+            }
+            
+            // Cria novo ID
+            const lastId = reportsData.reduce((max, report) => {
+                const num = parseInt(report.id.split('-')[1]) || 0;
+                return Math.max(max, num);
+            }, 0);
+            
+            const newId = 'REP-' + String(lastId + 1).padStart(3, '0');
+            
+            // Cria novo relatório
+            const newReport = {
+                id: newId,
+                name: name,
+                type: type,
+                description: description || 'Relatório gerado pelo usuário',
+                status: 'processing',
+                format: format,
+                size: '0 MB',
+                created: new Date().toLocaleDateString('pt-BR') + ' ' + new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+                createdBy: 'visitante',
+                frequency: frequency,
+                lastRun: new Date().toLocaleDateString('pt-BR') + ' ' + new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+                nextRun: calculateNextRun(frequency),
+                executionTime: '0s',
+                dataPoints: 0
+            };
+            
+            // Adiciona aos dados
+            reportsData.unshift(newReport);
+            
+            // Fecha modal
+            document.getElementById('new-report-modal').classList.remove('active');
+            
+            // Simula processamento
+            simulateReportGeneration(newId);
+            
+            // Renderiza novamente
+            renderReportsList();
+            renderReportsTable();
+            renderStats();
+            updateCharts();
+            
+            alert('Relatório em processamento! Será notificado quando estiver pronto.');
+        }
+
+        // Simula geração de relatório
+        function simulateReportGeneration(reportId) {
+            setTimeout(() => {
+                const report = reportsData.find(r => r.id === reportId);
+                if (report) {
+                    report.status = 'ready';
+                    report.size = (Math.random() * 5 + 1).toFixed(1) + ' MB';
+                    report.executionTime = (Math.random() * 3 + 0.5).toFixed(1) + 's';
+                    report.dataPoints = Math.floor(Math.random() * 200000);
+                    
+                    // Notificação
+                    document.getElementById('notification-count').textContent = 
+                        parseInt(document.getElementById('notification-count').textContent) + 1;
+                    
+                    // Renderiza novamente
+                    renderReportsList();
+                    renderReportsTable();
+                    renderStats();
+                    
+                    // Adiciona efeito
+                    const badge = document.getElementById('notification-count');
+                    badge.style.animation = 'pulse 0.5s ease';
+                    setTimeout(() => {
+                        badge.style.animation = '';
+                    }, 500);
+                }
+            }, 3000); // Simula 3 segundos de processamento
+        }
+
+        // Calcula próxima execução
+        function calculateNextRun(frequency) {
+            const now = new Date();
+            let nextDate = new Date(now);
+            
+            switch(frequency) {
+                case 'daily':
+                    nextDate.setDate(now.getDate() + 1);
+                    break;
+                case 'weekly':
+                    nextDate.setDate(now.getDate() + 7);
+                    break;
+                case 'monthly':
+                    nextDate.setMonth(now.getMonth() + 1);
+                    break;
+                case 'quarterly':
+                    nextDate.setMonth(now.getMonth() + 3);
+                    break;
+                case 'yearly':
+                    nextDate.setFullYear(now.getFullYear() + 1);
+                    break;
+                default:
+                    return 'N/A';
+            }
+            
+            return nextDate.toLocaleDateString('pt-BR') + ' ' + now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        // Manipula ações dos relatórios
+        function handleReportAction(reportId, action) {
+            const report = reportsData.find(r => r.id === reportId);
+            if (!report) return;
+            
+            selectedReportId = reportId;
+            
+            switch(action) {
+                case 'view':
+                    showReportDetails(report);
+                    break;
+                case 'download':
+                    downloadReport(report);
+                    break;
+                case 'edit':
+                    editReport(report);
+                    break;
+            }
+        }
+
+        // Mostra detalhes do relatório
+        function showReportDetails(report) {
+            document.getElementById('details-report-title').innerHTML = 
+                '<i class="fas fa-info-circle"></i> ' + report.name + ' (' + report.id + ')';
+            
+            // Preenche informações
+            const typeText = getTypeText(report.type);
+            const frequencyText = getFrequencyText(report.frequency);
+            
+            document.getElementById('report-details-info').innerHTML = 
+                '<table style="width: 100%; font-size: 14px;">' +
+                    '<tr><td><strong>ID:</strong></td><td>' + report.id + '</td></tr>' +
+                    '<tr><td><strong>Tipo:</strong></td><td>' + typeText + '</td></tr>' +
+                    '<tr><td><strong>Formato:</strong></td><td>' + report.format.toUpperCase() + '</td></tr>' +
+                    '<tr><td><strong>Frequência:</strong></td><td>' + frequencyText + '</td></tr>' +
+                    '<tr><td><strong>Criado por:</strong></td><td>' + report.createdBy + '</td></tr>' +
+                    '<tr><td><strong>Data de Criação:</strong></td><td>' + report.created + '</td></tr>' +
+                    '<tr><td><strong>Última Execução:</strong></td><td>' + report.lastRun + '</td></tr>' +
+                    '<tr><td><strong>Próxima Execução:</strong></td><td>' + report.nextRun + '</td></tr>' +
+                '</table>' +
+                (report.description ? '<p style="margin-top: 15px; color: var(--text-muted);">' + report.description + '</p>' : '');
+            
+            // Preenche estatísticas
+            document.getElementById('report-details-stats').innerHTML = 
+                '<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">' +
+                    '<div style="text-align: center; padding: 15px; background: var(--bg-light); border-radius: 10px;">' +
+                        '<div style="font-size: 24px; font-weight: 700; color: var(--primary);">' + report.executionTime + '</div>' +
+                        '<div style="font-size: 12px; color: var(--text-muted);">Tempo de Execução</div>' +
+                    '</div>' +
+                    '<div style="text-align: center; padding: 15px; background: var(--bg-light); border-radius: 10px;">' +
+                        '<div style="font-size: 24px; font-weight: 700; color: var(--primary);">' + report.size + '</div>' +
+                        '<div style="font-size: 12px; color: var(--text-muted);">Tamanho do Arquivo</div>' +
+                    '</div>' +
+                    '<div style="text-align: center; padding: 15px; background: var(--bg-light); border-radius: 10px;">' +
+                        '<div style="font-size: 24px; font-weight: 700; color: var(--primary);">' + report.dataPoints.toLocaleString() + '</div>' +
+                        '<div style="font-size: 12px; color: var(--text-muted);">Pontos de Dados</div>' +
+                    '</div>' +
+                    '<div style="text-align: center; padding: 15px; background: var(--bg-light); border-radius: 10px;">' +
+                        '<div style="font-size: 24px; font-weight: 700; color: var(--primary);">' + getStatusText(report.status) + '</div>' +
+                        '<div style="font-size: 12px; color: var(--text-muted);">Status Atual</div>' +
+                    '</div>' +
+                '</div>';
+            
+            // Preenche histórico de execuções
+            const executions = reportExecutions[report.id] || [];
+            let executionsHTML = '';
+            
+            if (executions.length > 0) {
+                executions.forEach(exec => {
+                    const statusIcon = exec.status === 'success' ? 'check-circle' : 'times-circle';
+                    const statusColor = exec.status === 'success' ? 'var(--success)' : 'var(--danger)';
+                    
+                    executionsHTML += 
+                        '<div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid var(--border);">' +
+                            '<div>' +
+                                '<i class="fas fa-' + statusIcon + '" style="color: ' + statusColor + '; margin-right: 8px;"></i>' +
+                                '<strong>' + exec.date + '</strong>' +
+                                '<div style="font-size: 12px; color: var(--text-muted);">' +
+                                    'Duração: ' + exec.duration + ' • Tamanho: ' + exec.size +
+                                '</div>' +
+                            '</div>' +
+                            '<div style="font-weight: bold; color: ' + statusColor + ';">' + 
+                                (exec.status === 'success' ? 'SUCESSO' : 'ERRO') + 
+                            '</div>' +
+                        '</div>';
+                });
+            } else {
+                executionsHTML = '<div style="text-align: center; padding: 20px; color: var(--text-muted);">Nenhuma execução registrada.</div>';
+            }
+            
+            document.getElementById('report-executions').innerHTML = executionsHTML;
+            
+            // Mostra modal
+            document.getElementById('report-details-modal').classList.add('active');
+        }
+
+        // Faz download do relatório
+        function downloadReport(report) {
+            if (report.status !== 'ready') {
+                alert('Este relatório ainda não está pronto para download.');
+                return;
+            }
+            
+            // Simula download
+            alert('Iniciando download de: ' + report.name + '\n\nFormato: ' + report.format.toUpperCase() + '\nTamanho: ' + report.size);
+            
+            // Adiciona efeito visual
+            const btn = event.target.closest('.action-btn') || event.target.closest('.card-action-btn');
+            if (btn) {
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                setTimeout(() => {
+                    btn.innerHTML = btn.dataset.action === 'download' ? 
+                        '<i class="fas fa-download"></i>' : 
+                        '<i class="fas fa-download"></i> Baixar';
+                }, 1000);
+            }
+        }
+
+        // Edita relatório
+        function editReport(report) {
+            alert('Funcionalidade de edição de relatório em desenvolvimento.\n\nRelatório selecionado: ' + report.name);
+        }
+
+        // Cancela relatório programado
+        function cancelScheduledReport(scheduledId) {
+            const index = scheduledReports.findIndex(s => s.id === scheduledId);
+            if (index !== -1) {
+                if (confirm('Deseja cancelar o relatório programado: ' + scheduledReports[index].name + '?')) {
+                    scheduledReports.splice(index, 1);
+                    renderScheduledReports();
+                }
+            }
+        }
+
+        // Atualiza gráficos
+        function updateCharts() {
+            if (typeChart) {
+                // Atualiza gráfico por tipo
+                const typeCounts = {
+                    production: reportsData.filter(r => r.type === 'production').length,
+                    inventory: reportsData.filter(r => r.type === 'inventory').length,
+                    maintenance: reportsData.filter(r => r.type === 'maintenance').length,
+                    quality: reportsData.filter(r => r.type === 'quality').length,
+                    financial: reportsData.filter(r => r.type === 'financial').length,
+                    energy: reportsData.filter(r => r.type === 'energy').length,
+                    performance: reportsData.filter(r => r.type === 'performance').length
+                };
+                
+                typeChart.data.datasets[0].data = [
+                    typeCounts.production,
+                    typeCounts.inventory,
+                    typeCounts.maintenance,
+                    typeCounts.quality,
+                    typeCounts.financial,
+                    typeCounts.energy,
+                    typeCounts.performance
+                ];
+                typeChart.update('none');
+            }
+        }
+
+        // Funções auxiliares
+        function getStatusText(status) {
+            switch(status) {
+                case 'ready': return 'Pronto';
+                case 'processing': return 'Processando';
+                case 'scheduled': return 'Agendado';
+                case 'error': return 'Erro';
+                default: return 'Desconhecido';
+            }
+        }
+
+        function getTypeText(type) {
+            switch(type) {
+                case 'production': return 'Produção';
+                case 'inventory': return 'Estoque';
+                case 'maintenance': return 'Manutenção';
+                case 'quality': return 'Qualidade';
+                case 'financial': return 'Financeiro';
+                case 'energy': return 'Energia';
+                case 'performance': return 'Desempenho';
+                case 'system': return 'Sistema';
+                default: return 'Outros';
+            }
+        }
+
+        function getFrequencyText(frequency) {
+            switch(frequency) {
+                case 'once': return 'Uma vez';
+                case 'daily': return 'Diário';
+                case 'weekly': return 'Semanal';
+                case 'monthly': return 'Mensal';
+                case 'quarterly': return 'Trimestral';
+                case 'yearly': return 'Anual';
+                default: return frequency;
+            }
+        }
+
+        function getReportIcon(type) {
+            switch(type) {
+                case 'production': return 'fas fa-industry';
+                case 'inventory': return 'fas fa-boxes';
+                case 'maintenance': return 'fas fa-tools';
+                case 'quality': return 'fas fa-award';
+                case 'financial': return 'fas fa-money-bill-wave';
+                case 'energy': return 'fas fa-bolt';
+                case 'performance': return 'fas fa-chart-line';
+                default: return 'fas fa-file-alt';
+            }
+        }
+
+        function getReportTypeColor(type) {
+            switch(type) {
+                case 'production': return 'var(--success)';
+                case 'inventory': return 'var(--accent)';
+                case 'maintenance': return 'var(--warning)';
+                case 'quality': return 'var(--danger)';
+                case 'financial': return 'var(--text-muted)';
+                case 'energy': return 'var(--info)';
+                case 'performance': return 'var(--primary)';
+                default: return 'var(--text)';
+            }
+        }
+
+        // Inicializa a aplicação quando o DOM estiver carregado
+        document.addEventListener('DOMContentLoaded', init);
+        
+        // Adiciona efeitos visuais
+        document.addEventListener('DOMContentLoaded', function() {
+            // Adiciona classe fade-in para elementos com atraso
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach((el, index) => {
+                el.style.animationDelay = (index * 0.1) + 's';
+            });
+            
+            // Simula notificações
+            const notificationBadge = document.getElementById('notification-count');
+            setInterval(() => {
+                const current = parseInt(notificationBadge.textContent);
+                if (current > 0 && Math.random() > 0.7) {
+                    notificationBadge.textContent = Math.max(0, current - 1);
+                }
+            }, 30000);
+        });
+
+        // Fecha modais com ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.getElementById('new-report-modal').classList.remove('active');
+                document.getElementById('report-details-modal').classList.remove('active');
+            }
+        });
+    </script>
+
+    <footer class="rpc-footer">
+        <div class="rpc-footer-inner">
+            <span><i class="fas fa-industry"></i> <span data-i18n="footer.suite">RPC Industrial Suite</span> <span class="rpc-footer-sep">·</span> <span data-i18n="common.demo">Demo</span></span>
+            <span><i class="fas fa-user-circle"></i> <span data-i18n="common.visitor">visitante</span> <span class="rpc-footer-sep">·</span> <span data-i18n="common.operator">Operador</span></span>
+            <span><i class="fas fa-copyright"></i> <span data-i18n="footer.company">RP Caconde</span></span>
+        </div>
+    </footer>
+</body>
+</html>

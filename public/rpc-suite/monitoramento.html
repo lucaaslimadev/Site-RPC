@@ -1,0 +1,2302 @@
+
+   
+    
+    
+    <!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>RPC Industrial Suite - Monitoramento</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/fontawesome-all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+     <link rel="icon" type="image/x-icon" href="/images/icon.svg">
+    <script src="/js/chart.min.js"></script>
+ <style>
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: #15151e;
+            --bg-light: #1e1e2b;
+            --primary: #00e68a;
+            --secondary: #00cc77;
+            --accent: #5e8cff;
+            --warning: #ffb020;
+            --danger: #ff5252;
+            --success: #00d68f;
+            --text: #f5f5f7;
+            --text-muted: #a0a0b0;
+            --border: #2a2a3a;
+            --shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--bg-card) 0%, #1a1a25 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--bg-dark);
+        }
+
+        .logo h1 {
+            font-size: 22px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .demo-badge {
+            background: rgba(0, 230, 138, 0.1);
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            border: 1px solid rgba(0, 230, 138, 0.2);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        a.notifications {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .notifications {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--danger);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--bg-dark);
+        }
+
+        .logout-btn {
+            padding: 8px 20px;
+            background: rgba(255, 82, 82, 0.1);
+            border: 1px solid rgba(255, 82, 82, 0.3);
+            color: var(--danger);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 82, 82, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 70px;
+            width: 260px;
+            height: calc(100vh - 70px);
+            background: var(--bg-card);
+            border-right: 1px solid var(--border);
+            padding: 20px 0;
+            overflow-y: auto;
+            transition: width 0.3s ease;
+        }
+
+        .nav-section {
+            margin-bottom: 25px;
+        }
+
+        .nav-section-title {
+            padding: 0 20px 10px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 10px;
+        }
+
+        .nav-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-left: 3px solid transparent;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            padding-left: 25px;
+        }
+
+        .nav-item.active {
+            background: rgba(0, 230, 138, 0.1);
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+
+        .nav-text {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-badge {
+            margin-left: auto;
+            background: var(--accent);
+            color: white;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 260px;
+            margin-top: 70px;
+            padding: 25px;
+            min-height: calc(100vh - 70px);
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Alert */
+        .demo-alert {
+            background: rgba(255, 176, 32, 0.1);
+            border-left: 4px solid var(--warning);
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 176, 32, 0.2);
+        }
+
+        .demo-alert i {
+            font-size: 24px;
+            color: var(--warning);
+        }
+
+        /* Dashboard Header */
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-title h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            background: linear-gradient(90deg, var(--text), #ffffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .dashboard-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .action-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 14px;
+        }
+
+        .action-btn:hover {
+            background: var(--bg-light);
+            transform: translateY(-2px);
+        }
+
+        .action-btn.primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--bg-dark);
+            border: none;
+            font-weight: 600;
+        }
+
+        /* Grid System */
+        .grid {
+            display: grid;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .grid-2 { grid-template-columns: repeat(2, 1fr); }
+
+        /* Cards */
+        .card {
+            background: linear-gradient(135deg, var(--bg-card) 0%, #1a1a25 100%);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .card-action-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: var(--bg-light);
+            border: none;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .card-action-btn:hover {
+            background: var(--border);
+            color: var(--text);
+        }
+
+        /* Layout Grid para visualização de máquinas */
+        .machines-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .machine-card {
+            background: linear-gradient(135deg, var(--bg-card) 0%, #1a1a25 100%);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .machine-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .machine-card.running { border-left: 4px solid var(--success); }
+        .machine-card.stopped { border-left: 4px solid var(--danger); }
+        .machine-card.warning { border-left: 4px solid var(--warning); }
+        .machine-card.maintenance { border-left: 4px solid var(--accent); }
+
+        .machine-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .machine-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .machine-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .machine-icon.running { background: rgba(0, 230, 138, 0.1); color: var(--success); }
+        .machine-icon.stopped { background: rgba(255, 82, 82, 0.1); color: var(--danger); }
+        .machine-icon.warning { background: rgba(255, 176, 32, 0.1); color: var(--warning); }
+        .machine-icon.maintenance { background: rgba(94, 140, 255, 0.1); color: var(--accent); }
+
+        .machine-name {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .machine-id {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .machine-status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-running { background: rgba(0, 230, 138, 0.2); color: var(--success); }
+        .status-stopped { background: rgba(255, 82, 82, 0.2); color: var(--danger); }
+        .status-warning { background: rgba(255, 176, 32, 0.2); color: var(--warning); }
+        .status-maintenance { background: rgba(94, 140, 255, 0.2); color: var(--accent); }
+
+        .machine-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .metric {
+            background: var(--bg-light);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .metric-value {
+            font-size: 24px;
+            font-weight: 700;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .metric-unit {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-left: 2px;
+        }
+
+        .metric-trend {
+            font-size: 11px;
+            margin-top: 5px;
+        }
+
+        .trend-up { color: var(--success); }
+        .trend-down { color: var(--danger); }
+
+        .machine-chart {
+            height: 120px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .machine-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Filtros */
+        .filters-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .filters-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .filter-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tag {
+            padding: 8px 16px;
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-tag:hover {
+            background: var(--border);
+        }
+
+        .filter-tag.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--bg-dark);
+            border: none;
+            font-weight: 600;
+        }
+
+        /* Tabela de eventos */
+        .events-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .events-table th {
+            text-align: left;
+            padding: 12px 16px;
+            background: var(--bg-light);
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .events-table td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+
+        .events-table tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Mapa de máquinas — planta de galpão */
+        .plant-map-root {
+            border-top: 1px solid var(--border);
+            overflow: hidden;
+            background: var(--bg-dark);
+        }
+
+        .plant-map-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--bg-light);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .plant-map-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .plant-map-legend span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .plant-map-legend .lg-running { color: var(--success); }
+        .plant-map-legend .lg-warning { color: var(--warning); }
+        .plant-map-legend .lg-stopped { color: var(--danger); }
+        .plant-map-legend .lg-maint { color: var(--accent); }
+
+        .plant-map-viewport {
+            position: relative;
+            height: min(52vh, 520px);
+            min-height: 360px;
+            overflow: auto;
+            background: #14151c;
+        }
+
+        .plant-map-viewport:fullscreen {
+            height: 100%;
+            min-height: 100%;
+            background: #14151c;
+        }
+
+        .plant-scale-wrap {
+            position: relative;
+            width: 100%;
+            min-width: 760px;
+            min-height: 100%;
+            padding: 16px;
+            box-sizing: border-box;
+            transition: transform 0.2s ease;
+        }
+
+        .plant-floor {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-height: 320px;
+            margin: 0 auto;
+            background-color: #2b3038;
+            background-image:
+                linear-gradient(to right, rgba(0, 0, 0, 0.35) 4px, transparent 4px),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.35) 4px, transparent 4px),
+                linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+            background-size: 56px 56px, 56px 56px, 14px 14px, 14px 14px;
+            background-position: -1px -1px, -1px -1px, 0 0, 0 0;
+            border: 14px solid #4a505c;
+            border-radius: 6px;
+            box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.45);
+        }
+
+        .galpao-door {
+            position: absolute;
+            left: 0;
+            top: 36%;
+            width: 12px;
+            height: 26%;
+            background: linear-gradient(90deg, #1a1d24, #3d434e);
+            border-radius: 0 5px 5px 0;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.35);
+        }
+
+        .galpao-door::after {
+            content: 'DOCAS';
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%) rotate(-90deg);
+            transform-origin: left center;
+            font-size: 9px;
+            letter-spacing: 0.2em;
+            color: rgba(255, 255, 255, 0.35);
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .galpao-office {
+            position: absolute;
+            right: 5%;
+            top: 5%;
+            width: 22%;
+            height: 18%;
+            border: 2px dashed rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        .galpao-office::after {
+            content: 'ADM / ME';
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            letter-spacing: 0.12em;
+            color: rgba(255, 255, 255, 0.25);
+            font-weight: 700;
+        }
+
+        .floor-zone-label {
+            position: absolute;
+            font-size: 10px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.2);
+            font-weight: 700;
+            pointer-events: none;
+        }
+
+        .floor-corridor {
+            position: absolute;
+            border: 1px dashed rgba(255, 255, 255, 0.12);
+            border-radius: 4px;
+            pointer-events: none;
+        }
+
+        .floor-corridor--main {
+            left: 10%;
+            right: 8%;
+            top: 44%;
+            height: 12%;
+        }
+
+        .floor-pillar {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #3f4654;
+            border-radius: 3px;
+            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
+            pointer-events: none;
+        }
+
+        #plant-machines-layer {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        #plant-machines-layer .machine-spot {
+            pointer-events: auto;
+        }
+
+        @keyframes pulse-spot {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.07); }
+        }
+
+        .machine-spot {
+            position: absolute;
+            width: 54px;
+            height: 54px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: box-shadow 0.25s ease, border-color 0.25s ease;
+            z-index: 10;
+            transform: translate(-50%, -50%);
+        }
+
+        #plant-machines-layer .machine-spot.pulsing {
+            animation: pulse-spot 2s ease-in-out infinite;
+        }
+
+        #plant-machines-layer .machine-spot:hover {
+            animation: none;
+            transform: translate(-50%, -50%) scale(1.12);
+            z-index: 20;
+        }
+
+        .machine-spot.running {
+            background: linear-gradient(145deg, rgba(0, 230, 138, 0.35), rgba(0, 230, 138, 0.08));
+            border: 2px solid var(--success);
+            box-shadow: 0 0 18px rgba(0, 230, 138, 0.35);
+        }
+
+        .machine-spot.stopped {
+            background: linear-gradient(145deg, rgba(255, 82, 82, 0.35), rgba(255, 82, 82, 0.08));
+            border: 2px solid var(--danger);
+            box-shadow: 0 0 18px rgba(255, 82, 82, 0.3);
+        }
+
+        .machine-spot.warning {
+            background: linear-gradient(145deg, rgba(255, 176, 32, 0.35), rgba(255, 176, 32, 0.08));
+            border: 2px solid var(--warning);
+            box-shadow: 0 0 18px rgba(255, 176, 32, 0.35);
+        }
+
+        .machine-spot.maintenance {
+            background: linear-gradient(145deg, rgba(94, 140, 255, 0.35), rgba(94, 140, 255, 0.08));
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 18px rgba(94, 140, 255, 0.3);
+        }
+
+        .machine-spot .spot-icon {
+            font-size: 20px;
+            color: white;
+        }
+
+        .machine-tooltip {
+            position: absolute;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px;
+            min-width: 200px;
+            z-index: 100;
+            display: none;
+            box-shadow: var(--shadow);
+        }
+
+        /* Modal de detalhes */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 10, 15, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+            display: none;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .machine-modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-header {
+            padding: 25px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: var(--bg-light);
+            border: none;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background: var(--border);
+            transform: rotate(90deg);
+        }
+
+        .modal-content {
+            padding: 25px;
+        }
+
+        /* Quick Stats */
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: var(--bg-light);
+            border-radius: 12px;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            background: rgba(0, 230, 138, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--primary);
+        }
+
+        .stat-info {
+            flex: 1;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Animações */
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .pulsing {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            height: 6px;
+            background: var(--bg-light);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 5px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        /* Status Dot */
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--success);
+            position: relative;
+        }
+
+        .status-dot.pulsing::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 50%;
+            background: var(--success);
+            opacity: 0.5;
+            animation: pulse 2s infinite;
+        }
+
+        .status-dot.info { background: var(--accent); }
+        .status-dot.warning { background: var(--warning); }
+        .status-dot.danger { background: var(--danger); }
+        .status-dot.success { background: var(--success); }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+
+        /* Responsivo */
+        @media (max-width: 1200px) {
+            .machines-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+            
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 70px;
+                overflow: hidden;
+            }
+            
+            .sidebar .nav-text,
+            .sidebar .nav-section-title,
+            .sidebar .nav-badge {
+                display: none;
+            }
+            
+            .main-content {
+                margin-left: 70px;
+            }
+            
+            .machine-metrics {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .machines-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .dashboard-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .user-info {
+                gap: 10px;
+            }
+            
+            .user-profile .username {
+                display: none;
+            }
+            
+            .filter-tags {
+                flex-direction: column;
+            }
+            
+            .quick-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="/css/rpc-theme.css">
+    <script src="/js/rpc-theme.js"></script>
+    <script src="/js/rpc-i18n.js" defer></script>
+</head>
+<body data-rpc-i18n-title="title.doc.monitoring">
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <img src="/images/icon.svg" alt="RP Caconde" class="rpc-header-logo">
+            <div>
+                <h1>RPC Industrial Suite</h1>
+                <div class="demo-badge" data-i18n="common.demo">DEMO</div>
+            </div>
+        </div>
+        
+        <div class="user-info">
+            <a href="/rpc-suite/historico.html#alarmes" class="notifications" data-i18n-title="mon.alarmLinkTitle" data-i18n-aria="mon.alarmLinkTitle" title="Histórico e alarmes" aria-label="Abrir histórico e alarmes">
+                <i class="fas fa-bell" style="font-size: 20px; color: var(--text-muted);"></i>
+                <div class="notification-badge" id="notification-count">3</div>
+            </a>
+            
+            <div class="user-profile">
+                <div class="avatar">V</div>
+                <div>
+                    <div style="font-weight: bold" data-i18n="common.visitor">visitante</div>
+                    <div style="font-size: 12px; color: var(--text-muted)" data-i18n="common.operator">Operador</div>
+                </div>
+            </div>
+            
+            <a href="/" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> <span data-i18n="common.backToSite">Voltar ao site</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="nav-section">
+            <div class="nav-section-title" data-i18n="nav.section.main">Principal</div>
+            <a href="/rpc-dashboard" class="nav-item">
+                <i class="fas fa-chart-line"></i>
+                <span class="nav-text" data-i18n="nav.dashboard">Dashboard</span>
+            </a>
+            <a href="/rpc-suite/monitoramento.html" class="nav-item active">
+                <i class="fas fa-industry"></i>
+                <span class="nav-text" data-i18n="nav.monitoring">Monitoramento</span>
+                <span class="nav-badge">6</span>
+            </a>
+            <a href="/rpc-suite/ordens.html" class="nav-item">
+                <i class="fas fa-clipboard-list"></i>
+                <span class="nav-text" data-i18n="nav.orders">Ordens de Produção</span>
+                <span class="nav-badge">5</span>
+            </a>
+            <a href="/rpc-suite/manutencao.html" class="nav-item">
+                <i class="fas fa-tools"></i>
+                <span class="nav-text" data-i18n="nav.maintenance">Manutenção</span>
+                <span class="nav-badge">7</span>
+            </a>
+        </div>
+        
+        <div class="nav-section">
+            <div class="nav-section-title" data-i18n="nav.section.analytics">Analytics</div>
+            <a href="/rpc-suite/relatorios.html" class="nav-item">
+                <i class="fas fa-chart-bar"></i>
+                <span class="nav-text" data-i18n="nav.reports">Relatórios</span>
+            </a>
+            <a href="/rpc-suite/energia.html" class="nav-item">
+                <i class="fas fa-bolt"></i>
+                <span class="nav-text" data-i18n="nav.energy">Energia</span>
+            </a>
+            <a href="/rpc-suite/estoque.html" class="nav-item">
+                <i class="fas fa-boxes"></i>
+                <span class="nav-text" data-i18n="nav.stock">Estoque</span>
+            </a>
+            <a href="/rpc-suite/analises.html" class="nav-item">
+                <i class="fas fa-chart-pie"></i>
+                <span class="nav-text" data-i18n="nav.analytics">Análises</span>
+            </a>
+        </div>
+        
+        <div class="nav-section">
+            <div class="nav-section-title" data-i18n="nav.section.system">Sistema</div>
+            <a href="/rpc-suite/configuracoes.html" class="nav-item">
+                <i class="fas fa-cog"></i>
+                <span class="nav-text" data-i18n="nav.settings">Configurações</span>
+            </a>
+            <a href="/rpc-suite/usuarios.html" class="nav-item">
+                <i class="fas fa-users"></i>
+                <span class="nav-text" data-i18n="nav.users">Usuários</span>
+            </a>
+            <a href="/rpc-suite/historico.html" class="nav-item">
+                <i class="fas fa-history"></i>
+                <span class="nav-text" data-i18n="nav.history">Histórico</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Alert -->
+        <div class="demo-alert fade-in">
+            <i class="fas fa-exclamation-triangle"></i>
+            <div>
+                <strong data-i18n="mon.alertTitle">⚠️ MONITORAMENTO EM TEMPO REAL</strong><br>
+                <span data-i18n="mon.alertBody">Visualização em tempo real de todas as máquinas e equipamentos do parque fabril.</span>
+            </div>
+        </div>
+
+        <!-- Page Header -->
+        <div class="dashboard-header">
+            <div class="dashboard-title">
+                <h2 data-i18n="mon.pageTitle">Monitoramento de Máquinas</h2>
+                <div style="color: var(--text-muted); font-size: 14px;">
+                    <i class="fas fa-industry"></i> 6 <span data-i18n="mon.machinesActive">Máquinas Ativas</span> |
+                    <i class="fas fa-clock"></i> <span data-i18n="common.lastUpdate">Última atualização:</span> <span id="last-update">--:--</span>
+                </div>
+            </div>
+            
+            <div class="dashboard-actions">
+                <button class="action-btn" id="export-btn">
+                    <i class="fas fa-download"></i> <span data-i18n="mon.export">Exportar</span>
+                </button>
+                <button class="action-btn" id="filter-btn">
+                    <i class="fas fa-filter"></i> <span data-i18n="mon.filter">Filtrar</span>
+                </button>
+                <button class="action-btn primary" id="refresh-btn">
+                    <i class="fas fa-sync-alt"></i> <span data-i18n="mon.refresh">Atualizar</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Filtros -->
+        <div class="filters-container fade-in" id="monitor-filters-panel" style="display: none;">
+            <div class="filters-header">
+                <h3 style="font-size: 18px;">
+                    <i class="fas fa-filter"></i> <span data-i18n="mon.filtersTitle">Filtros Ativos</span>
+                </h3>
+                <button class="action-btn" style="padding: 8px 16px;" id="clear-filters">
+                    <i class="fas fa-times"></i> <span data-i18n="mon.clearFilters">Limpar Filtros</span>
+                </button>
+            </div>
+            
+            <div class="filter-tags">
+                <div class="filter-tag active" data-filter="all" data-i18n="mon.filter.all">Todas</div>
+                <div class="filter-tag" data-filter="running">
+                    <i class="fas fa-play-circle"></i> <span data-i18n="mon.filter.running">Rodando</span>
+                </div>
+                <div class="filter-tag" data-filter="stopped">
+                    <i class="fas fa-stop-circle"></i> <span data-i18n="mon.filter.stopped">Paradas</span>
+                </div>
+                <div class="filter-tag" data-filter="warning">
+                    <i class="fas fa-exclamation-triangle"></i> <span data-i18n="mon.filter.warning">Alertas</span>
+                </div>
+                <div class="filter-tag" data-filter="maintenance">
+                    <i class="fas fa-tools"></i> <span data-i18n="mon.filter.maintenance">Manutenção</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mapa de Máquinas -->
+        <div class="card fade-in" id="plant-map-card">
+            <div class="card-header">
+                <div class="card-title">
+                    <i class="fas fa-map"></i> <span data-i18n="mon.mapTitle">Planta do galpão</span>
+                </div>
+                <div class="card-actions">
+                    <button type="button" class="card-action-btn" id="map-zoom-in" title="Aumentar zoom">
+                        <i class="fas fa-search-plus"></i>
+                    </button>
+                    <button type="button" class="card-action-btn" id="map-zoom-out" title="Diminuir zoom">
+                        <i class="fas fa-search-minus"></i>
+                    </button>
+                    <button type="button" class="card-action-btn" id="map-fullscreen" title="Mapa em tela cheia">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="plant-map-root">
+                <div class="plant-map-toolbar">
+                    <div class="plant-map-legend">
+                        <span><i class="fas fa-square lg-running"></i> <span data-i18n="mon.legend.running">Rodando</span></span>
+                        <span><i class="fas fa-square lg-warning"></i> <span data-i18n="mon.legend.warning">Alerta</span></span>
+                        <span><i class="fas fa-square lg-stopped"></i> <span data-i18n="mon.legend.stopped">Parada</span></span>
+                        <span><i class="fas fa-square lg-maint"></i> <span data-i18n="mon.legend.maint">Manutenção</span></span>
+                    </div>
+                    <span style="font-size: 11px; color: var(--text-muted);" data-i18n="mon.mapHint">Vista em planta · docas à esquerda</span>
+                </div>
+                <div class="plant-map-viewport" id="plant-map-viewport">
+                    <div class="plant-scale-wrap" id="plant-scale-wrap">
+                        <div class="plant-floor" id="plant-floor">
+                            <div class="galpao-door" aria-hidden="true"></div>
+                            <div class="galpao-office" aria-hidden="true"></div>
+                            <span class="floor-zone-label" style="top:8%; left:14%;">Linha injeção</span>
+                            <span class="floor-zone-label" style="top:8%; left:42%;">Extrusão</span>
+                            <span class="floor-zone-label" style="top:8%; left:68%;">Montagem</span>
+                            <span class="floor-zone-label" style="top:56%; left:16%;">Usinagem</span>
+                            <span class="floor-zone-label" style="top:56%; left:58%;">Acabamento</span>
+                            <div class="floor-corridor floor-corridor--main"></div>
+                            <div class="floor-pillar" style="top:32%; left:34%;"></div>
+                            <div class="floor-pillar" style="top:32%; left:58%;"></div>
+                            <div class="floor-pillar" style="top:62%; left:40%;"></div>
+                            <div class="floor-pillar" style="top:62%; left:64%;"></div>
+                            <div id="plant-machines-layer"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="padding: 20px; border-top: 1px solid var(--border);">
+                <div class="quick-stats">
+                    <div class="stat-item">
+                        <div class="stat-icon" style="background: rgba(0, 230, 138, 0.1); color: var(--success);">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="running-count">4</div>
+                            <div class="stat-label">Máquinas Rodando</div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon" style="background: rgba(255, 176, 32, 0.1); color: var(--warning);">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="warning-count">1</div>
+                            <div class="stat-label">Com Alertas</div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon" style="background: rgba(255, 82, 82, 0.1); color: var(--danger);">
+                            <i class="fas fa-stop"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="stopped-count">1</div>
+                            <div class="stat-label">Paradas</div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon" style="background: rgba(94, 140, 255, 0.1); color: var(--accent);">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="maintenance-count">1</div>
+                            <div class="stat-label">Em Manutenção</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grid de Máquinas -->
+        <h3 style="margin: 30px 0 20px; font-size: 20px;">
+            <i class="fas fa-list"></i> Detalhes das Máquinas
+        </h3>
+        
+        <div class="machines-grid" id="machines-grid">
+            <!-- As máquinas serão renderizadas via JavaScript -->
+        </div>
+
+        <!-- Eventos Recentes -->
+        <div class="card fade-in">
+            <div class="card-header">
+                <div class="card-title">
+                    <i class="fas fa-history"></i> Histórico de Eventos
+                </div>
+                <div class="card-actions">
+                    <button class="card-action-btn" title="Exportar">
+                        <i class="fas fa-file-export"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div style="overflow-x: auto;">
+                <table class="events-table">
+                    <thead>
+                        <tr>
+                            <th>Data/Hora</th>
+                            <th>Máquina</th>
+                            <th>Evento</th>
+                            <th>Tipo</th>
+                            <th>Operador</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="events-table-body">
+                        <!-- Eventos serão preenchidos via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div style="padding: 20px; text-align: center; border-top: 1px solid var(--border);">
+                <button class="action-btn" id="load-more-events" style="width: 200px;">
+                    <i class="fas fa-plus"></i> Carregar Mais Eventos
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de Detalhes -->
+    <div class="modal-overlay" id="machine-modal">
+        <div class="machine-modal">
+            <div class="modal-header">
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div class="machine-icon running" id="modal-icon">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <div>
+                        <h3 id="modal-title" style="font-size: 22px;">Injetora A</h3>
+                        <div style="color: var(--text-muted); font-size: 14px;" id="modal-subtitle">
+                            ID: MACH-001 • Linha de Injeção 1
+                        </div>
+                    </div>
+                </div>
+                <button class="modal-close" id="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-content">
+                <div class="grid grid-2" style="gap: 20px; margin-bottom: 20px;">
+                    <div class="card">
+                        <div class="card-title">
+                            <i class="fas fa-chart-line"></i> Métricas Atuais
+                        </div>
+                        <div id="modal-metrics">
+                            <!-- Métricas serão preenchidas via JS -->
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-title">
+                            <i class="fas fa-info-circle"></i> Informações
+                        </div>
+                        <div id="modal-info">
+                            <!-- Informações serão preenchidas via JS -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">
+                        <i class="fas fa-chart-bar"></i> Tendência de Produção (Últimas 24h)
+                    </div>
+                    <div class="chart-container" style="height: 200px;">
+                        <canvas id="modal-chart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="machine-actions" style="margin-top: 25px;">
+                    <button class="action-btn" id="modal-history-btn">
+                        <i class="fas fa-history"></i> Histórico
+                    </button>
+                    <button class="action-btn" id="modal-report-btn">
+                        <i class="fas fa-file-alt"></i> Relatório
+                    </button>
+                    <button class="action-btn primary" id="modal-start-btn">
+                        <i class="fas fa-play"></i> Iniciar
+                    </button>
+                    <button class="action-btn" id="modal-stop-btn" style="background: rgba(255, 82, 82, 0.1); color: var(--danger);">
+                        <i class="fas fa-stop"></i> Parar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dados das máquinas
+        const machinesData = [
+            {
+                id: 1,
+                name: "Injetora A",
+                code: "MACH-001",
+                status: "running",
+                type: "Injeção Plástico",
+                line: "Linha 1",
+                operator: "OP-01",
+                uptime: "98.5%",
+                metrics: {
+                    production: { value: 245, unit: "un", trend: "+2%" },
+                    efficiency: { value: 92, unit: "%", trend: "+1%" },
+                    temperature: { value: 185, unit: "°C", trend: "-1%" },
+                    cycleTime: { value: 45, unit: "s", trend: "0%" }
+                },
+                lastMaintenance: "15/12/2024",
+                nextMaintenance: "15/01/2025"
+            },
+            {
+                id: 2,
+                name: "Injetora B",
+                code: "MACH-002",
+                status: "running",
+                type: "Injeção Plástico",
+                line: "Linha 1",
+                operator: "OP-02",
+                uptime: "96.2%",
+                metrics: {
+                    production: { value: 198, unit: "un", trend: "-1%" },
+                    efficiency: { value: 88, unit: "%", trend: "-2%" },
+                    temperature: { value: 190, unit: "°C", trend: "+2%" },
+                    pressure: { value: 85, unit: "Bar", trend: "+5%" }
+                },
+                lastMaintenance: "10/12/2024",
+                nextMaintenance: "10/01/2025"
+            },
+            {
+                id: 3,
+                name: "Extrusora 01",
+                code: "MACH-003",
+                status: "warning",
+                type: "Extrusão",
+                line: "Linha 2",
+                operator: "OP-03",
+                uptime: "89.7%",
+                metrics: {
+                    production: { value: 156, unit: "un", trend: "-5%" },
+                    efficiency: { value: 74, unit: "%", trend: "-3%" },
+                    temperature: { value: 210, unit: "°C", trend: "+8%" },
+                    speed: { value: 120, unit: "rpm", trend: "-2%" }
+                },
+                lastMaintenance: "05/12/2024",
+                nextMaintenance: "05/01/2025"
+            },
+            {
+                id: 4,
+                name: "CNC 5 Eixos",
+                code: "MACH-004",
+                status: "stopped",
+                type: "Usinagem",
+                line: "Linha 3",
+                operator: "N/A",
+                uptime: "82.4%",
+                metrics: {
+                    production: { value: 0, unit: "un", trend: "-100%" },
+                    efficiency: { value: 0, unit: "%", trend: "-100%" },
+                    temperature: { value: 25, unit: "°C", trend: "0%" },
+                    vibration: { value: 2, unit: "mm/s", trend: "+150%" }
+                },
+                lastMaintenance: "01/12/2024",
+                nextMaintenance: "01/01/2025"
+            },
+            {
+                id: 5,
+                name: "Fresadora",
+                code: "MACH-005",
+                status: "maintenance",
+                type: "Usinagem",
+                line: "Linha 3",
+                operator: "Técnico",
+                uptime: "95.1%",
+                metrics: {
+                    production: { value: 0, unit: "un", trend: "0%" },
+                    efficiency: { value: 0, unit: "%", trend: "0%" },
+                    temperature: { value: 28, unit: "°C", trend: "0%" },
+                    accuracy: { value: 0.01, unit: "mm", trend: "0%" }
+                },
+                lastMaintenance: "Hoje",
+                nextMaintenance: "15/01/2025"
+            },
+            {
+                id: 6,
+                name: "Torno CNC",
+                code: "MACH-006",
+                status: "running",
+                type: "Usinagem",
+                line: "Linha 3",
+                operator: "OP-04",
+                uptime: "99.2%",
+                metrics: {
+                    production: { value: 312, unit: "un", trend: "+8%" },
+                    efficiency: { value: 95, unit: "%", trend: "+3%" },
+                    temperature: { value: 65, unit: "°C", trend: "+1%" },
+                    cycleTime: { value: 32, unit: "s", trend: "-2%" }
+                },
+                lastMaintenance: "12/12/2024",
+                nextMaintenance: "12/01/2025"
+            }
+        ];
+
+        // Dados de eventos
+        const eventsData = [
+            { time: "11:45", machine: "Injetora A", event: "Produção acima da meta", type: "info", operator: "OP-01" },
+            { time: "11:30", machine: "Extrusora 01", event: "Alerta de temperatura", type: "warning", operator: "OP-03" },
+            { time: "11:15", machine: "CNC 5 Eixos", event: "Parada para manutenção", type: "maintenance", operator: "Técnico" },
+            { time: "11:00", machine: "Injetora B", event: "Troca de molde", type: "info", operator: "OP-02" },
+            { time: "10:45", machine: "Torno CNC", event: "Setup concluído", type: "success", operator: "OP-04" },
+            { time: "10:30", machine: "Fresadora", event: "Manutenção preventiva", type: "maintenance", operator: "Técnico" },
+            { time: "10:15", machine: "Injetora A", event: "Início de produção", type: "success", operator: "OP-01" },
+            { time: "10:00", machine: "Extrusora 01", event: "Ajuste de temperatura", type: "warning", operator: "OP-03" }
+        ];
+
+        // Variáveis globais
+        let currentFilter = "all";
+        let modalChart = null;
+        let currentMachineId = null;
+        let plantMapZoom = 1;
+
+        /** Posições fixas na planta (ordem = índice em machinesData) */
+        const PLANT_MACHINE_LAYOUT = [
+            { top: "26%", left: "22%" },
+            { top: "26%", left: "46%" },
+            { top: "26%", left: "70%" },
+            { top: "72%", left: "24%" },
+            { top: "72%", left: "50%" },
+            { top: "72%", left: "74%" }
+        ];
+
+        /** Exibe número: inteiros para peças (un); demais com 2 casas decimais conforme o idioma. */
+        function formatMetricValue(metric) {
+            var v = Number(metric.value);
+            if (!isFinite(v)) v = 0;
+            if (metric.unit === 'un') return String(Math.round(v));
+            var loc = 'pt-BR';
+            if (window.rpcGetLanguage) {
+                var lang = window.rpcGetLanguage();
+                if (lang === 'en-us') loc = 'en-US';
+                else if (lang === 'es-es') loc = 'es-ES';
+            }
+            return v.toLocaleString(loc, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        /** Largura da barra no modal (evita usar °C/Bar como % direto). */
+        function getMetricBarPercent(metric) {
+            var v = Number(metric.value);
+            if (!isFinite(v)) v = 0;
+            if (metric.unit === '%') return Math.min(100, Math.max(0, v));
+            if (metric.unit === '°C') return Math.min(100, Math.max(0, (v / 250) * 100));
+            if (metric.unit === 'Bar') return Math.min(100, Math.max(0, v));
+            if (metric.unit === 'rpm') return Math.min(100, Math.max(0, v / 2));
+            if (metric.unit === 'un') return Math.min(100, Math.max(0, v / 5));
+            if (metric.unit === 's') return Math.min(100, Math.max(0, 100 - v));
+            if (metric.unit === 'mm/s') return Math.min(100, Math.max(0, v * 12));
+            if (metric.unit === 'mm') return Math.min(100, Math.max(0, v * 400));
+            return Math.min(100, Math.max(0, v));
+        }
+
+        // Função auxiliar para obter label da métrica
+        function getMetricLabel(key) {
+            const labels = {
+                production: 'Produção',
+                efficiency: 'Eficiência',
+                temperature: 'Temperatura',
+                cycleTime: 'Ciclo',
+                pressure: 'Pressão',
+                speed: 'Velocidade',
+                vibration: 'Vibração',
+                accuracy: 'Precisão'
+            };
+            return labels[key] || key;
+        }
+
+        // Função auxiliar para obter texto do status
+        function getStatusText(status) {
+            switch(status) {
+                case 'running': return 'Rodando';
+                case 'stopped': return 'Parada';
+                case 'warning': return 'Alerta';
+                case 'maintenance': return 'Manutenção';
+                default: return 'Desconhecido';
+            }
+        }
+
+        // Função auxiliar para obter cor do status
+        function getStatusColor(status, alpha = 1) {
+            switch(status) {
+                case 'running': return 'rgba(0, 230, 138, ' + alpha + ')';
+                case 'stopped': return 'rgba(255, 82, 82, ' + alpha + ')';
+                case 'warning': return 'rgba(255, 176, 32, ' + alpha + ')';
+                case 'maintenance': return 'rgba(94, 140, 255, ' + alpha + ')';
+                default: return 'rgba(160, 160, 176, ' + alpha + ')';
+            }
+        }
+
+        // Função auxiliar para obter texto do tipo de evento
+        function getEventTypeText(type) {
+            switch(type) {
+                case 'success': return 'Sucesso';
+                case 'warning': return 'Alerta';
+                case 'info': return 'Informação';
+                case 'maintenance': return 'Manutenção';
+                default: return type;
+            }
+        }
+
+        // Funções de inicialização
+        function init() {
+            renderMachines();
+            renderPlantMap();
+            renderEvents();
+            updateCounts();
+            applyPlantMapZoom();
+            initEventListeners();
+            startRealTimeUpdates();
+        }
+
+        function applyPlantMapZoom() {
+            const wrap = document.getElementById('plant-scale-wrap');
+            if (wrap) {
+                wrap.style.transform = 'scale(' + plantMapZoom + ')';
+                wrap.style.transformOrigin = 'center center';
+            }
+        }
+
+        // Renderiza o mapa de máquinas na camada da planta
+        function renderPlantMap() {
+            const layer = document.getElementById('plant-machines-layer');
+            if (!layer) return;
+
+            layer.innerHTML = '';
+            const filtered = filterMachines();
+            const allowed = new Set(filtered.map(function (m) { return m.id; }));
+
+            machinesData.forEach(function (machine, index) {
+                if (!allowed.has(machine.id)) return;
+                const pos = PLANT_MACHINE_LAYOUT[index];
+                if (!pos) return;
+
+                const spot = document.createElement('div');
+                let classNames = 'machine-spot ' + machine.status;
+                if (machine.status === 'running' || machine.status === 'warning') {
+                    classNames += ' pulsing';
+                }
+                spot.className = classNames;
+                spot.style.top = pos.top;
+                spot.style.left = pos.left;
+                spot.dataset.machine = machine.id;
+                spot.setAttribute('title', machine.name + ' — ' + getStatusText(machine.status));
+                spot.innerHTML = '<div class="spot-icon"><i class="fas fa-industry"></i></div>';
+                spot.addEventListener('click', function () {
+                    showMachineDetails(machine.id);
+                });
+                layer.appendChild(spot);
+            });
+        }
+
+        // Renderiza as máquinas no grid
+        function renderMachines() {
+            const grid = document.getElementById('machines-grid');
+            grid.innerHTML = '';
+            
+            const filteredMachines = filterMachines();
+            
+            filteredMachines.forEach(machine => {
+                const card = createMachineCard(machine);
+                grid.appendChild(card);
+            });
+            
+            // Inicializa gráficos pequenos
+            setTimeout(() => {
+                filteredMachines.forEach(machine => {
+                    createMiniChart(machine);
+                });
+            }, 100);
+        }
+
+        // Filtra máquinas com base no filtro ativo
+        function filterMachines() {
+            if (currentFilter === 'all') return machinesData;
+            
+            return machinesData.filter(machine => {
+                switch(currentFilter) {
+                    case 'running': return machine.status === 'running';
+                    case 'stopped': return machine.status === 'stopped';
+                    case 'warning': return machine.status === 'warning';
+                    case 'maintenance': return machine.status === 'maintenance';
+                    default: return true;
+                }
+            });
+        }
+
+        // Cria o card HTML para uma máquina - SEM expressões EL em strings
+        function createMachineCard(machine) {
+            const statusClass = machine.status;
+            const statusText = getStatusText(machine.status);
+            
+            const card = document.createElement('div');
+            card.className = 'machine-card ' + statusClass;
+            card.dataset.id = machine.id;
+            
+            // Construir HTML das métricas manualmente - SEM expressões EL
+            let metricsHtml = '';
+            for (const key in machine.metrics) {
+                const metric = machine.metrics[key];
+                const trendClass = metric.trend.includes('+') ? 'trend-up' : 'trend-down';
+                const arrowIcon = metric.trend.includes('+') ? 'up' : 'down';
+                const metricLabel = getMetricLabel(key);
+                
+                metricsHtml += '<div class="metric">';
+                metricsHtml += '<div class="metric-label">' + metricLabel + '</div>';
+                metricsHtml += '<div class="metric-value">' + formatMetricValue(metric) + '<span class="metric-unit">' + metric.unit + '</span></div>';
+                metricsHtml += '<div class="metric-trend ' + trendClass + '">';
+                metricsHtml += '<i class="fas fa-arrow-' + arrowIcon + '"></i> ' + metric.trend;
+                metricsHtml += '</div>';
+                metricsHtml += '</div>';
+            }
+            
+            // Construir HTML do card - usando apenas concatenação de strings
+            card.innerHTML = '<div class="machine-header">' +
+                '<div class="machine-title">' +
+                '<div class="machine-icon ' + statusClass + '">' +
+                '<i class="fas fa-industry"></i>' +
+                '</div>' +
+                '<div>' +
+                '<div class="machine-name">' + machine.name + '</div>' +
+                '<div class="machine-id">' + machine.code + ' • ' + machine.type + '</div>' +
+                '</div>' +
+                '</div>' +
+                '<div class="machine-status-badge status-' + statusClass + '">' +
+                statusText +
+                '</div>' +
+                '</div>' +
+                '<div class="machine-metrics">' +
+                metricsHtml +
+                '</div>' +
+                '<div class="machine-chart" id="chart-' + machine.id + '">' +
+                '<canvas id="canvas-' + machine.id + '"></canvas>' +
+                '</div>' +
+                '<div class="machine-actions">' +
+                '<button class="action-btn" data-machine-id="' + machine.id + '" data-action="details">' +
+                '<i class="fas fa-eye"></i> Detalhes' +
+                '</button>' +
+                '<button class="action-btn" data-machine-id="' + machine.id + '" data-action="history">' +
+                '<i class="fas fa-history"></i> Histórico' +
+                '</button>' +
+                '<button class="action-btn primary" data-machine-id="' + machine.id + '" data-action="control">' +
+                '<i class="fas fa-play"></i> Controle' +
+                '</button>' +
+                '</div>';
+            
+            return card;
+        }
+
+        // Cria gráfico pequeno para o card
+        function createMiniChart(machine) {
+            const canvas = document.getElementById('canvas-' + machine.id);
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            const data = generateChartData(machine);
+            
+            // Destruir gráfico existente se houver
+            if (canvas.chart) {
+                canvas.chart.destroy();
+            }
+            
+            canvas.chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        data: data.values,
+                        borderColor: getStatusColor(machine.status),
+                        backgroundColor: getStatusColor(machine.status, 0.1),
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: false }
+                    },
+                    scales: {
+                        x: { display: false },
+                        y: { display: false }
+                    }
+                }
+            });
+        }
+
+        // Gera dados para o gráfico
+        function generateChartData(machine) {
+            const baseValue = machine.metrics.production.value;
+            const labels = ['', '', '', '', '', ''];
+            const values = [];
+            
+            for (let i = 0; i < 6; i++) {
+                const variation = (Math.random() - 0.5) * 20;
+                values.push(Math.max(0, baseValue + variation));
+            }
+            
+            return { labels, values };
+        }
+
+        // Renderiza eventos na tabela - SEM expressões EL
+        function renderEvents() {
+            const tbody = document.getElementById('events-table-body');
+            tbody.innerHTML = '';
+            
+            eventsData.forEach(event => {
+                const row = document.createElement('tr');
+                const eventTypeText = getEventTypeText(event.type);
+                
+                // Usando concatenação de strings em vez de template literais
+                row.innerHTML = '<td>' + event.time + '</td>' +
+                    '<td>' +
+                    '<div style="display: flex; align-items: center; gap: 8px;">' +
+                    '<div class="status-dot ' + event.type + '" style="width: 8px; height: 8px;"></div>' +
+                    event.machine +
+                    '</div>' +
+                    '</td>' +
+                    '<td>' + event.event + '</td>' +
+                    '<td>' +
+                    '<span class="status-' + event.type + '" style="padding: 4px 8px; border-radius: 4px; font-size: 12px;">' +
+                    eventTypeText +
+                    '</span>' +
+                    '</td>' +
+                    '<td>' + event.operator + '</td>' +
+                    '<td>' +
+                    '<button class="card-action-btn" data-time="' + event.time + '" data-machine="' + event.machine + '">' +
+                    '<i class="fas fa-search"></i>' +
+                    '</button>' +
+                    '</td>';
+                
+                tbody.appendChild(row);
+            });
+        }
+
+        // Atualiza contadores
+        function updateCounts() {
+            const running = machinesData.filter(m => m.status === 'running').length;
+            const stopped = machinesData.filter(m => m.status === 'stopped').length;
+            const warning = machinesData.filter(m => m.status === 'warning').length;
+            const maintenance = machinesData.filter(m => m.status === 'maintenance').length;
+            
+            document.getElementById('running-count').textContent = running;
+            document.getElementById('stopped-count').textContent = stopped;
+            document.getElementById('warning-count').textContent = warning;
+            document.getElementById('maintenance-count').textContent = maintenance;
+        }
+
+        // Inicializa event listeners
+        function initEventListeners() {
+            // Filtros
+            document.querySelectorAll('.filter-tag').forEach(tag => {
+                tag.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilter = this.dataset.filter;
+                    renderMachines();
+                    renderPlantMap();
+                });
+            });
+
+            document.getElementById('filter-btn').addEventListener('click', function () {
+                var panel = document.getElementById('monitor-filters-panel');
+                if (!panel) return;
+                var on = panel.style.display === 'none';
+                panel.style.display = on ? '' : 'none';
+            });
+            
+            // Botão de atualização
+            document.getElementById('refresh-btn').addEventListener('click', function() {
+                updateRealTimeData();
+                const btn = this;
+                btn.style.transform = 'rotate(360deg)';
+                setTimeout(() => {
+                    btn.style.transform = 'rotate(0deg)';
+                }, 500);
+            });
+            
+            // Botão limpar filtros
+            document.getElementById('clear-filters').addEventListener('click', function() {
+                document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+                document.querySelector('.filter-tag[data-filter="all"]').classList.add('active');
+                currentFilter = 'all';
+                renderMachines();
+                renderPlantMap();
+            });
+
+            document.getElementById('map-zoom-in').addEventListener('click', function () {
+                plantMapZoom = Math.min(1.75, Math.round((plantMapZoom + 0.12) * 100) / 100);
+                applyPlantMapZoom();
+            });
+            document.getElementById('map-zoom-out').addEventListener('click', function () {
+                plantMapZoom = Math.max(0.55, Math.round((plantMapZoom - 0.12) * 100) / 100);
+                applyPlantMapZoom();
+            });
+            document.getElementById('map-fullscreen').addEventListener('click', function () {
+                var el = document.getElementById('plant-map-viewport');
+                if (!el) return;
+                if (!document.fullscreenElement) {
+                    var req = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+                    if (req) req.call(el);
+                } else {
+                    var ex = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
+                    if (ex) ex.call(document);
+                }
+            });
+
+            document.addEventListener('fullscreenchange', function () {
+                var btn = document.getElementById('map-fullscreen');
+                if (!btn) return;
+                var icon = btn.querySelector('i');
+                if (icon) {
+                    icon.className = document.fullscreenElement ? 'fas fa-compress' : 'fas fa-expand';
+                }
+            });
+            
+            // Modal
+            document.getElementById('modal-close').addEventListener('click', function() {
+                document.getElementById('machine-modal').classList.remove('active');
+            });
+            
+            // Botões do modal
+            document.getElementById('modal-history-btn').addEventListener('click', function() {
+                if (currentMachineId) {
+                    showMachineHistory(currentMachineId);
+                }
+            });
+            
+            document.getElementById('modal-start-btn').addEventListener('click', function() {
+                if (currentMachineId) {
+                    controlMachine(currentMachineId, 'start');
+                }
+            });
+            
+            document.getElementById('modal-stop-btn').addEventListener('click', function() {
+                if (currentMachineId) {
+                    controlMachine(currentMachineId, 'stop');
+                }
+            });
+
+            document.getElementById('modal-report-btn').addEventListener('click', function () {
+                window.location.href = '/rpc-suite/historico.html';
+            });
+            
+            // Botão carregar mais eventos
+            document.getElementById('load-more-events').addEventListener('click', function() {
+                const btn = this;
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Carregando...';
+                btn.disabled = true;
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    alert('Mais eventos carregados (simulação)');
+                }, 1000);
+            });
+            
+            // Botão exportar
+            document.getElementById('export-btn').addEventListener('click', function() {
+                alert('Exportação de dados iniciada (simulação).\n\nEm produção real, geraria um arquivo CSV/Excel.');
+            });
+            
+            // Event delegation para botões das máquinas
+            document.getElementById('machines-grid').addEventListener('click', function(e) {
+                const btn = e.target.closest('.action-btn');
+                if (!btn) return;
+                
+                const machineId = parseInt(btn.dataset.machineId);
+                const action = btn.dataset.action;
+                
+                if (action === 'details') {
+                    showMachineDetails(machineId);
+                } else if (action === 'history') {
+                    showMachineHistory(machineId);
+                } else if (action === 'control') {
+                    controlMachine(machineId, 'start');
+                }
+            });
+            
+            // Event delegation para botões de eventos
+            document.getElementById('events-table-body').addEventListener('click', function(e) {
+                const btn = e.target.closest('.card-action-btn');
+                if (!btn) return;
+                
+                const time = btn.dataset.time;
+                const machine = btn.dataset.machine;
+                viewEventDetails(time, machine);
+            });
+        }
+
+        // Atualização em tempo real
+        function startRealTimeUpdates() {
+            updateRealTimeData();
+            setInterval(updateRealTimeData, 10000); // Atualiza a cada 10 segundos
+        }
+
+        function updateRealTimeData() {
+            // Atualiza timestamp
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('pt-BR', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            document.getElementById('last-update').textContent = timeString;
+            
+            // Simula pequenas variações nas máquinas
+            machinesData.forEach(machine => {
+                if (machine.status === 'running') {
+                    // Aumenta produção
+                    const increase = Math.floor(Math.random() * 5);
+                    machine.metrics.production.value += increase;
+                    
+                    // Pequenas variações nas métricas
+                    for (const key in machine.metrics) {
+                        const metric = machine.metrics[key];
+                        if (metric.unit !== 'un' && Math.random() > 0.7) {
+                            const variation = (Math.random() - 0.5) * 2;
+                            metric.value = Math.round(Math.max(0, metric.value + variation) * 100) / 100;
+                            metric.trend = variation >= 0 ? '+' + variation.toFixed(1) + '%' : variation.toFixed(1) + '%';
+                        }
+                    }
+                }
+            });
+            
+            renderMachines();
+            updateCounts();
+            renderPlantMap();
+        }
+
+        // Funções de controle
+        function showMachineDetails(machineId) {
+            const machine = machinesData.find(m => m.id === machineId);
+            if (!machine) return;
+            
+            currentMachineId = machineId;
+            
+            // Atualiza modal - SEM expressões EL
+            document.getElementById('modal-title').textContent = machine.name;
+            document.getElementById('modal-subtitle').innerHTML = 
+                'ID: ' + machine.code + ' • ' + machine.type + ' • ' + machine.line;
+            
+            const modalIcon = document.getElementById('modal-icon');
+            modalIcon.className = 'machine-icon ' + machine.status;
+            
+            // Atualiza métricas no modal - SEM expressões EL
+            let metricsHtml = '';
+            for (const key in machine.metrics) {
+                const metric = machine.metrics[key];
+                const percentage = getMetricBarPercent(metric);
+                const metricLabel = getMetricLabel(key);
+                const statusColor = getStatusColor(machine.status);
+                
+                metricsHtml += '<div style="margin-bottom: 15px;">';
+                metricsHtml += '<div style="display: flex; justify-content: space-between; margin-bottom: 5px;">';
+                metricsHtml += '<span style="color: var(--text-muted);">' + metricLabel + '</span>';
+                metricsHtml += '<span style="font-weight: bold;">' + formatMetricValue(metric) + metric.unit + '</span>';
+                metricsHtml += '</div>';
+                metricsHtml += '<div class="progress-bar">';
+                metricsHtml += '<div class="progress-fill" style="width: ' + percentage + '%; background: ' + statusColor + ';"></div>';
+                metricsHtml += '</div>';
+                metricsHtml += '</div>';
+            }
+            
+            document.getElementById('modal-metrics').innerHTML = metricsHtml;
+            
+            // Atualiza informações - usando template literal aqui é seguro porque não tem EL
+            document.getElementById('modal-info').innerHTML = `
+                <div style="display: grid; gap: 10px;">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: var(--text-muted);">Operador:</span>
+                        <span>${machine.operator}</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: var(--text-muted);">Uptime:</span>
+                        <span>${machine.uptime}</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: var(--text-muted);">Última Manutenção:</span>
+                        <span>${machine.lastMaintenance}</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: var(--text-muted);">Próxima Manutenção:</span>
+                        <span>${machine.nextMaintenance}</span>
+                    </div>
+                </div>
+            `;
+            
+            // Cria gráfico no modal
+            if (modalChart) modalChart.destroy();
+            const ctx = document.getElementById('modal-chart').getContext('2d');
+            const chartData = generateModalChartData(machine);
+            
+            modalChart = new Chart(ctx, {
+                type: 'line',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: { color: 'rgba(255,255,255,0.7)' }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            grid: { color: 'rgba(255,255,255,0.1)' },
+                            ticks: { color: 'rgba(255,255,255,0.7)' }
+                        },
+                        x: {
+                            grid: { color: 'rgba(255,255,255,0.1)' },
+                            ticks: { color: 'rgba(255,255,255,0.7)' }
+                        }
+                    }
+                }
+            });
+            
+            // Mostra modal
+            document.getElementById('machine-modal').classList.add('active');
+        }
+
+        function generateModalChartData(machine) {
+            const hours = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00'];
+            const productionData = [];
+            const efficiencyData = [];
+            
+            let baseProduction = machine.metrics.production.value;
+            let baseEfficiency = machine.metrics.efficiency.value;
+            
+            hours.forEach(() => {
+                productionData.push(baseProduction + (Math.random() - 0.5) * 20);
+                efficiencyData.push(baseEfficiency + (Math.random() - 0.5) * 5);
+            });
+            
+            return {
+                labels: hours,
+                datasets: [
+                    {
+                        label: 'Produção (un)',
+                        data: productionData,
+                        borderColor: getStatusColor('running'),
+                        backgroundColor: getStatusColor('running', 0.1),
+                        tension: 0.4
+                    },
+                    {
+                        label: 'Eficiência (%)',
+                        data: efficiencyData,
+                        borderColor: getStatusColor('warning'),
+                        backgroundColor: getStatusColor('warning', 0.1),
+                        tension: 0.4
+                    }
+                ]
+            };
+        }
+
+        function showMachineHistory(machineId) {
+            const machine = machinesData.find(m => m.id === machineId);
+            if (machine) {
+                alert('Histórico da máquina ' + machine.name + ' (' + machine.code + ')\n\n(Simulação de histórico de eventos)');
+            }
+        }
+
+        function controlMachine(machineId, action) {
+            const machine = machinesData.find(m => m.id === machineId);
+            if (!machine) return;
+            
+            const actions = {
+                start: { 
+                    status: 'running', 
+                    message: 'Máquina ' + machine.name + ' iniciada com sucesso',
+                    icon: 'play'
+                },
+                stop: { 
+                    status: 'stopped', 
+                    message: 'Máquina ' + machine.name + ' parada com sucesso',
+                    icon: 'stop'
+                },
+                maintenance: { 
+                    status: 'maintenance', 
+                    message: 'Modo manutenção ativado para ' + machine.name,
+                    icon: 'tools'
+                }
+            };
+            
+            if (actions[action]) {
+                const oldStatus = machine.status;
+                machine.status = actions[action].status;
+                
+                // Adiciona evento
+                const now = new Date();
+                const timeString = now.toLocaleTimeString('pt-BR', { 
+                    hour: '2-digit', 
+                    minute: '2-digit'
+                });
+                
+                eventsData.unshift({
+                    time: timeString,
+                    machine: machine.name,
+                    event: 'Status alterado: ' + getStatusText(oldStatus) + ' → ' + getStatusText(machine.status),
+                    type: 'info',
+                    operator: 'Sistema'
+                });
+                
+                // Atualiza interface
+                renderMachines();
+                renderEvents();
+                updateCounts();
+                renderPlantMap();
+                
+                // Feedback
+                alert(actions[action].message);
+                
+                // Fecha modal se estiver aberto
+                if (currentMachineId === machineId) {
+                    document.getElementById('machine-modal').classList.remove('active');
+                }
+            }
+        }
+
+        function viewEventDetails(time, machine) {
+            alert('Detalhes do evento:\n\nHora: ' + time + '\nMáquina: ' + machine + '\n\n(Simulação de detalhes do evento)');
+        }
+
+        // Inicializa quando o DOM estiver pronto
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+
+    <footer class="rpc-footer">
+        <div class="rpc-footer-inner">
+            <span><i class="fas fa-industry"></i> <span data-i18n="footer.suite">RPC Industrial Suite</span> <span class="rpc-footer-sep">·</span> <span data-i18n="common.demo">Demo</span></span>
+            <span><i class="fas fa-user-circle"></i> <span data-i18n="common.visitor">visitante</span> <span class="rpc-footer-sep">·</span> <span data-i18n="common.operator">Operador</span></span>
+            <span><i class="fas fa-copyright"></i> <span data-i18n="footer.company">RP Caconde</span></span>
+        </div>
+    </footer>
+</body>
+</html>

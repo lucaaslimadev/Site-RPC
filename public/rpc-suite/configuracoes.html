@@ -1,0 +1,1758 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>RPC Industrial Suite - Configurações</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="icon" type="image/x-icon" href="/images/icon.svg">
+    <link rel="stylesheet" href="/css/fontawesome-all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <style>
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: #15151e;
+            --bg-light: #1e1e2b;
+            --primary: #00e68a;
+            --secondary: #00cc77;
+            --accent: #5e8cff;
+            --warning: #ffb020;
+            --danger: #ff5252;
+            --success: #00d68f;
+            --text: #f5f5f7;
+            --text-muted: #a0a0b0;
+            --border: #2a2a3a;
+            --shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--bg-card) 0%, #1a1a25 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--bg-dark);
+        }
+
+        .logo h1 {
+            font-size: 22px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .demo-badge {
+            background: rgba(0, 230, 138, 0.1);
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            border: 1px solid rgba(0, 230, 138, 0.2);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .notifications {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--danger);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--bg-dark);
+        }
+
+        .logout-btn {
+            padding: 8px 20px;
+            background: rgba(255, 82, 82, 0.1);
+            border: 1px solid rgba(255, 82, 82, 0.3);
+            color: var(--danger);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 82, 82, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 70px;
+            width: 260px;
+            height: calc(100vh - 70px);
+            background: var(--bg-card);
+            border-right: 1px solid var(--border);
+            padding: 20px 0;
+            overflow-y: auto;
+            transition: width 0.3s ease;
+        }
+
+        .nav-section {
+            margin-bottom: 25px;
+        }
+
+        .nav-section-title {
+            padding: 0 20px 10px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 10px;
+        }
+
+        .nav-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-left: 3px solid transparent;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            padding-left: 25px;
+        }
+
+        .nav-item.active {
+            background: rgba(0, 230, 138, 0.1);
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+
+        .nav-text {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-badge {
+            margin-left: auto;
+            background: var(--accent);
+            color: white;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+        /* Main Content */
+        .main-content {
+            margin-left: 260px;
+            margin-top: 70px;
+            padding: 25px;
+            min-height: calc(100vh - 70px);
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Alert */
+        .demo-alert {
+            background: rgba(255, 176, 32, 0.1);
+            border-left: 4px solid var(--warning);
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 176, 32, 0.2);
+        }
+
+        .demo-alert i {
+            font-size: 24px;
+            color: var(--warning);
+        }
+
+        /* Dashboard Header */
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-title h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            background: linear-gradient(90deg, var(--text), #ffffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .dashboard-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .action-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 14px;
+        }
+
+        .action-btn:hover {
+            background: var(--bg-light);
+            transform: translateY(-2px);
+        }
+
+        .action-btn.primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--bg-dark);
+            border: none;
+            font-weight: 600;
+        }
+
+        /* Settings Layout */
+        .settings-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 25px;
+        }
+
+        /* Settings Sidebar */
+        .settings-sidebar {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px 0;
+            height: fit-content;
+        }
+
+        .settings-nav {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .settings-nav-item {
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-left: 4px solid transparent;
+            transition: var(--transition);
+            font-size: 15px;
+        }
+
+        .settings-nav-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            padding-left: 30px;
+        }
+
+        .settings-nav-item.active {
+            background: rgba(0, 230, 138, 0.1);
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+
+        /* Settings Content */
+        .settings-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            min-height: 600px;
+        }
+
+        .settings-section {
+            display: none;
+        }
+
+        .settings-section.active {
+            display: block;
+        }
+
+        .settings-section-title {
+            font-size: 22px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 18px;
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            font-size: 15px;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 230, 138, 0.1);
+        }
+
+        .form-hint {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--bg-light);
+            transition: var(--transition);
+            border-radius: 34px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: var(--transition);
+            border-radius: 50%;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: var(--primary);
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(30px);
+        }
+
+        /* Settings Card */
+        .settings-card {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+
+        .settings-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .settings-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .settings-card-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        /* Color Picker */
+        .color-picker {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .color-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: var(--transition);
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+
+        .color-option.active {
+            border-color: var(--text);
+        }
+
+        /* Range Slider */
+        .range-slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--bg-light);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            border: 3px solid var(--bg-dark);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 70px;
+                overflow: hidden;
+            }
+            
+            .sidebar .nav-text,
+            .sidebar .nav-section-title {
+                display: none;
+            }
+            
+            .main-content {
+                margin-left: 70px;
+            }
+            
+            .settings-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .dashboard-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .user-info {
+                gap: 10px;
+            }
+            
+            .user-profile .username {
+                display: none;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .settings-content {
+                padding: 20px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="/css/rpc-theme.css">
+    <script src="/js/rpc-theme.js"></script>
+    <script src="/js/rpc-i18n.js" defer></script>
+</head>
+<body data-rpc-i18n-title="title.doc.settings">
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <img src="/images/icon.svg" alt="RP Caconde" class="rpc-header-logo">
+            <div>
+                <h1>RPC Industrial Suite</h1>
+                <div class="demo-badge" data-i18n="common.demo">DEMO</div>
+            </div>
+        </div>
+        
+        <div class="user-info">
+            <div class="notifications">
+                <i class="fas fa-bell" style="font-size: 20px; color: var(--text-muted);"></i>
+                <div class="notification-badge" id="notification-count">3</div>
+            </div>
+            
+            <div class="user-profile">
+                <div class="avatar">V</div>
+                <div>
+                    <div style="font-weight: bold" data-i18n="common.visitor">visitante</div>
+                    <div style="font-size: 12px; color: var(--text-muted)" data-i18n="common.operator">Operador</div>
+                </div>
+            </div>
+            
+            <a href="/" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> <span data-i18n="common.backToSite">Voltar ao site</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+      <nav class="sidebar">
+        <div class="nav-section">
+            <div class="nav-section-title" data-i18n="nav.section.main">Principal</div>
+            <a href="/rpc-dashboard" class="nav-item">
+                <i class="fas fa-chart-line"></i>
+                <span class="nav-text" data-i18n="nav.dashboard">Dashboard</span>
+            </a>
+            <a href="/rpc-suite/monitoramento.html" class="nav-item">
+                <i class="fas fa-industry"></i>
+                <span class="nav-text" data-i18n="nav.monitoring">Monitoramento</span>
+                <span class="nav-badge">6</span>
+            </a>
+            <a href="/rpc-suite/ordens.html" class="nav-item">
+                <i class="fas fa-clipboard-list"></i>
+                <span class="nav-text" data-i18n="nav.orders">Ordens de Produção</span>
+                <span class="nav-badge">5</span>
+            </a>
+            <a href="/rpc-suite/manutencao.html" class="nav-item">
+                <i class="fas fa-tools"></i>
+                <span class="nav-text" data-i18n="nav.maintenance">Manutenção</span>
+                <span class="nav-badge">7</span>
+            </a>
+        </div>
+        
+        <div class="nav-section">
+            <div class="nav-section-title" data-i18n="nav.section.analytics">Analytics</div>
+            <a href="/rpc-suite/relatorios.html" class="nav-item">
+                <i class="fas fa-chart-bar"></i>
+                <span class="nav-text" data-i18n="nav.reports">Relatórios</span>
+            </a>
+            <a href="/rpc-suite/energia.html" class="nav-item">
+                <i class="fas fa-bolt"></i>
+                <span class="nav-text" data-i18n="nav.energy">Energia</span>
+            </a>
+            <a href="/rpc-suite/estoque.html" class="nav-item">
+                <i class="fas fa-boxes"></i>
+                <span class="nav-text" data-i18n="nav.stock">Estoque</span>
+            </a>
+            <a href="/rpc-suite/analises.html" class="nav-item">
+                <i class="fas fa-chart-pie"></i>
+                <span class="nav-text" data-i18n="nav.analytics">Análises</span>
+            </a>
+        </div>
+        
+        <div class="nav-section">
+            <div class="nav-section-title" data-i18n="nav.section.system">Sistema</div>
+            <a href="/rpc-suite/configuracoes.html" class="nav-item active">
+                <i class="fas fa-cog"></i>
+                <span class="nav-text" data-i18n="nav.settings">Configurações</span>
+            </a>
+            <a href="/rpc-suite/usuarios.html" class="nav-item">
+                <i class="fas fa-users"></i>
+                <span class="nav-text" data-i18n="nav.users">Usuários</span>
+            </a>
+            <a href="/rpc-suite/historico.html" class="nav-item">
+                <i class="fas fa-history"></i>
+                <span class="nav-text" data-i18n="nav.history">Histórico</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Alert -->
+        <div class="demo-alert fade-in">
+            <i class="fas fa-exclamation-triangle"></i>
+            <div>
+                <strong data-i18n="settings.alertTitle">⚙️ CONFIGURAÇÕES DO SISTEMA</strong><br>
+                <span data-i18n="settings.alertBody">Configure as preferências do sistema, aparência, notificações e integrações.</span>
+            </div>
+        </div>
+
+        <!-- Page Header -->
+        <div class="dashboard-header">
+            <div class="dashboard-title">
+                <h2 data-i18n="settings.pageTitle">Configurações do Sistema</h2>
+                <div style="color: var(--text-muted); font-size: 14px;">
+                    <i class="fas fa-cog"></i> <span data-i18n="settings.pageSubtitle">Personalize o sistema conforme suas necessidades</span>
+                </div>
+            </div>
+            
+            <div class="dashboard-actions">
+                <button class="action-btn" id="export-settings-btn">
+                    <i class="fas fa-download"></i> <span data-i18n="common.export">Exportar</span>
+                </button>
+                <button class="action-btn" id="reset-settings-btn">
+                    <i class="fas fa-undo"></i> <span data-i18n="common.resetDefaults">Restaurar Padrões</span>
+                </button>
+                <button class="action-btn primary" id="save-settings-btn">
+                    <i class="fas fa-save"></i> <span data-i18n="common.save">Salvar Alterações</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Settings Layout -->
+        <div class="settings-layout fade-in">
+            <!-- Settings Sidebar -->
+            <div class="settings-sidebar">
+                <nav class="settings-nav">
+                    <a href="#" class="settings-nav-item active" data-section="general">
+                        <i class="fas fa-sliders-h"></i> <span data-i18n="settings.nav.general">Geral</span>
+                    </a>
+                    <a href="#" class="settings-nav-item" data-section="appearance">
+                        <i class="fas fa-palette"></i> <span data-i18n="settings.nav.appearance">Aparência</span>
+                    </a>
+                    <a href="#" class="settings-nav-item" data-section="notifications">
+                        <i class="fas fa-bell"></i> <span data-i18n="settings.nav.notifications">Notificações</span>
+                    </a>
+                    <a href="#" class="settings-nav-item" data-section="integrations">
+                        <i class="fas fa-plug"></i> <span data-i18n="settings.nav.integrations">Integrações</span>
+                    </a>
+                    <a href="#" class="settings-nav-item" data-section="security">
+                        <i class="fas fa-shield-alt"></i> <span data-i18n="settings.nav.security">Segurança</span>
+                    </a>
+                    <a href="#" class="settings-nav-item" data-section="backup">
+                        <i class="fas fa-database"></i> <span data-i18n="settings.nav.backup">Backup</span>
+                    </a>
+                    <a href="#" class="settings-nav-item" data-section="api">
+                        <i class="fas fa-code"></i> <span data-i18n="settings.nav.api">API</span>
+                    </a>
+                    <a href="#" class="settings-nav-item" data-section="about">
+                        <i class="fas fa-info-circle"></i> <span data-i18n="settings.nav.about">Sobre o Sistema</span>
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Settings Content -->
+            <div class="settings-content">
+                <!-- Geral -->
+                <div class="settings-section active" id="general-section">
+                    <h3 class="settings-section-title">
+                        <i class="fas fa-sliders-h"></i> <span data-i18n="settings.generalHeading">Configurações Gerais</span>
+                    </h3>
+                    
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <div class="settings-card-title" data-i18n="settings.companySettings">Configurações da Empresa</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" data-i18n="settings.companyName">Nome da Empresa</label>
+                            <input type="text" class="form-control" id="company-name" value="RPC Industrial Ltda.">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" data-i18n="settings.timezone">Fuso Horário</label>
+                                <select class="form-control" id="timezone">
+                                    <option value="america-sao_paulo" selected>America/Sao_Paulo (GMT-3)</option>
+                                    <option value="america-new_york">America/New_York (GMT-5)</option>
+                                    <option value="europe-london">Europe/London (GMT+0)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" data-i18n="settings.language">Idioma</label>
+                                <select class="form-control" id="language">
+                                    <option value="pt-br" selected>Português (Brasil)</option>
+                                    <option value="en-us">English (US)</option>
+                                    <option value="es-es">Español</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <div class="settings-card-title" data-i18n="settings.productionSettings">Configurações de Produção</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" data-i18n="settings.unitSystem">Unidade de Medida Padrão</label>
+                            <select class="form-control" id="unit-system">
+                                <option value="metric" selected data-i18n="unit.metric">Sistema Métrico</option>
+                                <option value="imperial" data-i18n="unit.imperial">Sistema Imperial</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" data-i18n="settings.shiftMax">Tempo Máximo de Turno (horas)</label>
+                            <input type="range" class="range-slider" id="shift-duration" min="6" max="12" value="8">
+                            <div class="form-hint" id="shift-duration-value">8 horas</div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <div class="settings-card-title" data-i18n="settings.dataSettings">Configurações de Dados</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" style="display: flex; align-items: center; justify-content: space-between;">
+                                <span data-i18n="settings.autoCleanHistory">Limpeza Automática de Histórico</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="auto-clean" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </label>
+                            <div class="form-hint" data-i18n="settings.autoCleanHint">Remove automaticamente dados antigos após 90 dias</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" data-i18n="settings.dataRetention">Retenção de Dados (dias)</label>
+                            <input type="number" class="form-control" id="data-retention" value="90" min="30" max="365">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aparência -->
+                <div class="settings-section" id="appearance-section">
+                    <h3 class="settings-section-title">
+                        <i class="fas fa-palette"></i> <span data-i18n="settings.appearanceHeading">Aparência e Tema</span>
+                    </h3>
+                    
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <div class="settings-card-title" data-i18n="settings.systemTheme">Tema do Sistema</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" data-i18n="settings.themeApplies">Aparência (vale para todo o sistema)</label>
+                            <p class="form-hint" style="margin-bottom: 14px;" data-i18n="settings.themeHint">O tema é salvo no navegador e aplicado em todas as telas da demo (Dashboard, Ordens, Usuários, etc.).</p>
+                            <div class="rpc-theme-picks" id="rpc-theme-picks">
+                                <div class="rpc-theme-pick active" data-theme="dark" role="button" tabindex="0">
+                                    <div class="rpc-theme-swatch" style="background: linear-gradient(135deg,#0a0a0f 60%,#00e68a);"></div>
+                                    <span data-i18n="settings.theme.dark">Escuro</span>
+                                </div>
+                                <div class="rpc-theme-pick" data-theme="light" role="button" tabindex="0">
+                                    <div class="rpc-theme-swatch" style="background: linear-gradient(135deg,#f5f5f7 50%,#00a85c);"></div>
+                                    <span data-i18n="settings.theme.light">Claro</span>
+                                </div>
+                                <div class="rpc-theme-pick" data-theme="ocean" role="button" tabindex="0">
+                                    <div class="rpc-theme-swatch" style="background: linear-gradient(135deg,#0f1a2c 50%,#38bdf8);"></div>
+                                    <span data-i18n="settings.theme.ocean">Azul industrial</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <div class="settings-card-title" data-i18n="settings.layoutUi">Layout da Interface</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" data-i18n="settings.uiDensity">Densidade da Interface</label>
+                            <select class="form-control" id="ui-density">
+                                <option value="comfortable" data-i18n="settings.density.comfortable">Confortável</option>
+                                <option value="compact" selected data-i18n="settings.density.compact">Compacta</option>
+                                <option value="spacious" data-i18n="settings.density.spacious">Espaçosa</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" style="display: flex; align-items: center; justify-content: space-between;">
+                                <span data-i18n="settings.animations">Animações e Transições</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="animations" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notificações -->
+                <div class="settings-section" id="notifications-section">
+                    <h3 class="settings-section-title">
+                        <i class="fas fa-bell"></i> <span data-i18n="settings.notifHeading">Configurações de Notificações</span>
+                    </h3>
+                    
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <div class="settings-card-title" data-i18n="settings.notifTypes">Tipos de Notificação</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" style="display: flex; align-items: center; justify-content: space-between;">
+                                <span data-i18n="settings.machineAlerts">Alertas de Máquina</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="machine-alerts" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" style="display: flex; align-items: center; justify-content: space-between;">
+                                <span data-i18n="settings.maintNotif">Notificações de Manutenção</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="maintenance-notifications" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" style="display: flex; align-items: center; justify-content: space-between;">
+                                <span data-i18n="settings.prodAlerts">Alertas de Produção</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="production-alerts" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <div class="settings-card-title" data-i18n="settings.notifMethods">Métodos de Notificação</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" style="display: flex; align-items: center; justify-content: space-between;">
+                                <span data-i18n="settings.systemNotif">Notificações no Sistema</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="system-notifications" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" style="display: flex; align-items: center; justify-content: space-between;">
+                                <span data-i18n="settings.emailNotif">Notificações por Email</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="email-notifications">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" style="display: flex; align-items: center; justify-content: space-between;">
+                                <span data-i18n="settings.smsNotif">Notificações por SMS</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="sms-notifications">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <div class="settings-card-title" data-i18n="settings.emailCardTitle">Configurações de Email</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" data-i18n="settings.notifEmail">Email para Notificações</label>
+                            <input type="email" class="form-control" id="notification-email" value="admin@rpcindustrial.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" data-i18n="settings.notifFreq">Frequência de Resumo</label>
+                            <select class="form-control" id="notification-frequency">
+                                <option value="realtime">Tempo Real</option>
+                                <option value="hourly" selected>A Cada Hora</option>
+                                <option value="daily">Diário</option>
+                                <option value="weekly">Semanal</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Integrações -->
+                <div class="settings-section" id="integrations-section">
+                    <h3 class="settings-section-title">
+                        <i class="fas fa-plug"></i> <span data-i18n="settings.integrationsHeading">Integrações</span>
+                    </h3>
+                    
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <div class="settings-card-title">Sistemas Integrados</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" style="display: flex; align-items: center; justify-content: space-between;">
+                                <span>ERP Sistema</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="erp-integration" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </label>
+                            <div class="form-hint">Integração com sistema ERP corporativo</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" style="display: flex; align-items: center; justify-content: space-between;">
+                                <span>MES (Manufacturing Execution System)</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="mes-integration">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" style="display: flex; align-items: center; justify-content: space-between;">
+                                <span>SCADA</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="scada-integration" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <div class="settings-card-title">API Externa</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">URL da API</label>
+                            <input type="text" class="form-control" id="api-url" value="https://api.rpcindustrial.com/v1">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Chave da API</label>
+                            <input type="password" class="form-control" id="api-key" value="••••••••••••••••">
+                            <div class="form-hint">
+                                <button class="action-btn" style="padding: 5px 10px; font-size: 12px; margin-top: 5px;" id="show-api-key">
+                                    <i class="fas fa-eye"></i> Mostrar Chave
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Segurança -->
+                <div class="settings-section" id="security-section">
+                    <h3 class="settings-section-title">
+                        <i class="fas fa-shield-alt"></i> <span data-i18n="settings.securityHeading">Segurança</span>
+                    </h3>
+                    
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <div class="settings-card-title">Autenticação</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" style="display: flex; align-items: center; justify-content: space-between;">
+                                <span>Autenticação de Dois Fatores (2FA)</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="two-factor-auth">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </label>
+                            <div class="form-hint">Requer código adicional via app ou SMS</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tempo de Sessão (minutos)</label>
+                            <input type="number" class="form-control" id="session-timeout" value="30" min="5" max="240">
+                            <div class="form-hint">Tempo de inatividade antes do logout automático</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" style="display: flex; align-items: center; justify-content: space-between;">
+                                <span>Bloquear após tentativas falhas</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="lockout-enabled" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </label>
+                            <div class="form-hint">Bloqueia conta após 5 tentativas falhas</div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <div class="settings-card-title">Permissões</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Nível de Acesso Padrão</label>
+                            <select class="form-control" id="default-access-level">
+                                <option value="read">Somente Leitura</option>
+                                <option value="operator" selected>Operador</option>
+                                <option value="supervisor">Supervisor</option>
+                                <option value="admin">Administrador</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" style="display: flex; align-items: center; justify-content: space-between;">
+                                <span>Registro de Auditoria</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="audit-logging" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </label>
+                            <div class="form-hint">Registra todas as ações importantes do sistema</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backup -->
+                <div class="settings-section" id="backup-section">
+                    <h3 class="settings-section-title">
+                        <i class="fas fa-database"></i> <span data-i18n="settings.backupHeading">Backup e Restauração</span>
+                    </h3>
+                    
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <div class="settings-card-title">Configurações de Backup</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" style="display: flex; align-items: center; justify-content: space-between;">
+                                <span>Backup Automático</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="auto-backup" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </label>
+                            <div class="form-hint">Realiza backup automático do sistema</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Frequência do Backup</label>
+                            <select class="form-control" id="backup-frequency">
+                                <option value="daily">Diário</option>
+                                <option value="weekly" selected>Semanal</option>
+                                <option value="monthly">Mensal</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Horário do Backup</label>
+                            <input type="time" class="form-control" id="backup-time" value="02:00">
+                            <div class="form-hint">Horário preferencial para execução do backup</div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <div class="settings-card-title">Destino do Backup</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Local de Armazenamento</label>
+                            <select class="form-control" id="backup-location">
+                                <option value="local" selected>Servidor Local</option>
+                                <option value="cloud">Nuvem</option>
+                                <option value="both">Ambos</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Servidor Cloud</label>
+                            <input type="text" class="form-control" id="cloud-server" value="backup.rpcindustrial.com" disabled>
+                            <div class="form-hint">Configure servidor cloud nas integrações</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Retenção de Backups (dias)</label>
+                            <input type="number" class="form-control" id="backup-retention" value="30" min="7" max="365">
+                        </div>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <div class="settings-card-title">Ações</div>
+                        </div>
+                        <div class="form-group">
+                            <button class="action-btn primary" id="backup-now-btn" style="width: 100%;">
+                                <i class="fas fa-play-circle"></i> Executar Backup Agora
+                            </button>
+                            <div class="form-hint">Último backup: 06/12/2024 02:15</div>
+                        </div>
+                        <div class="form-group">
+                            <button class="action-btn" id="restore-backup-btn" style="width: 100%;">
+                                <i class="fas fa-history"></i> Restaurar Backup
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- API -->
+                <div class="settings-section" id="api-section">
+                    <h3 class="settings-section-title">
+                        <i class="fas fa-code"></i> <span data-i18n="settings.apiHeading">API e Webhooks</span>
+                    </h3>
+                    
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <div class="settings-card-title">Configurações da API</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" style="display: flex; align-items: center; justify-content: space-between;">
+                                <span>API REST Habilitada</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="api-enabled" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </label>
+                            <div class="form-hint">Permite acesso via API REST ao sistema</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Porta da API</label>
+                            <input type="number" class="form-control" id="api-port" value="8080" min="1024" max="65535">
+                            <div class="form-hint">Porta onde a API está disponível</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Limite de Requisições (por minuto)</label>
+                            <input type="number" class="form-control" id="api-rate-limit" value="100" min="10" max="1000">
+                            <div class="form-hint">Número máximo de requisições por minuto</div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <div class="settings-card-title">Documentação da API</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">URL da Documentação</label>
+                            <div style="display: flex; gap: 10px;">
+                                <input type="text" class="form-control" id="api-docs-url" value="https://docs.rpcindustrial.com/api" readonly>
+                                <button class="action-btn" id="open-api-docs">
+                                    <i class="fas fa-external-link-alt"></i> Abrir
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Exemplos de Uso</label>
+                            <div style="background: var(--bg-dark); padding: 15px; border-radius: 10px; font-family: monospace; font-size: 13px;">
+                                <div style="color: var(--accent);">// Exemplo: Obter status das máquinas</div>
+                                <div style="color: var(--text);">GET /api/v1/machines/status</div>
+                                <div style="color: var(--accent); margin-top: 10px;">// Exemplo: Criar ordem de produção</div>
+                                <div style="color: var(--text);">POST /api/v1/orders</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sobre o Sistema -->
+                <div class="settings-section" id="about-section">
+                    <h3 class="settings-section-title">
+                        <i class="fas fa-info-circle"></i> <span data-i18n="settings.aboutHeading">Sobre o Sistema</span>
+                    </h3>
+                    
+                    <div class="settings-card">
+                        <div style="text-align: center; padding: 30px 0;">
+                            <div style="font-size: 48px; color: var(--primary); margin-bottom: 20px;">
+                                <i class="fas fa-industry"></i>
+                            </div>
+                            <h3 style="font-size: 24px; margin-bottom: 10px;">RPC Industrial Suite</h3>
+                            <div style="color: var(--text-muted); margin-bottom: 20px;">v2.5.1</div>
+                            <div style="background: var(--bg-light); padding: 20px; border-radius: 10px; margin: 20px 0;">
+                                Sistema de Gestão Industrial Integrado
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Informações da Licença</label>
+                            <div style="background: var(--bg-light); padding: 15px; border-radius: 10px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                    <span style="color: var(--text-muted);">Tipo:</span>
+                                    <span style="color: var(--success); font-weight: bold;">Enterprise</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                    <span style="color: var(--text-muted);">Expira em:</span>
+                                    <span>31/12/2025</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span style="color: var(--text-muted);">Usuários:</span>
+                                    <span>Ilimitado</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Recursos do Sistema</label>
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-check" style="color: var(--success);"></i>
+                                    <span>Monitoramento em Tempo Real</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-check" style="color: var(--success);"></i>
+                                    <span>Gestão de Ordens</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-check" style="color: var(--success);"></i>
+                                    <span>Controle de Manutenção</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-check" style="color: var(--success);"></i>
+                                    <span>Análise de Dados</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Suporte Técnico</label>
+                            <div style="background: var(--bg-light); padding: 15px; border-radius: 10px;">
+                                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                                    <i class="fas fa-phone" style="color: var(--accent);"></i>
+                                    <span>+55 (11) 99999-9999</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <i class="fas fa-envelope" style="color: var(--accent);"></i>
+                                    <span>suporte@rpcindustrial.com</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Configurações iniciais
+        let settings = {
+            general: {
+                companyName: 'RPC Industrial Ltda.',
+                timezone: 'america-sao_paulo',
+                language: 'pt-br',
+                unitSystem: 'metric',
+                shiftDuration: 8,
+                autoClean: true,
+                dataRetention: 90
+            },
+            appearance: {
+                theme: 'dark',
+                uiDensity: 'compact',
+                animations: true
+            },
+            notifications: {
+                machineAlerts: true,
+                maintenanceNotifications: true,
+                productionAlerts: true,
+                systemNotifications: true,
+                emailNotifications: false,
+                smsNotifications: false,
+                notificationEmail: 'admin@rpcindustrial.com',
+                notificationFrequency: 'hourly'
+            },
+            integrations: {
+                erpIntegration: true,
+                mesIntegration: false,
+                scadaIntegration: true,
+                apiUrl: 'https://api.rpcindustrial.com/v1',
+                apiKey: 'RPC_DEMO_KEY_NOT_REAL'
+            },
+            security: {
+                twoFactorAuth: false,
+                sessionTimeout: 30,
+                lockoutEnabled: true,
+                defaultAccessLevel: 'operator',
+                auditLogging: true
+            },
+            backup: {
+                autoBackup: true,
+                backupFrequency: 'weekly',
+                backupTime: '02:00',
+                backupLocation: 'local',
+                backupRetention: 30
+            },
+            api: {
+                apiEnabled: true,
+                apiPort: 8080,
+                apiRateLimit: 100,
+                apiDocsUrl: 'https://docs.rpcindustrial.com/api'
+            }
+        };
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSettings();
+            initEventListeners();
+            initFormValues();
+        });
+
+        // Carrega configurações salvas
+        function loadSettings() {
+            const savedSettings = localStorage.getItem('rpc-settings');
+            if (savedSettings) {
+                settings = JSON.parse(savedSettings);
+                if (settings.appearance) {
+                    const th = settings.appearance.theme;
+                    if (th === 'blue-dark' || th === 'purple-dark') settings.appearance.theme = 'ocean';
+                    delete settings.appearance.primaryColor;
+                    delete settings.appearance.accentColor;
+                    delete settings.appearance.autoDarkMode;
+                }
+            }
+        }
+
+        // Salva configurações
+        function saveSettings() {
+            localStorage.setItem('rpc-settings', JSON.stringify(settings));
+            if (window.rpcApplyRpcTheme) window.rpcApplyRpcTheme(settings);
+            if (window.rpcApplyRpcI18n) window.rpcApplyRpcI18n();
+            showNotification(window.rpcT ? window.rpcT('notify.settingsSaved') : 'Configurações salvas com sucesso!', 'success');
+        }
+
+        // Inicializa valores dos formulários
+        function initFormValues() {
+            // Geral
+            document.getElementById('company-name').value = settings.general.companyName;
+            document.getElementById('timezone').value = settings.general.timezone;
+            document.getElementById('language').value = settings.general.language;
+            document.getElementById('unit-system').value = settings.general.unitSystem;
+            document.getElementById('shift-duration').value = settings.general.shiftDuration;
+            document.getElementById('shift-duration-value').textContent = settings.general.shiftDuration + ' ' + (window.rpcT ? window.rpcT('settings.hours') : 'horas');
+            document.getElementById('auto-clean').checked = settings.general.autoClean;
+            document.getElementById('data-retention').value = settings.general.dataRetention;
+
+            // Aparência
+            document.querySelectorAll('.rpc-theme-pick').forEach(pick => {
+                pick.classList.remove('active');
+                if (pick.dataset.theme === settings.appearance.theme) {
+                    pick.classList.add('active');
+                }
+            });
+            document.getElementById('ui-density').value = settings.appearance.uiDensity;
+            document.getElementById('animations').checked = settings.appearance.animations;
+
+            if (window.rpcApplyRpcTheme) window.rpcApplyRpcTheme(settings);
+            if (window.rpcApplyRpcI18n) window.rpcApplyRpcI18n();
+
+            // Notificações
+            document.getElementById('machine-alerts').checked = settings.notifications.machineAlerts;
+            document.getElementById('maintenance-notifications').checked = settings.notifications.maintenanceNotifications;
+            document.getElementById('production-alerts').checked = settings.notifications.productionAlerts;
+            document.getElementById('system-notifications').checked = settings.notifications.systemNotifications;
+            document.getElementById('email-notifications').checked = settings.notifications.emailNotifications;
+            document.getElementById('sms-notifications').checked = settings.notifications.smsNotifications;
+            document.getElementById('notification-email').value = settings.notifications.notificationEmail;
+            document.getElementById('notification-frequency').value = settings.notifications.notificationFrequency;
+
+            // Integrações
+            document.getElementById('erp-integration').checked = settings.integrations.erpIntegration;
+            document.getElementById('mes-integration').checked = settings.integrations.mesIntegration;
+            document.getElementById('scada-integration').checked = settings.integrations.scadaIntegration;
+            document.getElementById('api-url').value = settings.integrations.apiUrl;
+
+            // Segurança
+            document.getElementById('two-factor-auth').checked = settings.security.twoFactorAuth;
+            document.getElementById('session-timeout').value = settings.security.sessionTimeout;
+            document.getElementById('lockout-enabled').checked = settings.security.lockoutEnabled;
+            document.getElementById('default-access-level').value = settings.security.defaultAccessLevel;
+            document.getElementById('audit-logging').checked = settings.security.auditLogging;
+
+            // Backup
+            document.getElementById('auto-backup').checked = settings.backup.autoBackup;
+            document.getElementById('backup-frequency').value = settings.backup.backupFrequency;
+            document.getElementById('backup-time').value = settings.backup.backupTime;
+            document.getElementById('backup-location').value = settings.backup.backupLocation;
+            document.getElementById('backup-retention').value = settings.backup.backupRetention;
+
+            // API
+            document.getElementById('api-enabled').checked = settings.api.apiEnabled;
+            document.getElementById('api-port').value = settings.api.apiPort;
+            document.getElementById('api-rate-limit').value = settings.api.apiRateLimit;
+            document.getElementById('api-docs-url').value = settings.api.apiDocsUrl;
+        }
+
+        // Inicializa event listeners
+        function initEventListeners() {
+            // Navegação entre seções
+            document.querySelectorAll('.settings-nav-item').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Atualiza navegação
+                    document.querySelectorAll('.settings-nav-item').forEach(i => {
+                        i.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    // Mostra seção correspondente
+                    const sectionId = this.dataset.section + '-section';
+                    document.querySelectorAll('.settings-section').forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    const targetSection = document.getElementById(sectionId);
+                    if (targetSection) {
+                        targetSection.classList.add('active');
+                    }
+                });
+            });
+
+            // Slider de duração do turno
+            document.getElementById('shift-duration').addEventListener('input', function() {
+                var h = window.rpcT ? window.rpcT('settings.hours') : 'horas';
+                document.getElementById('shift-duration-value').textContent = this.value + ' ' + h;
+                settings.general.shiftDuration = parseInt(this.value);
+            });
+
+            // Toggle switches
+            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    updateSettingFromInput(this);
+                });
+            });
+
+            // Inputs de texto e select
+            document.querySelectorAll('input[type="text"], input[type="email"], input[type="number"], input[type="password"], input[type="time"], select').forEach(input => {
+                input.addEventListener('change', function() {
+                    updateSettingFromInput(this);
+                });
+            });
+
+            // Color pickers
+            document.querySelectorAll('.rpc-theme-pick').forEach(pick => {
+                pick.addEventListener('click', function() {
+                    document.querySelectorAll('.rpc-theme-pick').forEach(p => p.classList.remove('active'));
+                    this.classList.add('active');
+                    settings.appearance.theme = this.dataset.theme;
+                    try {
+                        localStorage.setItem('rpc-settings', JSON.stringify(settings));
+                    } catch (e) {}
+                    if (window.rpcApplyRpcTheme) window.rpcApplyRpcTheme(settings);
+                });
+                pick.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.click();
+                    }
+                });
+            });
+
+            // Botão mostrar/esconder chave API
+            document.getElementById('show-api-key').addEventListener('click', function() {
+                const apiKeyInput = document.getElementById('api-key');
+                if (apiKeyInput.type === 'password') {
+                    apiKeyInput.type = 'text';
+                    apiKeyInput.value = settings.integrations.apiKey;
+                    this.innerHTML = '<i class="fas fa-eye-slash"></i> Ocultar Chave';
+                } else {
+                    apiKeyInput.type = 'password';
+                    apiKeyInput.value = '••••••••••••••••';
+                    this.innerHTML = '<i class="fas fa-eye"></i> Mostrar Chave';
+                }
+            });
+
+            // Botão abrir documentação API
+            document.getElementById('open-api-docs').addEventListener('click', function() {
+                window.open(settings.api.apiDocsUrl, '_blank');
+            });
+
+            // Botão executar backup agora
+            document.getElementById('backup-now-btn').addEventListener('click', function() {
+                const btn = this;
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Executando...';
+                btn.disabled = true;
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    showNotification(window.rpcT ? window.rpcT('notify.backupOk') : 'Backup executado com sucesso!', 'success');
+                }, 2000);
+            });
+
+            // Botão restaurar backup
+            document.getElementById('restore-backup-btn').addEventListener('click', function() {
+                if (confirm('Tem certeza que deseja restaurar um backup?\nO sistema será reiniciado durante o processo.')) {
+                    showNotification('Iniciando processo de restauração...', 'info');
+                }
+            });
+
+            // Botão salvar
+            document.getElementById('save-settings-btn').addEventListener('click', function() {
+                saveSettings();
+                const btn = this;
+                var saved = window.rpcT ? window.rpcT('common.saved') : 'Salvo!';
+                var saveLbl = window.rpcT ? window.rpcT('common.save') : 'Salvar Alterações';
+                btn.innerHTML = '<i class="fas fa-check"></i> ' + saved;
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="fas fa-save"></i> <span data-i18n="common.save">' + saveLbl + '</span>';
+                    if (window.rpcApplyRpcI18n) window.rpcApplyRpcI18n();
+                }, 2000);
+            });
+
+            // Botão exportar
+            document.getElementById('export-settings-btn').addEventListener('click', function() {
+                const dataStr = JSON.stringify(settings, null, 2);
+                const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+                const exportFileDefaultName = 'rpc-settings.json';
+                
+                const linkElement = document.createElement('a');
+                linkElement.setAttribute('href', dataUri);
+                linkElement.setAttribute('download', exportFileDefaultName);
+                linkElement.click();
+                
+                showNotification(window.rpcT ? window.rpcT('notify.exported') : 'Configurações exportadas com sucesso!', 'success');
+            });
+
+            // Botão restaurar padrões
+            document.getElementById('reset-settings-btn').addEventListener('click', function() {
+                if (confirm('Tem certeza que deseja restaurar as configurações padrão?\nTodas as alterações serão perdidas.')) {
+                    resetSettings();
+                    localStorage.setItem('rpc-settings', JSON.stringify(settings));
+                    initFormValues();
+                    if (window.rpcApplyRpcTheme) window.rpcApplyRpcTheme(settings);
+                    if (window.rpcApplyRpcI18n) window.rpcApplyRpcI18n();
+                    showNotification(window.rpcT ? window.rpcT('notify.reset') : 'Configurações restauradas para os padrões!', 'success');
+                }
+            });
+        }
+
+        // Atualiza configuração a partir do input
+        function updateSettingFromInput(input) {
+            const id = input.id;
+            const value = input.type === 'checkbox' ? input.checked : input.value;
+            
+            // Mapeia o input para a configuração correspondente
+            if (id.startsWith('shift-duration')) return; // Já tratado
+            if (id.startsWith('notification-')) {
+                settings.notifications[id.replace('notification-', '').replace(/-/g, '')] = value;
+            } else if (id in settings.general) {
+                settings.general[id] = id === 'dataRetention' ? parseInt(value) : value;
+            } else if (id in settings.appearance) {
+                settings.appearance[id] = value;
+            } else if (id in settings.notifications) {
+                settings.notifications[id] = value;
+            } else if (id in settings.integrations) {
+                settings.integrations[id] = value;
+            } else if (id in settings.security) {
+                settings.security[id] = id === 'sessionTimeout' ? parseInt(value) : value;
+            } else if (id in settings.backup) {
+                settings.backup[id] = id === 'backupRetention' ? parseInt(value) : value;
+            } else if (id in settings.api) {
+                settings.api[id] = id === 'apiPort' || id === 'apiRateLimit' ? parseInt(value) : value;
+            }
+
+            if (id === 'language') {
+                try {
+                    localStorage.setItem('rpc-settings', JSON.stringify(settings));
+                } catch (e) {}
+                if (window.rpcApplyRpcI18n) window.rpcApplyRpcI18n();
+            }
+        }
+
+        // Restaura configurações padrão
+        function resetSettings() {
+            settings = {
+                general: {
+                    companyName: 'RPC Industrial Ltda.',
+                    timezone: 'america-sao_paulo',
+                    language: 'pt-br',
+                    unitSystem: 'metric',
+                    shiftDuration: 8,
+                    autoClean: true,
+                    dataRetention: 90
+                },
+                appearance: {
+                    theme: 'dark',
+                    uiDensity: 'compact',
+                    animations: true
+                },
+                notifications: {
+                    machineAlerts: true,
+                    maintenanceNotifications: true,
+                    productionAlerts: true,
+                    systemNotifications: true,
+                    emailNotifications: false,
+                    smsNotifications: false,
+                    notificationEmail: 'admin@rpcindustrial.com',
+                    notificationFrequency: 'hourly'
+                },
+                integrations: {
+                    erpIntegration: true,
+                    mesIntegration: false,
+                    scadaIntegration: true,
+                    apiUrl: 'https://api.rpcindustrial.com/v1',
+                    apiKey: 'RPC_DEMO_KEY_NOT_REAL'
+                },
+                security: {
+                    twoFactorAuth: false,
+                    sessionTimeout: 30,
+                    lockoutEnabled: true,
+                    defaultAccessLevel: 'operator',
+                    auditLogging: true
+                },
+                backup: {
+                    autoBackup: true,
+                    backupFrequency: 'weekly',
+                    backupTime: '02:00',
+                    backupLocation: 'local',
+                    backupRetention: 30
+                },
+                api: {
+                    apiEnabled: true,
+                    apiPort: 8080,
+                    apiRateLimit: 100,
+                    apiDocsUrl: 'https://docs.rpcindustrial.com/api'
+                }
+            };
+            localStorage.removeItem('rpc-settings');
+        }
+
+        // Mostra notificação
+        function showNotification(message, type = 'info') {
+            // Remove notificações anteriores
+            const existingNotifications = document.querySelectorAll('.custom-notification');
+            existingNotifications.forEach(n => n.remove());
+            
+            // Cria nova notificação
+            const notification = document.createElement('div');
+            notification.className = 'custom-notification ' + type;
+            notification.innerHTML = 
+                '<div style="' +
+                'position: fixed;' +
+                'top: 100px;' +
+                'right: 25px;' +
+                'background: ' + (type === 'success' ? 'rgba(0, 230, 138, 0.9)' : 'rgba(94, 140, 255, 0.9)') + ';' +
+                'color: var(--bg-dark);' +
+                'padding: 15px 20px;' +
+                'border-radius: 10px;' +
+                'box-shadow: var(--shadow);' +
+                'z-index: 9999;' +
+                'animation: slideIn 0.3s ease;' +
+                '">' +
+                '<i class="fas fa-' + (type === 'success' ? 'check-circle' : 'info-circle') + '"></i>' +
+                ' ' + message +
+                '</div>';
+            
+            document.body.appendChild(notification);
+            
+            // Remove após 3 segundos
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Adiciona estilo para animação
+        const style = document.createElement('style');
+        style.textContent = 
+            '@keyframes slideIn {' +
+            '    from { transform: translateX(100%); opacity: 0; }' +
+            '    to { transform: translateX(0); opacity: 1; }' +
+            '}';
+        document.head.appendChild(style);
+    </script>
+
+    <footer class="rpc-footer">
+        <div class="rpc-footer-inner">
+            <span><i class="fas fa-industry"></i> <span data-i18n="footer.suite">RPC Industrial Suite</span> <span class="rpc-footer-sep">·</span> <span data-i18n="common.demo">Demo</span></span>
+            <span><i class="fas fa-user-circle"></i> <span data-i18n="common.visitor">visitante</span> <span class="rpc-footer-sep">·</span> <span data-i18n="common.operator">Operador</span></span>
+            <span><i class="fas fa-copyright"></i> <span data-i18n="footer.company">RP Caconde</span></span>
+        </div>
+    </footer>
+</body>
+</html>

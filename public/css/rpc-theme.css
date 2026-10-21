@@ -1,0 +1,292 @@
+/* Logo empresa (sem quadrado RPC) */
+.rpc-header-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+
+.rpc-footer {
+    border-top: 1px solid var(--border);
+    background: var(--bg-card);
+    padding: 14px 24px;
+    margin-left: 260px;
+    margin-top: auto;
+}
+
+@media (max-width: 768px) {
+    .rpc-footer {
+        margin-left: 0;
+    }
+}
+
+.rpc-footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.rpc-footer-inner i {
+    color: var(--primary);
+    margin-right: 6px;
+}
+
+.rpc-footer-sep {
+    opacity: 0.45;
+    padding: 0 4px;
+}
+
+/* ---------- Tema escuro (padrão do HTML inline :root) ---------- */
+html[data-rpc-theme="dark"] {
+    /* usa --primary / --accent já definidos em cada página */
+}
+
+/* ---------- Tema claro (painéis suaves, sem branco puro “estourado”) ---------- */
+html[data-rpc-theme="light"] {
+    --bg-dark: #c8d0e0;
+    --bg-card: #eef1f8;
+    --bg-light: #e0e5f0;
+    --text: #0f172a;
+    --text-muted: #5c6578;
+    --border: #c2c9d8;
+    --shadow: 0 6px 28px rgba(15, 23, 42, 0.08);
+    --primary: #00995c;
+    --secondary: #007a4a;
+    --accent: #2563eb;
+    --warning: #c2410c;
+    --danger: #dc2626;
+    --success: #15803d;
+}
+
+html[data-rpc-theme="light"] body {
+    color: var(--text);
+    background: linear-gradient(165deg, #d2dae8 0%, #c5cedf 40%, #bcc7db 100%) fixed;
+}
+
+html[data-rpc-theme="light"] .header {
+    background: linear-gradient(135deg, #fbfcff 0%, #f0f3fa 55%, #e6eaf5 100%) !important;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.1) !important;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
+}
+
+html[data-rpc-theme="light"] .sidebar {
+    background: linear-gradient(180deg, #f4f6fb 0%, #e9edf6 100%) !important;
+    border-right: 1px solid rgba(15, 23, 42, 0.1) !important;
+}
+
+html[data-rpc-theme="light"] .main-content {
+    background: transparent;
+}
+
+/* Remove o gradiente escuro (#1a1a25) dos cards do layout demo */
+html[data-rpc-theme="light"] .card,
+html[data-rpc-theme="light"] .kpi-card,
+html[data-rpc-theme="light"] .stat-card,
+html[data-rpc-theme="light"] .settings-card,
+html[data-rpc-theme="light"] .orders-table-container,
+html[data-rpc-theme="light"] .production-calendar,
+html[data-rpc-theme="light"] .settings-layout,
+html[data-rpc-theme="light"] .settings-sidebar,
+html[data-rpc-theme="light"] .settings-content {
+    background: linear-gradient(160deg, #ffffff 0%, #f6f8fd 38%, #eef2fa 100%) !important;
+    border: 1px solid rgba(15, 23, 42, 0.09) !important;
+    box-shadow:
+        0 4px 22px rgba(15, 23, 42, 0.07),
+        0 1px 3px rgba(15, 23, 42, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+html[data-rpc-theme="light"] .machine-card,
+html[data-rpc-theme="light"] .chart-panel,
+html[data-rpc-theme="light"] .detail-panel {
+    background: linear-gradient(160deg, #ffffff 0%, #f6f8fd 38%, #eef2fa 100%) !important;
+    border: 1px solid rgba(15, 23, 42, 0.09) !important;
+    box-shadow:
+        0 4px 22px rgba(15, 23, 42, 0.07),
+        0 1px 3px rgba(15, 23, 42, 0.04) !important;
+}
+
+html[data-rpc-theme="light"] .machine-card:hover {
+    box-shadow: 0 14px 40px rgba(15, 23, 42, 0.11) !important;
+}
+
+html[data-rpc-theme="light"] .card:hover,
+html[data-rpc-theme="light"] .stat-card:hover,
+html[data-rpc-theme="light"] .kpi-card:hover {
+    box-shadow:
+        0 14px 40px rgba(15, 23, 42, 0.11),
+        0 2px 6px rgba(15, 23, 42, 0.05) !important;
+}
+
+html[data-rpc-theme="light"] .dashboard-title h2 {
+    background: linear-gradient(90deg, #0f172a 0%, #0f172a 55%, var(--primary) 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+}
+
+html[data-rpc-theme="light"] .nav-item:hover {
+    background: rgba(15, 23, 42, 0.06) !important;
+    color: var(--text) !important;
+}
+
+html[data-rpc-theme="light"] .nav-item.active {
+    background: rgba(0, 153, 92, 0.12) !important;
+}
+
+html[data-rpc-theme="light"] .demo-alert {
+    background: linear-gradient(90deg, rgba(255, 237, 213, 0.95), rgba(254, 243, 199, 0.75)) !important;
+    border: 1px solid rgba(217, 119, 6, 0.28) !important;
+    border-left: 4px solid var(--warning) !important;
+}
+
+html[data-rpc-theme="light"] .action-btn:not(.primary) {
+    background: linear-gradient(180deg, #ffffff, #f4f6fb) !important;
+    border: 1px solid rgba(15, 23, 42, 0.12) !important;
+    color: var(--text) !important;
+}
+
+html[data-rpc-theme="light"] .action-btn:not(.primary):hover {
+    background: var(--bg-light) !important;
+}
+
+html[data-rpc-theme="light"] .tab {
+    background: rgba(255, 255, 255, 0.65) !important;
+    border: 1px solid rgba(15, 23, 42, 0.08) !important;
+    color: var(--text-muted) !important;
+}
+
+html[data-rpc-theme="light"] .tab.active {
+    background: rgba(0, 153, 92, 0.14) !important;
+    color: var(--primary) !important;
+    border-color: rgba(0, 153, 92, 0.35) !important;
+}
+
+html[data-rpc-theme="light"] .orders-table th,
+html[data-rpc-theme="light"] .orders-table thead {
+    background: linear-gradient(180deg, #e8ecf6, #dfe5f0) !important;
+    color: var(--text) !important;
+}
+
+html[data-rpc-theme="light"] .orders-table td {
+    border-color: rgba(15, 23, 42, 0.06) !important;
+}
+
+html[data-rpc-theme="light"] .orders-table tr:hover {
+    background: rgba(37, 99, 235, 0.05) !important;
+}
+
+html[data-rpc-theme="light"] .modal-content {
+    background: linear-gradient(180deg, #ffffff 0%, #f3f5fb 100%) !important;
+    border: 1px solid rgba(15, 23, 42, 0.12) !important;
+    box-shadow: 0 24px 64px rgba(15, 23, 42, 0.18) !important;
+}
+
+html[data-rpc-theme="light"] .form-control {
+    background: #ffffff !important;
+    border-color: rgba(15, 23, 42, 0.14) !important;
+    color: var(--text) !important;
+}
+
+html[data-rpc-theme="light"] .rpc-footer {
+    background: linear-gradient(180deg, #e9edf6, #e2e7f2) !important;
+    border-top-color: rgba(15, 23, 42, 0.1) !important;
+}
+
+html[data-rpc-theme="light"] .rpc-theme-pick:hover {
+    background: rgba(15, 23, 42, 0.05);
+}
+
+html[data-rpc-theme="light"] .rpc-theme-pick.active {
+    background: rgba(0, 153, 92, 0.1);
+}
+
+/* Monitoramento — planta do galpão no tema claro */
+html[data-rpc-theme="light"] .plant-map-viewport {
+    background: #e8ecf4 !important;
+}
+
+html[data-rpc-theme="light"] .plant-floor {
+    background-color: #dde2ec !important;
+    border-color: #b8c0d4 !important;
+    box-shadow: inset 0 0 60px rgba(15, 23, 42, 0.06) !important;
+}
+
+html[data-rpc-theme="light"] .floor-zone-label {
+    color: rgba(15, 23, 42, 0.28) !important;
+}
+
+html[data-rpc-theme="light"] .galpao-door::after {
+    color: rgba(15, 23, 42, 0.35) !important;
+}
+
+/* ---------- Terceira paleta (azul / industrial) ---------- */
+html[data-rpc-theme="ocean"] {
+    --bg-dark: #0a0f18;
+    --bg-card: #111b2e;
+    --bg-light: #162540;
+    --text: #e8f0ff;
+    --text-muted: #8ba3c4;
+    --border: #243044;
+    --shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    --primary: #38bdf8;
+    --secondary: #0ea5e9;
+    --accent: #818cf8;
+    --warning: #fbbf24;
+    --danger: #f87171;
+    --success: #34d399;
+}
+
+/* Seletor de tema na página Configurações */
+.rpc-theme-picks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.rpc-theme-pick {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 12px;
+    border: 2px solid transparent;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.rpc-theme-pick:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.rpc-theme-pick.active {
+    border-color: var(--primary);
+    background: rgba(0, 230, 138, 0.08);
+}
+
+.rpc-theme-swatch {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    border: 2px solid var(--border);
+    box-shadow: var(--shadow);
+}
+
+.rpc-theme-pick span {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-align: center;
+    max-width: 100px;
+}
+
+.rpc-theme-pick.active span {
+    color: var(--primary);
+    font-weight: 600;
+}

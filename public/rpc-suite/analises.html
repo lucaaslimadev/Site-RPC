@@ -1,0 +1,2676 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>RPC Industrial Suite - Análises</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/fontawesome-all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+     <link rel="icon" type="image/x-icon" href="/images/icon.svg">
+    <script src="/js/chart.min.js"></script>
+       <style>
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: #15151e;
+            --bg-light: #1e1e2b;
+            --primary: #00e68a;
+            --secondary: #00cc77;
+            --accent: #5e8cff;
+            --warning: #ffb020;
+            --danger: #ff5252;
+            --success: #00d68f;
+            --info: #17a2b8;
+            --text: #f5f5f7;
+            --text-muted: #a0a0b0;
+            --border: #2a2a3a;
+            --shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--bg-card) 0%, #1a1a25 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--bg-dark);
+        }
+
+        .logo h1 {
+            font-size: 22px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .demo-badge {
+            background: rgba(0, 230, 138, 0.1);
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            border: 1px solid rgba(0, 230, 138, 0.2);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .notifications {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--danger);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--bg-dark);
+        }
+
+        .logout-btn {
+            padding: 8px 20px;
+            background: rgba(255, 82, 82, 0.1);
+            border: 1px solid rgba(255, 82, 82, 0.3);
+            color: var(--danger);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 82, 82, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 70px;
+            width: 260px;
+            height: calc(100vh - 70px);
+            background: var(--bg-card);
+            border-right: 1px solid var(--border);
+            padding: 20px 0;
+            overflow-y: auto;
+            transition: width 0.3s ease;
+        }
+
+        .nav-section {
+            margin-bottom: 25px;
+        }
+
+        .nav-section-title {
+            padding: 0 20px 10px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 10px;
+        }
+
+        .nav-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-left: 3px solid transparent;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            padding-left: 25px;
+        }
+
+        .nav-item.active {
+            background: rgba(0, 230, 138, 0.1);
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+
+        .nav-text {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-badge {
+            margin-left: auto;
+            background: var(--accent);
+            color: white;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 260px;
+            margin-top: 70px;
+            padding: 25px;
+            min-height: calc(100vh - 70px);
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Alert */
+        .demo-alert {
+            background: rgba(255, 176, 32, 0.1);
+            border-left: 4px solid var(--warning);
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 176, 32, 0.2);
+        }
+
+        .demo-alert i {
+            font-size: 24px;
+            color: var(--warning);
+        }
+
+        /* Dashboard Header */
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-title h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            background: linear-gradient(90deg, var(--text), #ffffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .dashboard-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .action-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 14px;
+        }
+
+        .action-btn:hover {
+            background: var(--bg-light);
+            transform: translateY(-2px);
+        }
+
+        .action-btn.primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--bg-dark);
+            border: none;
+            font-weight: 600;
+        }
+
+        /* Grid System */
+        .grid {
+            display: grid;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .grid-4 { grid-template-columns: repeat(4, 1fr); }
+        .grid-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-1 { grid-template-columns: 1fr; }
+
+        /* Cards */
+        .card {
+            background: linear-gradient(135deg, var(--bg-card) 0%, #1a1a25 100%);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .card-action-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: var(--bg-light);
+            border: none;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .card-action-btn:hover {
+            background: var(--border);
+            color: var(--text);
+        }
+
+        /* KPI Cards */
+        .kpi-card {
+            text-align: center;
+            padding: 25px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        .kpi-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: rgba(0, 230, 138, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 24px;
+            color: var(--primary);
+        }
+
+        .kpi-value {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 10px 0;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .kpi-label {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .kpi-detail {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 10px;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .tab:hover {
+            color: var(--text);
+        }
+
+        .tab.active {
+            color: var(--primary);
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px 3px 0 0;
+        }
+
+        /* Cards de Análise */
+        .analysis-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .analysis-card {
+            background: linear-gradient(135deg, var(--bg-card) 0%, #1a1a25 100%);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .analysis-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .analysis-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(0, 230, 138, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .analysis-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .analysis-description {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        .analysis-metrics {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 12px;
+            background: var(--bg-light);
+            border-radius: 10px;
+        }
+
+        .metric-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .metric-change {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .change-positive { background: rgba(0, 230, 138, 0.2); color: var(--success); }
+        .change-negative { background: rgba(255, 82, 82, 0.2); color: var(--danger); }
+        .change-neutral { background: rgba(160, 160, 176, 0.2); color: var(--text-muted); }
+
+        .analysis-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        /* Insights Container */
+        .insights-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        .insight-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: var(--bg-light);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            transition: var(--transition);
+        }
+
+        .insight-card:hover {
+            background: rgba(0, 230, 138, 0.05);
+            transform: translateX(5px);
+        }
+
+        .insight-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+            background: rgba(0, 230, 138, 0.1);
+            color: var(--primary);
+        }
+
+        .insight-content {
+            flex: 1;
+        }
+
+        .insight-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .insight-description {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .insight-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Heatmap */
+        .heatmap-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 25px;
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+
+        .heatmap {
+            display: inline-block;
+            border-collapse: collapse;
+        }
+
+        .heatmap-cell {
+            width: 30px;
+            height: 30px;
+            border: 1px solid var(--border);
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .heatmap-cell:hover {
+            transform: scale(1.1);
+            z-index: 10;
+            box-shadow: 0 0 10px rgba(0, 230, 138, 0.3);
+        }
+
+        .heatmap-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .heatmap-cell:hover .heatmap-tooltip {
+            opacity: 1;
+        }
+
+        /* Modal de Análise Detalhada */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 10, 15, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+            display: none;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-header {
+            padding: 25px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: var(--bg-light);
+            border: none;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background: var(--border);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Badges */
+        .badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-success { background: rgba(0, 230, 138, 0.2); color: var(--success); }
+        .badge-warning { background: rgba(255, 176, 32, 0.2); color: var(--warning); }
+        .badge-danger { background: rgba(255, 82, 82, 0.2); color: var(--danger); }
+        .badge-info { background: rgba(94, 140, 255, 0.2); color: var(--accent); }
+        .badge-primary { background: rgba(0, 230, 138, 0.2); color: var(--primary); }
+
+        /* Animações */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .pulsing {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 5px var(--primary); }
+            50% { box-shadow: 0 0 20px var(--primary); }
+        }
+
+        .glowing {
+            animation: glow 2s infinite;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+
+        /* Responsivo */
+        @media (max-width: 1200px) {
+            .analysis-cards {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+            
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 70px;
+                overflow: hidden;
+            }
+            
+            .sidebar .nav-text,
+            .sidebar .nav-section-title,
+            .sidebar .nav-badge {
+                display: none;
+            }
+            
+            .main-content {
+                margin-left: 70px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .analysis-cards {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid-4,
+            .grid-3,
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .dashboard-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .user-info {
+                gap: 10px;
+            }
+            
+            .user-profile .username {
+                display: none;
+            }
+            
+            .analysis-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            
+            .heatmap-container {
+                padding: 15px;
+                overflow-x: auto;
+            }
+            
+            .heatmap-cell {
+                width: 25px;
+                height: 25px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="/css/rpc-theme.css">
+    <script src="/js/rpc-theme.js"></script>
+    <script src="/js/rpc-i18n.js" defer></script>
+</head>
+<body data-rpc-i18n-title="title.doc.analytics">
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <img src="/images/icon.svg" alt="RP Caconde" class="rpc-header-logo">
+            <div>
+                <h1>RPC Industrial Suite</h1>
+                <div class="demo-badge" data-i18n="common.demo">DEMO</div>
+            </div>
+        </div>
+        
+        <div class="user-info">
+            <div class="notifications">
+                <i class="fas fa-bell" style="font-size: 20px; color: var(--text-muted);"></i>
+                <div class="notification-badge" id="notification-count">3</div>
+            </div>
+            
+            <div class="user-profile">
+                <div class="avatar">V</div>
+                <div>
+                    <div style="font-weight: bold" data-i18n="common.visitor">visitante</div>
+                    <div style="font-size: 12px; color: var(--text-muted)" data-i18n="common.operator">Operador</div>
+                </div>
+            </div>
+            
+            <a href="/" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> <span data-i18n="common.backToSite">Voltar ao site</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+      <nav class="sidebar">
+        <div class="nav-section">
+            <div class="nav-section-title" data-i18n="nav.section.main">Principal</div>
+            <a href="/rpc-dashboard" class="nav-item">
+                <i class="fas fa-chart-line"></i>
+                <span class="nav-text" data-i18n="nav.dashboard">Dashboard</span>
+            </a>
+            <a href="/rpc-suite/monitoramento.html" class="nav-item">
+                <i class="fas fa-industry"></i>
+                <span class="nav-text" data-i18n="nav.monitoring">Monitoramento</span>
+                <span class="nav-badge">6</span>
+            </a>
+            <a href="/rpc-suite/ordens.html" class="nav-item">
+                <i class="fas fa-clipboard-list"></i>
+                <span class="nav-text" data-i18n="nav.orders">Ordens de Produção</span>
+                <span class="nav-badge">5</span>
+            </a>
+            <a href="/rpc-suite/manutencao.html" class="nav-item">
+                <i class="fas fa-tools"></i>
+                <span class="nav-text" data-i18n="nav.maintenance">Manutenção</span>
+                <span class="nav-badge">7</span>
+            </a>
+        </div>
+        
+        <div class="nav-section">
+            <div class="nav-section-title" data-i18n="nav.section.analytics">Analytics</div>
+            <a href="/rpc-suite/relatorios.html" class="nav-item">
+                <i class="fas fa-chart-bar"></i>
+                <span class="nav-text" data-i18n="nav.reports">Relatórios</span>
+            </a>
+            <a href="/rpc-suite/energia.html" class="nav-item">
+                <i class="fas fa-bolt"></i>
+                <span class="nav-text" data-i18n="nav.energy">Energia</span>
+            </a>
+            <a href="/rpc-suite/estoque.html" class="nav-item">
+                <i class="fas fa-boxes"></i>
+                <span class="nav-text" data-i18n="nav.stock">Estoque</span>
+            </a>
+            <a href="/rpc-suite/analises.html" class="nav-item active">
+                <i class="fas fa-chart-pie"></i>
+                <span class="nav-text" data-i18n="nav.analytics">Análises</span>
+            </a>
+        </div>
+        
+        <div class="nav-section">
+            <div class="nav-section-title" data-i18n="nav.section.system">Sistema</div>
+            <a href="/rpc-suite/configuracoes.html" class="nav-item">
+                <i class="fas fa-cog"></i>
+                <span class="nav-text" data-i18n="nav.settings">Configurações</span>
+            </a>
+            <a href="/rpc-suite/usuarios.html" class="nav-item">
+                <i class="fas fa-users"></i>
+                <span class="nav-text" data-i18n="nav.users">Usuários</span>
+            </a>
+            <a href="/rpc-suite/historico.html" class="nav-item">
+                <i class="fas fa-history"></i>
+                <span class="nav-text" data-i18n="nav.history">Histórico</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Alert -->
+        <div class="demo-alert fade-in">
+            <i class="fas fa-chart-pie"></i>
+            <div>
+                <strong>📈 ANÁLISE PREDITIVA E DIAGNÓSTICA</strong><br>
+                Machine Learning, correlações avançadas e insights inteligentes para tomada de decisão.
+            </div>
+        </div>
+
+        <!-- Page Header -->
+        <div class="dashboard-header">
+            <div class="dashboard-title">
+                <h2>Análises Avançadas</h2>
+                <div style="color: var(--text-muted); font-size: 14px;">
+                    <i class="fas fa-brain"></i> 5 Modelos Ativos | 
+                    <i class="fas fa-clock"></i> Última análise: <span id="last-update">--:--</span>
+                </div>
+            </div>
+            
+            <div class="dashboard-actions">
+                <button class="action-btn" id="run-analysis-btn">
+                    <i class="fas fa-play"></i> Executar Análise
+                </button>
+                <button class="action-btn" id="train-models-btn">
+                    <i class="fas fa-robot"></i> Treinar Modelos
+                </button>
+                <button class="action-btn primary" id="new-analysis-btn">
+                    <i class="fas fa-plus"></i> Nova Análise
+                </button>
+            </div>
+        </div>
+
+        <!-- KPIs -->
+        <div class="grid grid-4 fade-in">
+            <div class="card kpi-card">
+                <div class="kpi-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="kpi-value" id="accuracy-score">94.2%</div>
+                <div class="kpi-label">Precisão dos Modelos</div>
+                <div class="kpi-detail">+2.1% vs última semana</div>
+            </div>
+            
+            <div class="card kpi-card">
+                <div class="kpi-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="kpi-value" id="predictions-made">2.4k</div>
+                <div class="kpi-label">Previsões Realizadas</div>
+                <div class="kpi-detail">Hoje</div>
+            </div>
+            
+            <div class="card kpi-card">
+                <div class="kpi-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <div class="kpi-value" id="insights-found">18</div>
+                <div class="kpi-label">Insights Detectados</div>
+                <div class="kpi-detail">7 críticos</div>
+            </div>
+            
+            <div class="card kpi-card">
+                <div class="kpi-icon">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <div class="kpi-value" id="processing-time">0.8s</div>
+                <div class="kpi-label">Tempo Médio</div>
+                <div class="kpi-detail">Por análise</div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" data-tab="all">Todas (5)</button>
+            <button class="tab" data-tab="predictive">Preditivas (2)</button>
+            <button class="tab" data-tab="diagnostic">Diagnósticas (1)</button>
+            <button class="tab" data-tab="correlation">Correlações (1)</button>
+            <button class="tab" data-tab="cluster">Clusterização (1)</button>
+        </div>
+
+        <!-- Cards de Análise -->
+        <div class="analysis-cards" id="analysis-cards">
+            <!-- Análises serão renderizadas via JavaScript -->
+        </div>
+
+        <!-- Gráficos Avançados -->
+        <div class="grid grid-2">
+            <div class="card fade-in">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-project-diagram"></i> Correlações Entre Variáveis
+                    </div>
+                    <div class="card-actions">
+                        <button class="card-action-btn" title="Configurar">
+                            <i class="fas fa-cog"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="chart-container" style="height: 300px;">
+                    <canvas id="correlation-matrix-chart"></canvas>
+                </div>
+            </div>
+            
+            <div class="card fade-in">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-sitemap"></i> Clusterização de Dados
+                    </div>
+                    <div class="card-actions">
+                        <button class="card-action-btn" title="Exportar">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="chart-container" style="height: 300px;">
+                    <canvas id="clustering-chart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Heatmap de Atividade -->
+        <div class="heatmap-container fade-in">
+            <div class="card-header">
+                <div class="card-title">
+                    <i class="fas fa-th"></i> Heatmap de Anomalias
+                </div>
+                <div class="card-actions">
+                    <button class="card-action-btn" title="Ajustar Escala">
+                        <i class="fas fa-sliders-h"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="anomaly-heatmap">
+                <!-- Heatmap será renderizado via JavaScript -->
+            </div>
+            <div style="margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 20px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 20px; height: 20px; background: rgba(0, 230, 138, 0.8); border-radius: 4px;"></div>
+                    <span style="font-size: 12px;">Normal</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 20px; height: 20px; background: rgba(255, 176, 32, 0.8); border-radius: 4px;"></div>
+                    <span style="font-size: 12px;">Atenção</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 20px; height: 20px; background: rgba(255, 82, 82, 0.8); border-radius: 4px;"></div>
+                    <span style="font-size: 12px;">Crítico</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Insights Detectados -->
+        <div class="insights-container fade-in">
+            <div class="card-header" style="background: transparent; border: none; padding: 0; margin-bottom: 20px;">
+                <div class="card-title">
+                    <i class="fas fa-lightbulb"></i> Insights Detectados
+                </div>
+                <div class="card-actions">
+                    <button class="card-action-btn" title="Marcar Todos como Lidos">
+                        <i class="fas fa-check-double"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div id="insights-list">
+                <!-- Insights serão renderizados via JavaScript -->
+            </div>
+        </div>
+
+        <!-- Tabela de Correlações -->
+        <div class="card fade-in">
+            <div class="card-header">
+                <div class="card-title">
+                    <i class="fas fa-link"></i> Correlações Fortes Detectadas
+                </div>
+                <div class="card-actions">
+                    <button class="card-action-btn" title="Atualizar">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th style="text-align: left; padding: 16px; background: var(--bg-light); color: var(--text-muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid var(--border);">Variável 1</th>
+                            <th style="text-align: left; padding: 16px; background: var(--bg-light); color: var(--text-muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid var(--border);">Variável 2</th>
+                            <th style="text-align: left; padding: 16px; background: var(--bg-light); color: var(--text-muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid var(--border);">Correlação</th>
+                            <th style="text-align: left; padding: 16px; background: var(--bg-light); color: var(--text-muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid var(--border);">Força</th>
+                            <th style="text-align: left; padding: 16px; background: var(--bg-light); color: var(--text-muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid var(--border);">Significância</th>
+                        </tr>
+                    </thead>
+                    <tbody id="correlations-table-body">
+                        <!-- Correlações serão renderizadas via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Nova Análise -->
+    <div class="modal-overlay" id="new-analysis-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 style="font-size: 22px;">
+                    <i class="fas fa-plus-circle"></i> Configurar Nova Análise
+                </h3>
+                <button class="modal-close" id="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label" for="analysis-name">
+                        <i class="fas fa-tag"></i> Nome da Análise *
+                    </label>
+                    <input type="text" class="form-control" id="analysis-name" placeholder="Ex: Previsão de Falhas em Motores">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="analysis-type">
+                            <i class="fas fa-folder"></i> Tipo de Análise *
+                        </label>
+                        <select class="form-control" id="analysis-type">
+                            <option value="">Selecione um tipo</option>
+                            <option value="predictive">Análise Preditiva</option>
+                            <option value="diagnostic">Análise Diagnóstica</option>
+                            <option value="correlation">Análise de Correlação</option>
+                            <option value="cluster">Análise de Clusterização</option>
+                            <option value="regression">Análise de Regressão</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="analysis-algorithm">
+                            <i class="fas fa-cogs"></i> Algoritmo *
+                        </label>
+                        <select class="form-control" id="analysis-algorithm">
+                            <option value="random_forest">Random Forest</option>
+                            <option value="gradient_boosting">Gradient Boosting</option>
+                            <option value="neural_network">Rede Neural</option>
+                            <option value="kmeans">K-Means</option>
+                            <option value="pca">PCA</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-filter"></i> Variáveis de Entrada
+                    </label>
+                    <div style="background: var(--bg-light); padding: 15px; border-radius: 10px; margin-top: 10px;">
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; max-height: 200px; overflow-y: auto;">
+                            <label style="display: flex; align-items: center; gap: 8px;">
+                                <input type="checkbox" id="var-production" checked>
+                                <span style="font-size: 14px;">Dados de Produção</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px;">
+                                <input type="checkbox" id="var-energy">
+                                <span style="font-size: 14px;">Dados de Energia</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px;">
+                                <input type="checkbox" id="var-quality">
+                                <span style="font-size: 14px;">Dados de Qualidade</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px;">
+                                <input type="checkbox" id="var-maintenance">
+                                <span style="font-size: 14px;">Dados de Manutenção</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px;">
+                                <input type="checkbox" id="var-environment">
+                                <span style="font-size: 14px;">Dados Ambientais</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px;">
+                                <input type="checkbox" id="var-operational">
+                                <span style="font-size: 14px;">Dados Operacionais</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="analysis-period">
+                            <i class="fas fa-calendar"></i> Período de Dados *
+                        </label>
+                        <select class="form-control" id="analysis-period">
+                            <option value="7days">Últimos 7 dias</option>
+                            <option value="30days" selected>Últimos 30 dias</option>
+                            <option value="90days">Últimos 90 dias</option>
+                            <option value="1year">Último ano</option>
+                            <option value="all">Todo histórico</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="analysis-frequency">
+                            <i class="fas fa-redo"></i> Frequência de Execução
+                        </label>
+                        <select class="form-control" id="analysis-frequency">
+                            <option value="once">Uma vez</option>
+                            <option value="daily">Diária</option>
+                            <option value="weekly">Semanal</option>
+                            <option value="monthly">Mensal</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="analysis-description">
+                        <i class="fas fa-sticky-note"></i> Descrição do Objetivo
+                    </label>
+                    <textarea class="form-control" id="analysis-description" rows="3" placeholder="Descreva o objetivo desta análise..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="analysis-threshold">
+                        <i class="fas fa-sliders-h"></i> Limiar de Confiança
+                    </label>
+                    <div style="display: flex; align-items: center; gap: 15px; margin-top: 10px;">
+                        <input type="range" id="analysis-threshold" min="50" max="100" value="85" style="flex: 1;">
+                        <span style="font-weight: 600; color: var(--analytics-primary);" id="threshold-value">85%</span>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button class="action-btn" id="cancel-analysis-btn">
+                        Cancelar
+                    </button>
+                    <button class="action-btn primary" id="run-analysis-modal-btn">
+                        <i class="fas fa-play"></i> Executar Análise
+                    </button>
+                    <button class="action-btn" id="save-analysis-btn">
+                        <i class="fas fa-save"></i> Salvar Configuração
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Detalhes da Análise -->
+    <div class="modal-overlay" id="analysis-details-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 style="font-size: 22px;" id="details-analysis-title">
+                    <i class="fas fa-info-circle"></i> Detalhes da Análise
+                </h3>
+                <button class="modal-close" id="details-modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="grid grid-2" style="margin-bottom: 20px;">
+                    <div class="card">
+                        <div class="card-title">
+                            <i class="fas fa-info-circle"></i> Informações
+                        </div>
+                        <div id="analysis-details-info">
+                            <!-- Informações serão preenchidas via JS -->
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-title">
+                            <i class="fas fa-chart-bar"></i> Métricas de Desempenho
+                        </div>
+                        <div id="analysis-performance-metrics">
+                            <!-- Métricas serão preenchidas via JS -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">
+                        <i class="fas fa-history"></i> Histórico de Execuções
+                    </div>
+                    <div style="height: 200px;">
+                        <canvas id="analysis-history-chart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="card" style="margin-top: 20px;">
+                    <div class="card-title">
+                        <i class="fas fa-lightbulb"></i> Principais Descobertas
+                    </div>
+                    <div id="analysis-findings">
+                        <!-- Descobertas serão preenchidas via JS -->
+                    </div>
+                </div>
+                
+                <div class="form-actions" style="margin-top: 25px;">
+                    <button class="action-btn" id="edit-analysis-btn">
+                        <i class="fas fa-edit"></i> Editar
+                    </button>
+                    <button class="action-btn primary" id="re-run-analysis-btn">
+                        <i class="fas fa-redo"></i> Reexecutar
+                    </button>
+                    <button class="action-btn" id="export-analysis-btn">
+                        <i class="fas fa-download"></i> Exportar
+                    </button>
+                    <button class="action-btn" style="background: rgba(255, 82, 82, 0.1); color: var(--danger);" id="delete-analysis-btn">
+                        <i class="fas fa-trash"></i> Excluir
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dados das análises
+        const analysesData = [
+            {
+                id: 'ANL-001',
+                name: 'Previsão de Falhas em Motores',
+                type: 'predictive',
+                description: 'ML para prever falhas em motores elétricos baseado em vibração e temperatura',
+                algorithm: 'Random Forest',
+                accuracy: 94.2,
+                predictions: 1250,
+                status: 'active',
+                lastRun: '07/12/2024 10:30',
+                nextRun: '08/12/2024 10:30',
+                variables: 8,
+                dataPoints: 125000,
+                confidence: 92.5,
+                change: '+2.1'
+            },
+            {
+                id: 'ANL-002',
+                name: 'Análise de Causa Raiz - Paradas',
+                type: 'diagnostic',
+                description: 'Identificação das principais causas de paradas não programadas',
+                algorithm: 'Gradient Boosting',
+                accuracy: 87.5,
+                predictions: 850,
+                status: 'active',
+                lastRun: '06/12/2024 15:45',
+                nextRun: '13/12/2024 15:45',
+                variables: 12,
+                dataPoints: 85000,
+                confidence: 85.2,
+                change: '+1.3'
+            },
+            {
+                id: 'ANL-003',
+                name: 'Correlação Energia x Produção',
+                type: 'correlation',
+                description: 'Relação entre consumo energético e produtividade por turno',
+                algorithm: 'PCA',
+                accuracy: 91.8,
+                predictions: 420,
+                status: 'completed',
+                lastRun: '05/12/2024 09:15',
+                nextRun: '12/12/2024 09:15',
+                variables: 6,
+                dataPoints: 42000,
+                confidence: 88.7,
+                change: '-0.5'
+            },
+            {
+                id: 'ANL-004',
+                name: 'Clusterização de Equipamentos',
+                type: 'cluster',
+                description: 'Agrupamento de máquinas por padrões de uso e manutenção',
+                algorithm: 'K-Means',
+                accuracy: 89.3,
+                predictions: 320,
+                status: 'training',
+                lastRun: '07/12/2024 08:00',
+                nextRun: '07/12/2024 14:00',
+                variables: 10,
+                dataPoints: 32000,
+                confidence: 86.4,
+                change: '+3.2'
+            },
+            {
+                id: 'ANL-005',
+                name: 'Previsão de Demanda',
+                type: 'predictive',
+                description: 'Previsão de demanda de produtos para otimização de estoque',
+                algorithm: 'Neural Network',
+                accuracy: 96.1,
+                predictions: 2100,
+                status: 'active',
+                lastRun: '07/12/2024 12:00',
+                nextRun: '08/12/2024 12:00',
+                variables: 15,
+                dataPoints: 210000,
+                confidence: 94.8,
+                change: '+1.8'
+            }
+        ];
+
+        // Insights detectados
+        const insightsData = [
+            {
+                id: 'INS-001',
+                title: 'Correlação forte entre temperatura e falhas',
+                description: 'Motores operando acima de 85°C têm 3.2x mais chances de falha',
+                type: 'correlation',
+                priority: 'high',
+                confidence: 94,
+                variables: ['Temperatura Motor', 'Taxa de Falhas'],
+                detectedAt: '07/12/2024 10:45'
+            },
+            {
+                id: 'INS-002',
+                title: 'Padrão sazonal detectado em consumo',
+                description: 'Consumo energético aumenta 15% nas 2ªs feiras',
+                type: 'pattern',
+                priority: 'medium',
+                confidence: 87,
+                variables: ['Consumo Energético', 'Dia da Semana'],
+                detectedAt: '06/12/2024 14:20'
+            },
+            {
+                id: 'INS-003',
+                title: 'Cluster de alto desempenho identificado',
+                description: '3 máquinas mostram eficiência 25% acima da média',
+                type: 'cluster',
+                priority: 'low',
+                confidence: 92,
+                variables: ['Eficiência', 'Tempo de Ciclo'],
+                detectedAt: '05/12/2024 11:30'
+            },
+            {
+                id: 'INS-004',
+                title: 'Anomalia detectada na linha 2',
+                description: 'Vibração anormal detectada no turno da noite',
+                type: 'anomaly',
+                priority: 'critical',
+                confidence: 96,
+                variables: ['Vibração', 'Turno'],
+                detectedAt: '07/12/2024 22:15'
+            }
+        ];
+
+        // Correlações detectadas
+        const correlationsData = [
+            { var1: 'Temperatura Motor', var2: 'Taxa de Falhas', correlation: 0.87, strength: 'Forte', significance: 'Alta' },
+            { var1: 'Consumo Energético', var2: 'Produção Total', correlation: 0.92, strength: 'Forte', significance: 'Alta' },
+            { var1: 'Vibração', var2: 'Ruído', correlation: 0.78, strength: 'Moderada', significance: 'Média' },
+            { var1: 'Umidade Ambiente', var2: 'Qualidade Produto', correlation: -0.65, strength: 'Moderada', significance: 'Média' },
+            { var1: 'Tempo de Ciclo', var2: 'Eficiência', correlation: -0.82, strength: 'Forte', significance: 'Alta' }
+        ];
+
+        // Histórico de análises
+        const analysisHistory = {
+            'ANL-001': [
+                { date: '07/12/2024', accuracy: 94.2, predictions: 1250 },
+                { date: '06/12/2024', accuracy: 93.8, predictions: 1200 },
+                { date: '05/12/2024', accuracy: 92.1, predictions: 1180 }
+            ]
+        };
+
+        // Variáveis globais
+        let currentTab = 'all';
+        let correlationChart = null;
+        let clusteringChart = null;
+        let historyChart = null;
+        let selectedAnalysisId = null;
+
+        // Funções de inicialização
+        function init() {
+            renderAnalysisCards();
+            renderInsights();
+            renderCorrelationsTable();
+            updateKPIs();
+            updateLastUpdate();
+            initCharts();
+            initHeatmap();
+            initEventListeners();
+        }
+
+        // Renderiza cards de análise
+        function renderAnalysisCards() {
+            const container = document.getElementById('analysis-cards');
+            container.innerHTML = '';
+            
+            const filteredAnalyses = filterAnalyses();
+            
+            filteredAnalyses.forEach(analysis => {
+                const card = createAnalysisCard(analysis);
+                container.appendChild(card);
+            });
+        }
+
+        // Filtra análises por tab
+        function filterAnalyses() {
+            let filtered = analysesData;
+            
+            if (currentTab !== 'all') {
+                filtered = filtered.filter(analysis => analysis.type === currentTab);
+            }
+            
+            return filtered;
+        }
+
+        // Cria um card de análise
+        function createAnalysisCard(analysis) {
+            const card = document.createElement('div');
+            card.className = 'analysis-card';
+            card.dataset.analysisId = analysis.id;
+            
+            const changeClass = parseFloat(analysis.change) >= 0 ? 'change-positive' : 'change-negative';
+            const changeSymbol = parseFloat(analysis.change) >= 0 ? '+' : '';
+            const typeText = getAnalysisTypeText(analysis.type);
+            const statusClass = 'badge-' + (analysis.status === 'active' ? 'success' : 
+                                          analysis.status === 'training' ? 'warning' : 'info');
+            
+            card.innerHTML = '<div class="analysis-icon">' +
+                                '<i class="' + getAnalysisIcon(analysis.type) + '"></i>' +
+                             '</div>' +
+                             '<div class="analysis-title">' + analysis.name + '</div>' +
+                             '<div class="analysis-description">' + analysis.description + '</div>' +
+                             '<div class="analysis-metrics">' +
+                                '<div>' +
+                                    '<div class="metric-value">' + analysis.accuracy + '%</div>' +
+                                    '<div class="metric-label">Precisão</div>' +
+                                '</div>' +
+                                '<div>' +
+                                    '<div class="metric-value">' + analysis.predictions.toLocaleString() + '</div>' +
+                                    '<div class="metric-label">Previsões</div>' +
+                                '</div>' +
+                                '<div>' +
+                                    '<span class="metric-change ' + changeClass + '">' + changeSymbol + analysis.change + '%</span>' +
+                                    '<div class="metric-label">Variação</div>' +
+                                '</div>' +
+                             '</div>' +
+                             '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">' +
+                                '<span class="badge ' + statusClass + '">' + 
+                                    (analysis.status === 'active' ? 'Ativo' : 
+                                     analysis.status === 'training' ? 'Treinando' : 'Concluído') + 
+                                '</span>' +
+                                '<span style="font-size: 12px; color: var(--text-muted);">' + typeText + '</span>' +
+                             '</div>' +
+                             '<div class="analysis-actions">' +
+                                '<button class="action-btn" data-analysis-id="' + analysis.id + '" data-action="view" style="flex: 1; padding: 8px;">' +
+                                    '<i class="fas fa-eye"></i> Detalhes' +
+                                '</button>' +
+                                '<button class="action-btn" data-analysis-id="' + analysis.id + '" data-action="run" style="flex: 1; padding: 8px;">' +
+                                    '<i class="fas fa-play"></i> Executar' +
+                                '</button>' +
+                             '</div>';
+            
+            return card;
+        }
+
+        // Renderiza insights
+        function renderInsights() {
+            const container = document.getElementById('insights-list');
+            container.innerHTML = '';
+            
+            insightsData.forEach(insight => {
+                const insightElement = createInsightElement(insight);
+                container.appendChild(insightElement);
+            });
+        }
+
+        // Cria elemento de insight
+        function createInsightElement(insight) {
+            const element = document.createElement('div');
+            element.className = 'insight-card';
+            
+            const priorityColor = getPriorityColor(insight.priority);
+            const priorityIcon = getPriorityIcon(insight.priority);
+            const typeText = getInsightTypeText(insight.type);
+            
+            element.innerHTML = '<div class="insight-icon" style="background: ' + priorityColor + '20; color: ' + priorityColor + ';">' +
+                                   '<i class="fas fa-' + priorityIcon + '"></i>' +
+                                '</div>' +
+                                '<div class="insight-content">' +
+                                   '<div class="insight-title">' + insight.title + '</div>' +
+                                   '<div class="insight-description">' + insight.description + '</div>' +
+                                   '<div class="insight-meta">' +
+                                       '<span><i class="fas fa-tag"></i> ' + typeText + '</span>' +
+                                       '<span><i class="fas fa-percentage"></i> ' + insight.confidence + '% confiança</span>' +
+                                       '<span><i class="fas fa-clock"></i> ' + insight.detectedAt + '</span>' +
+                                   '</div>' +
+                                '</div>' +
+                                '<button class="card-action-btn" data-insight-id="' + insight.id + '">' +
+                                   '<i class="fas fa-times"></i>' +
+                                '</button>';
+            
+            return element;
+        }
+
+        // Renderiza tabela de correlações
+        function renderCorrelationsTable() {
+            const tbody = document.getElementById('correlations-table-body');
+            tbody.innerHTML = '';
+            
+            correlationsData.forEach(correlation => {
+                const row = document.createElement('tr');
+                const strengthClass = correlation.strength === 'Forte' ? 'badge-danger' : 
+                                     correlation.strength === 'Moderada' ? 'badge-warning' : 'badge-info';
+                
+                row.innerHTML = '<td style="padding: 16px; border-bottom: 1px solid var(--border);">' + correlation.var1 + '</td>' +
+                               '<td style="padding: 16px; border-bottom: 1px solid var(--border);">' + correlation.var2 + '</td>' +
+                               '<td style="padding: 16px; border-bottom: 1px solid var(--border);">' + correlation.correlation.toFixed(2) + '</td>' +
+                               '<td style="padding: 16px; border-bottom: 1px solid var(--border);">' +
+                                   '<span class="badge ' + strengthClass + '">' + correlation.strength + '</span>' +
+                               '</td>' +
+                               '<td style="padding: 16px; border-bottom: 1px solid var(--border);">' + correlation.significance + '</td>';
+                
+                tbody.appendChild(row);
+            });
+        }
+
+        // Atualiza KPIs
+        function updateKPIs() {
+            // Calcula métricas agregadas
+            const totalAccuracy = analysesData.reduce((sum, a) => sum + a.accuracy, 0) / analysesData.length;
+            const totalPredictions = analysesData.reduce((sum, a) => sum + a.predictions, 0);
+            const criticalInsights = insightsData.filter(i => i.priority === 'critical').length;
+            
+            document.getElementById('accuracy-score').textContent = totalAccuracy.toFixed(1) + '%';
+            document.getElementById('predictions-made').textContent = (totalPredictions / 1000).toFixed(1) + 'k';
+            document.getElementById('insights-found').textContent = insightsData.length;
+            
+            // Atualiza tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                const tabType = tab.dataset.tab;
+                let count = 0;
+                
+                switch(tabType) {
+                    case 'all': count = analysesData.length; break;
+                    case 'predictive': count = analysesData.filter(a => a.type === 'predictive').length; break;
+                    case 'diagnostic': count = analysesData.filter(a => a.type === 'diagnostic').length; break;
+                    case 'correlation': count = analysesData.filter(a => a.type === 'correlation').length; break;
+                    case 'cluster': count = analysesData.filter(a => a.type === 'cluster').length; break;
+                }
+                
+                tab.textContent = tab.textContent.replace(/\(\d+\)/, '(' + count + ')');
+            });
+        }
+
+        // Atualiza timestamp
+        function updateLastUpdate() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('pt-BR', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+            document.getElementById('last-update').textContent = timeString;
+        }
+
+        // Inicializa gráficos
+        function initCharts() {
+            initCorrelationMatrixChart();
+            initClusteringChart();
+        }
+
+        function initCorrelationMatrixChart() {
+            const ctx = document.getElementById('correlation-matrix-chart').getContext('2d');
+            
+            // Dados simulados para matriz de correlação
+            const variables = ['Produção', 'Energia', 'Qualidade', 'Temperatura', 'Vibração', 'Pressão'];
+            const correlationData = [
+                [1.00, 0.92, 0.78, 0.65, 0.45, 0.32],
+                [0.92, 1.00, 0.85, 0.72, 0.58, 0.41],
+                [0.78, 0.85, 1.00, 0.89, 0.67, 0.52],
+                [0.65, 0.72, 0.89, 1.00, 0.82, 0.68],
+                [0.45, 0.58, 0.67, 0.82, 1.00, 0.91],
+                [0.32, 0.41, 0.52, 0.68, 0.91, 1.00]
+            ];
+            
+            // Cores baseadas nos valores de correlação
+            const dataPoints = [];
+            for (let i = 0; i < variables.length; i++) {
+                for (let j = 0; j < variables.length; j++) {
+                    dataPoints.push({
+                        x: j,
+                        y: i,
+                        r: Math.abs(correlationData[i][j]) * 8, // Tamanho baseado na correlação
+                        v: correlationData[i][j]
+                    });
+                }
+            }
+            
+            correlationChart = new Chart(ctx, {
+                type: 'bubble',
+                data: {
+                    datasets: [{
+                        label: 'Correlação',
+                        data: dataPoints,
+                        backgroundColor: function(context) {
+                            const value = context.dataset.data[context.dataIndex].v;
+                            const alpha = Math.abs(value) * 0.8;
+                            if (value >= 0) {
+                                return 'rgba(0, 230, 138, ' + alpha + ')';
+                            } else {
+                                return 'rgba(255, 82, 82, ' + alpha + ')';
+                            }
+                        },
+                        borderColor: function(context) {
+                            const value = context.dataset.data[context.dataIndex].v;
+                            return value >= 0 ? 'rgba(0, 230, 138, 1)' : 'rgba(255, 82, 82, 1)';
+                        },
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const point = context.raw;
+                                    return variables[point.y] + ' × ' + variables[point.x] + ': ' + point.v.toFixed(2);
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: 'rgba(255,255,255,0.7)',
+                                callback: function(value) {
+                                    return variables[value];
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(255,255,255,0.1)'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                color: 'rgba(255,255,255,0.7)',
+                                callback: function(value) {
+                                    return variables[value];
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(255,255,255,0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function initClusteringChart() {
+            const ctx = document.getElementById('clustering-chart').getContext('2d');
+            
+            // Dados simulados para clusterização
+            const cluster1 = Array.from({length: 30}, () => ({
+                x: Math.random() * 20 + 10,
+                y: Math.random() * 20 + 10
+            }));
+            
+            const cluster2 = Array.from({length: 25}, () => ({
+                x: Math.random() * 20 + 40,
+                y: Math.random() * 20 + 10
+            }));
+            
+            const cluster3 = Array.from({length: 20}, () => ({
+                x: Math.random() * 20 + 25,
+                y: Math.random() * 20 + 40
+            }));
+            
+            clusteringChart = new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [
+                        {
+                            label: 'Cluster 1',
+                            data: cluster1,
+                            backgroundColor: 'rgba(157, 78, 221, 0.6)',
+                            borderColor: 'rgba(157, 78, 221, 1)',
+                            borderWidth: 1,
+                            pointRadius: 6
+                        },
+                        {
+                            label: 'Cluster 2',
+                            data: cluster2,
+                            backgroundColor: 'rgba(0, 212, 255, 0.6)',
+                            borderColor: 'rgba(0, 212, 255, 1)',
+                            borderWidth: 1,
+                            pointRadius: 6
+                        },
+                        {
+                            label: 'Cluster 3',
+                            data: cluster3,
+                            backgroundColor: 'rgba(255, 176, 32, 0.6)',
+                            borderColor: 'rgba(255, 176, 32, 1)',
+                            borderWidth: 1,
+                            pointRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'rgba(255,255,255,0.7)'
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Feature 1',
+                                color: 'rgba(255,255,255,0.7)'
+                            },
+                            grid: {
+                                color: 'rgba(255,255,255,0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(255,255,255,0.7)'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Feature 2',
+                                color: 'rgba(255,255,255,0.7)'
+                            },
+                            grid: {
+                                color: 'rgba(255,255,255,0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(255,255,255,0.7)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Inicializa heatmap
+        function initHeatmap() {
+            const container = document.getElementById('anomaly-heatmap');
+            container.innerHTML = '';
+            
+            // Cria heatmap 7x24 (dias x horas)
+            const heatmap = document.createElement('table');
+            heatmap.className = 'heatmap';
+            
+            // Cabeçalho com horas
+            const headerRow = document.createElement('tr');
+            headerRow.innerHTML = '<td style="border: none; padding: 5px;"></td>';
+            for (let hour = 0; hour < 24; hour++) {
+                headerRow.innerHTML += '<td style="border: none; padding: 5px; text-align: center; font-size: 10px; color: var(--text-muted);">' + 
+                                       hour.toString().padStart(2, '0') + 'h</td>';
+            }
+            heatmap.appendChild(headerRow);
+            
+            // Dados dos dias
+            const days = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
+            
+            for (let day = 0; day < 7; day++) {
+                const row = document.createElement('tr');
+                
+                // Nome do dia
+                row.innerHTML = '<td style="border: none; padding: 5px; text-align: right; font-size: 10px; color: var(--text-muted);">' + 
+                               days[day] + '</td>';
+                
+                // Células do heatmap
+                for (let hour = 0; hour < 24; hour++) {
+                    const cell = document.createElement('td');
+                    cell.className = 'heatmap-cell';
+                    
+                    // Gera valor aleatório para demo
+                    let value;
+                    if (day < 5 && hour >= 8 && hour <= 18) {
+                        // Dias úteis, horário comercial: mais anomalias
+                        value = Math.random() * 100;
+                    } else {
+                        // Fins de semana e horários noturnos: menos anomalias
+                        value = Math.random() * 50;
+                    }
+                    
+                    // Define cor baseada no valor
+                    let color;
+                    if (value < 30) {
+                        color = 'rgba(0, 230, 138, 0.8)'; // Normal
+                    } else if (value < 70) {
+                        color = 'rgba(255, 176, 32, 0.8)'; // Atenção
+                    } else {
+                        color = 'rgba(255, 82, 82, 0.8)'; // Crítico
+                    }
+                    
+                    cell.style.backgroundColor = color;
+                    
+                    // Tooltip
+                    const tooltip = document.createElement('div');
+                    tooltip.className = 'heatmap-tooltip';
+                    tooltip.textContent = days[day] + ' ' + hour.toString().padStart(2, '0') + 'h: ' + value.toFixed(1) + '% anomalia';
+                    cell.appendChild(tooltip);
+                    
+                    // Adiciona evento de clique
+                    cell.addEventListener('click', function() {
+                        showHeatmapDetails(days[day], hour, value);
+                    });
+                    
+                    row.appendChild(cell);
+                }
+                
+                heatmap.appendChild(row);
+            }
+            
+            container.appendChild(heatmap);
+        }
+
+        // Inicializa event listeners
+        function initEventListeners() {
+            // Tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    currentTab = this.dataset.tab;
+                    renderAnalysisCards();
+                });
+            });
+            
+            // Botão nova análise
+            document.getElementById('new-analysis-btn').addEventListener('click', function() {
+                showNewAnalysisModal();
+            });
+            
+            // Botão executar análise
+            document.getElementById('run-analysis-btn').addEventListener('click', function() {
+                runQuickAnalysis();
+            });
+            
+            // Botão treinar modelos
+            document.getElementById('train-models-btn').addEventListener('click', function() {
+                trainModels();
+            });
+            
+            // Modal nova análise
+            document.getElementById('modal-close').addEventListener('click', function() {
+                document.getElementById('new-analysis-modal').classList.remove('active');
+            });
+            
+            document.getElementById('cancel-analysis-btn').addEventListener('click', function() {
+                document.getElementById('new-analysis-modal').classList.remove('active');
+            });
+            
+            document.getElementById('run-analysis-modal-btn').addEventListener('click', function() {
+                runNewAnalysis();
+            });
+            
+            // Slider de limiar
+            document.getElementById('analysis-threshold').addEventListener('input', function() {
+                document.getElementById('threshold-value').textContent = this.value + '%';
+            });
+            
+            // Modal detalhes da análise
+            document.getElementById('details-modal-close').addEventListener('click', function() {
+                document.getElementById('analysis-details-modal').classList.remove('active');
+            });
+            
+            // Event delegation para cards de análise
+            document.getElementById('analysis-cards').addEventListener('click', function(e) {
+                const btn = e.target.closest('.action-btn');
+                if (!btn) return;
+                
+                const analysisId = btn.dataset.analysisId;
+                const action = btn.dataset.action;
+                
+                handleAnalysisAction(analysisId, action);
+            });
+            
+            // Event delegation para insights
+            document.getElementById('insights-list').addEventListener('click', function(e) {
+                const btn = e.target.closest('.card-action-btn');
+                if (!btn) return;
+                
+                const insightId = btn.dataset.insightId;
+                dismissInsight(insightId);
+            });
+        }
+
+        // Mostra modal de nova análise
+        function showNewAnalysisModal() {
+            // Limpa campos
+            document.getElementById('analysis-name').value = '';
+            document.getElementById('analysis-type').value = '';
+            document.getElementById('analysis-algorithm').value = 'random_forest';
+            document.getElementById('analysis-period').value = '30days';
+            document.getElementById('analysis-frequency').value = 'daily';
+            document.getElementById('analysis-description').value = '';
+            document.getElementById('analysis-threshold').value = 85;
+            document.getElementById('threshold-value').textContent = '85%';
+            
+            // Reseta checkboxes
+            document.querySelectorAll('#new-analysis-modal input[type="checkbox"]').forEach(cb => {
+                cb.checked = cb.id === 'var-production';
+            });
+            
+            document.getElementById('new-analysis-modal').classList.add('active');
+        }
+
+        // Executa análise rápida
+        function runQuickAnalysis() {
+            alert('Executando análise rápida...\n\nAnálise em andamento. Os resultados serão atualizados em breve.');
+            
+            // Simula análise
+            setTimeout(() => {
+                // Adiciona nova análise
+                const newId = 'ANL-' + (analysesData.length + 1).toString().padStart(3, '0');
+                const newAnalysis = {
+                    id: newId,
+                    name: 'Análise Rápida ' + new Date().toLocaleDateString('pt-BR'),
+                    type: 'diagnostic',
+                    description: 'Análise rápida executada pelo usuário',
+                    algorithm: 'Random Forest',
+                    accuracy: 88.5 + Math.random() * 5,
+                    predictions: Math.floor(Math.random() * 500) + 200,
+                    status: 'completed',
+                    lastRun: new Date().toLocaleString('pt-BR'),
+                    nextRun: new Date(Date.now() + 24 * 60 * 60 * 1000).toLocaleString('pt-BR'),
+                    variables: Math.floor(Math.random() * 8) + 4,
+                    dataPoints: Math.floor(Math.random() * 50000) + 10000,
+                    confidence: 85 + Math.random() * 10,
+                    change: (Math.random() * 4 - 2).toFixed(1)
+                };
+                
+                analysesData.unshift(newAnalysis);
+                
+                // Adiciona novo insight
+                const newInsight = {
+                    id: 'INS-' + (insightsData.length + 1).toString().padStart(3, '0'),
+                    title: 'Novo padrão detectado na análise rápida',
+                    description: 'Correlação inesperada encontrada entre variáveis operacionais',
+                    type: 'correlation',
+                    priority: Math.random() > 0.5 ? 'medium' : 'low',
+                    confidence: 85 + Math.random() * 10,
+                    variables: ['Variável A', 'Variável B'],
+                    detectedAt: new Date().toLocaleString('pt-BR')
+                };
+                
+                insightsData.unshift(newInsight);
+                
+                // Atualiza interface
+                renderAnalysisCards();
+                renderInsights();
+                updateKPIs();
+                
+                // Notificação
+                document.getElementById('notification-count').textContent = 
+                    parseInt(document.getElementById('notification-count').textContent) + 1;
+                
+                const badge = document.getElementById('notification-count');
+                badge.classList.add('pulsing');
+                setTimeout(() => {
+                    badge.classList.remove('pulsing');
+                }, 2000);
+                
+                alert('Análise concluída!\n\n1 novo insight detectado.');
+                
+            }, 3000);
+        }
+
+        // Executa nova análise
+        function runNewAnalysis() {
+            const name = document.getElementById('analysis-name').value.trim();
+            const type = document.getElementById('analysis-type').value;
+            const algorithm = document.getElementById('analysis-algorithm').value;
+            const description = document.getElementById('analysis-description').value.trim();
+            
+            // Validação
+            if (!name) {
+                alert('Por favor, insira o nome da análise.');
+                return;
+            }
+            
+            if (!type) {
+                alert('Por favor, selecione o tipo de análise.');
+                return;
+            }
+            
+            // Cria nova análise
+            const newId = 'ANL-' + (analysesData.length + 1).toString().padStart(3, '0');
+            const newAnalysis = {
+                id: newId,
+                name: name,
+                type: type,
+                description: description || 'Análise configurada pelo usuário',
+                algorithm: getAlgorithmName(algorithm),
+                accuracy: 85 + Math.random() * 10,
+                predictions: Math.floor(Math.random() * 1000) + 500,
+                status: 'training',
+                lastRun: new Date().toLocaleString('pt-BR'),
+                nextRun: new Date(Date.now() + 24 * 60 * 60 * 1000).toLocaleString('pt-BR'),
+                variables: document.querySelectorAll('#new-analysis-modal input[type="checkbox"]:checked').length,
+                dataPoints: Math.floor(Math.random() * 100000) + 50000,
+                confidence: parseInt(document.getElementById('analysis-threshold').value),
+                change: '0.0'
+            };
+            
+            analysesData.unshift(newAnalysis);
+            
+            // Fecha modal
+            document.getElementById('new-analysis-modal').classList.remove('active');
+            
+            // Simula treinamento
+            simulateAnalysisTraining(newId);
+            
+            // Atualiza interface
+            renderAnalysisCards();
+            updateKPIs();
+            
+            alert('Análise em treinamento!\n\nSerá notificado quando o modelo estiver pronto.');
+        }
+
+        // Simula treinamento de análise
+        function simulateAnalysisTraining(analysisId) {
+            setTimeout(() => {
+                const analysis = analysesData.find(a => a.id === analysisId);
+                if (analysis) {
+                    analysis.status = 'active';
+                    analysis.accuracy = 85 + Math.random() * 10;
+                    analysis.change = (Math.random() * 3 - 1.5).toFixed(1);
+                    
+                    // Notificação
+                    document.getElementById('notification-count').textContent = 
+                        parseInt(document.getElementById('notification-count').textContent) + 1;
+                    
+                    // Renderiza novamente
+                    renderAnalysisCards();
+                    
+                    // Adiciona efeito
+                    const badge = document.getElementById('notification-count');
+                    badge.classList.add('pulsing');
+                    setTimeout(() => {
+                        badge.classList.remove('pulsing');
+                    }, 500);
+                }
+            }, 5000); // Simula 5 segundos de treinamento
+        }
+
+        // Treina modelos
+        function trainModels() {
+            alert('Iniciando treinamento de todos os modelos...\n\nEsta operação pode levar alguns minutos.');
+            
+            // Simula treinamento
+            setTimeout(() => {
+                analysesData.forEach(analysis => {
+                    if (analysis.status === 'active') {
+                        // Melhora a precisão
+                        analysis.accuracy = Math.min(98, analysis.accuracy + Math.random() * 2);
+                        analysis.change = '+' + (Math.random() * 2).toFixed(1);
+                    }
+                });
+                
+                renderAnalysisCards();
+                updateKPIs();
+                
+                alert('Treinamento concluído!\n\nPrecisão média melhorada em 1.2%.');
+            }, 4000);
+        }
+
+        // Mostra detalhes do heatmap
+        function showHeatmapDetails(day, hour, value) {
+            let status;
+            if (value < 30) status = 'Normal';
+            else if (value < 70) status = 'Atenção';
+            else status = 'Crítico';
+            
+            alert('Detalhes do Heatmap:\n\n' +
+                  'Dia: ' + day + '\n' +
+                  'Hora: ' + hour.toString().padStart(2, '0') + 'h\n' +
+                  'Nível de Anomalia: ' + value.toFixed(1) + '%\n' +
+                  'Status: ' + status + '\n\n' +
+                  'Recomendação: ' + getHeatmapRecommendation(value));
+        }
+
+        // Retorna recomendação baseada no valor do heatmap
+        function getHeatmapRecommendation(value) {
+            if (value < 30) {
+                return 'Operação normal. Nenhuma ação necessária.';
+            } else if (value < 70) {
+                return 'Monitorar parâmetros. Verificar logs do sistema.';
+            } else {
+                return 'Investigar imediatamente. Possível falha iminente.';
+            }
+        }
+
+        // Manipula ações das análises
+        function handleAnalysisAction(analysisId, action) {
+            const analysis = analysesData.find(a => a.id === analysisId);
+            if (!analysis) return;
+            
+            selectedAnalysisId = analysisId;
+            
+            switch(action) {
+                case 'view':
+                    showAnalysisDetails(analysis);
+                    break;
+                case 'run':
+                    runSingleAnalysis(analysis);
+                    break;
+            }
+        }
+
+        // Mostra detalhes da análise
+        function showAnalysisDetails(analysis) {
+            document.getElementById('details-analysis-title').innerHTML = 
+                '<i class="fas fa-info-circle"></i> ' + analysis.name + ' (' + analysis.id + ')';
+            
+            // Preenche informações
+            const typeText = getAnalysisTypeText(analysis.type);
+            const algorithmText = getAlgorithmFullName(analysis.algorithm);
+            
+            document.getElementById('analysis-details-info').innerHTML = 
+                '<table style="width: 100%; font-size: 14px;">' +
+                    '<tr><td><strong>ID:</strong></td><td>' + analysis.id + '</td></tr>' +
+                    '<tr><td><strong>Tipo:</strong></td><td>' + typeText + '</td></tr>' +
+                    '<tr><td><strong>Algoritmo:</strong></td><td>' + algorithmText + '</td></tr>' +
+                    '<tr><td><strong>Status:</strong></td><td>' + 
+                        (analysis.status === 'active' ? 'Ativo' : 
+                         analysis.status === 'training' ? 'Treinando' : 'Concluído') + 
+                    '</td></tr>' +
+                    '<tr><td><strong>Variáveis:</strong></td><td>' + analysis.variables + '</td></tr>' +
+                    '<tr><td><strong>Pontos de Dados:</strong></td><td>' + analysis.dataPoints.toLocaleString() + '</td></tr>' +
+                    '<tr><td><strong>Última Execução:</strong></td><td>' + analysis.lastRun + '</td></tr>' +
+                    '<tr><td><strong>Próxima Execução:</strong></td><td>' + analysis.nextRun + '</td></tr>' +
+                '</table>' +
+                (analysis.description ? '<p style="margin-top: 15px; color: var(--text-muted);">' + analysis.description + '</p>' : '');
+            
+            // Preenche métricas de desempenho
+            document.getElementById('analysis-performance-metrics').innerHTML = 
+                '<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">' +
+                    '<div style="text-align: center; padding: 15px; background: var(--bg-light); border-radius: 10px;">' +
+                        '<div style="font-size: 24px; font-weight: 700; color: var(--analytics-primary);">' + analysis.accuracy + '%</div>' +
+                        '<div style="font-size: 12px; color: var(--text-muted);">Precisão</div>' +
+                    '</div>' +
+                    '<div style="text-align: center; padding: 15px; background: var(--bg-light); border-radius: 10px;">' +
+                        '<div style="font-size: 24px; font-weight: 700; color: var(--analytics-primary);">' + analysis.confidence + '%</div>' +
+                        '<div style="font-size: 12px; color: var(--text-muted);">Confiança</div>' +
+                    '</div>' +
+                    '<div style="text-align: center; padding: 15px; background: var(--bg-light); border-radius: 10px;">' +
+                        '<div style="font-size: 24px; font-weight: 700; color: var(--analytics-primary);">' + analysis.predictions.toLocaleString() + '</div>' +
+                        '<div style="font-size: 12px; color: var(--text-muted);">Previsões</div>' +
+                    '</div>' +
+                    '<div style="text-align: center; padding: 15px; background: var(--bg-light); border-radius: 10px;">' +
+                        '<div style="font-size: 24px; font-weight: 700; color: ' + (parseFloat(analysis.change) >= 0 ? 'var(--success)' : 'var(--danger)') + ';">' + 
+                            (parseFloat(analysis.change) >= 0 ? '+' : '') + analysis.change + '%' +
+                        '</div>' +
+                        '<div style="font-size: 12px; color: var(--text-muted);">Variação</div>' +
+                    '</div>' +
+                '</div>';
+            
+            // Cria gráfico de histórico
+            createAnalysisHistoryChart(analysis);
+            
+            // Preenche descobertas
+            createAnalysisFindings(analysis);
+            
+            // Mostra modal
+            document.getElementById('analysis-details-modal').classList.add('active');
+        }
+
+        // Cria gráfico de histórico da análise
+        function createAnalysisHistoryChart(analysis) {
+            const ctx = document.getElementById('analysis-history-chart').getContext('2d');
+            const history = analysisHistory[analysis.id] || [
+                { date: '05/12/2024', accuracy: analysis.accuracy - 2, predictions: analysis.predictions - 200 },
+                { date: '06/12/2024', accuracy: analysis.accuracy - 1, predictions: analysis.predictions - 100 },
+                { date: '07/12/2024', accuracy: analysis.accuracy, predictions: analysis.predictions }
+            ];
+            
+            if (historyChart) {
+                historyChart.destroy();
+            }
+            
+            historyChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: history.map(h => h.date),
+                    datasets: [
+                        {
+                            label: 'Precisão (%)',
+                            data: history.map(h => h.accuracy),
+                            borderColor: 'rgba(157, 78, 221, 1)',
+                            backgroundColor: 'rgba(157, 78, 221, 0.1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.4,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'Previsões',
+                            data: history.map(h => h.predictions),
+                            borderColor: 'rgba(0, 212, 255, 1)',
+                            backgroundColor: 'rgba(0, 212, 255, 0.1)',
+                            borderWidth: 2,
+                            fill: false,
+                            tension: 0.4,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'rgba(255,255,255,0.7)'
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                color: 'rgba(255,255,255,0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(255,255,255,0.7)'
+                            }
+                        },
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: 'Precisão (%)',
+                                color: 'rgba(255,255,255,0.7)'
+                            },
+                            grid: {
+                                color: 'rgba(255,255,255,0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(255,255,255,0.7)'
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: 'Previsões',
+                                color: 'rgba(255,255,255,0.7)'
+                            },
+                            grid: {
+                                drawOnChartArea: false
+                            },
+                            ticks: {
+                                color: 'rgba(255,255,255,0.7)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Cria descobertas da análise
+        function createAnalysisFindings(analysis) {
+            const container = document.getElementById('analysis-findings');
+            container.innerHTML = '';
+            
+            // Descobertas simuladas baseadas no tipo de análise
+            let findings = [];
+            
+            switch(analysis.type) {
+                case 'predictive':
+                    findings = [
+                        'Modelo identifica falhas com 3 horas de antecedência',
+                        'Temperatura é o principal preditor de falhas',
+                        'Precisão aumenta durante o turno da noite'
+                    ];
+                    break;
+                case 'diagnostic':
+                    findings = [
+                        '70% das paradas são causadas por 3 fatores principais',
+                        'Manutenção preventiva reduz paradas em 45%',
+                        'Falhas ocorrem em cadeia após primeira ocorrência'
+                    ];
+                    break;
+                case 'correlation':
+                    findings = [
+                        'Produção e energia têm correlação de 0.92',
+                        'Qualidade diminui com aumento da temperatura',
+                        'Pressão ótima identificada para máxima eficiência'
+                    ];
+                    break;
+                default:
+                    findings = [
+                        'Padrões claros identificados nos dados',
+                        'Modelo estável e consistente',
+                        'Boa generalização para novos dados'
+                    ];
+            }
+            
+            findings.forEach((finding, index) => {
+                const findingElement = document.createElement('div');
+                findingElement.className = 'insight-card';
+                findingElement.style.background = 'transparent';
+                findingElement.style.borderLeft = '3px solid var(--analytics-primary)';
+                findingElement.style.padding = '10px 15px';
+                findingElement.style.marginBottom = '10px';
+                
+                findingElement.innerHTML = '<div style="display: flex; align-items: flex-start; gap: 10px;">' +
+                                            '<i class="fas fa-check-circle" style="color: var(--success); margin-top: 2px;"></i>' +
+                                            '<div>' + finding + '</div>' +
+                                          '</div>';
+                
+                container.appendChild(findingElement);
+            });
+        }
+
+        // Executa análise individual
+        function runSingleAnalysis(analysis) {
+            alert('Executando análise: ' + analysis.name + '\n\nPor favor, aguarde...');
+            
+            // Simula execução
+            setTimeout(() => {
+                // Atualiza dados
+                analysis.lastRun = new Date().toLocaleString('pt-BR');
+                analysis.accuracy = Math.min(98, analysis.accuracy + Math.random() * 0.5);
+                analysis.predictions += Math.floor(Math.random() * 100) + 50;
+                
+                // Adiciona novo insight se relevante
+                if (Math.random() > 0.7) {
+                    const newInsight = {
+                        id: 'INS-' + (insightsData.length + 1).toString().padStart(3, '0'),
+                        title: 'Nova descoberta na execução de ' + analysis.name,
+                        description: 'Padrão interessante detectado durante a última execução',
+                        type: analysis.type,
+                        priority: Math.random() > 0.5 ? 'medium' : 'low',
+                        confidence: 80 + Math.random() * 15,
+                        variables: ['Variável X', 'Variável Y'],
+                        detectedAt: new Date().toLocaleString('pt-BR')
+                    };
+                    
+                    insightsData.unshift(newInsight);
+                    renderInsights();
+                }
+                
+                // Atualiza interface
+                renderAnalysisCards();
+                updateKPIs();
+                
+                alert('Análise executada com sucesso!\n\nPrecisão atual: ' + analysis.accuracy.toFixed(1) + '%');
+                
+            }, 2000);
+        }
+
+        // Descarta insight
+        function dismissInsight(insightId) {
+            const index = insightsData.findIndex(i => i.id === insightId);
+            if (index !== -1) {
+                insightsData.splice(index, 1);
+                renderInsights();
+            }
+        }
+
+        // Funções auxiliares
+        function getAnalysisTypeText(type) {
+            switch(type) {
+                case 'predictive': return 'Preditiva';
+                case 'diagnostic': return 'Diagnóstica';
+                case 'correlation': return 'Correlação';
+                case 'cluster': return 'Clusterização';
+                case 'regression': return 'Regressão';
+                default: return 'Outra';
+            }
+        }
+
+        function getAnalysisIcon(type) {
+            switch(type) {
+                case 'predictive': return 'fas fa-crystal-ball';
+                case 'diagnostic': return 'fas fa-stethoscope';
+                case 'correlation': return 'fas fa-project-diagram';
+                case 'cluster': return 'fas fa-sitemap';
+                case 'regression': return 'fas fa-chart-line';
+                default: return 'fas fa-chart-pie';
+            }
+        }
+
+        function getInsightTypeText(type) {
+            switch(type) {
+                case 'correlation': return 'Correlação';
+                case 'pattern': return 'Padrão';
+                case 'cluster': return 'Cluster';
+                case 'anomaly': return 'Anomalia';
+                default: return 'Insight';
+            }
+        }
+
+        function getPriorityColor(priority) {
+            switch(priority) {
+                case 'critical': return 'var(--danger)';
+                case 'high': return 'var(--warning)';
+                case 'medium': return 'var(--info)';
+                case 'low': return 'var(--success)';
+                default: return 'var(--text-muted)';
+            }
+        }
+
+        function getPriorityIcon(priority) {
+            switch(priority) {
+                case 'critical': return 'exclamation-triangle';
+                case 'high': return 'exclamation-circle';
+                case 'medium': return 'info-circle';
+                case 'low': return 'check-circle';
+                default: return 'info-circle';
+            }
+        }
+
+        function getAlgorithmName(shortName) {
+            switch(shortName) {
+                case 'random_forest': return 'Random Forest';
+                case 'gradient_boosting': return 'Gradient Boosting';
+                case 'neural_network': return 'Neural Network';
+                case 'kmeans': return 'K-Means';
+                case 'pca': return 'PCA';
+                default: return shortName;
+            }
+        }
+
+        function getAlgorithmFullName(name) {
+            switch(name) {
+                case 'Random Forest': return 'Random Forest (Ensemble Learning)';
+                case 'Gradient Boosting': return 'Gradient Boosting Machine';
+                case 'Neural Network': return 'Rede Neural Artificial';
+                case 'K-Means': return 'K-Means Clustering';
+                case 'PCA': return 'Principal Component Analysis';
+                default: return name;
+            }
+        }
+
+        // Inicializa a aplicação quando o DOM estiver carregado
+        document.addEventListener('DOMContentLoaded', init);
+        
+        // Adiciona efeitos visuais
+        document.addEventListener('DOMContentLoaded', function() {
+            // Adiciona classe fade-in para elementos com atraso
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach((el, index) => {
+                el.style.animationDelay = (index * 0.1) + 's';
+            });
+        });
+
+        // Fecha modais com ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.getElementById('new-analysis-modal').classList.remove('active');
+                document.getElementById('analysis-details-modal').classList.remove('active');
+            }
+        });
+    </script>
+
+    <footer class="rpc-footer">
+        <div class="rpc-footer-inner">
+            <span><i class="fas fa-industry"></i> <span data-i18n="footer.suite">RPC Industrial Suite</span> <span class="rpc-footer-sep">·</span> <span data-i18n="common.demo">Demo</span></span>
+            <span><i class="fas fa-user-circle"></i> <span data-i18n="common.visitor">visitante</span> <span class="rpc-footer-sep">·</span> <span data-i18n="common.operator">Operador</span></span>
+            <span><i class="fas fa-copyright"></i> <span data-i18n="footer.company">RP Caconde</span></span>
+        </div>
+    </footer>
+</body>
+</html>
