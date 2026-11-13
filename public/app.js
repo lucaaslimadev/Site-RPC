@@ -28,17 +28,39 @@ if (capabilityExplorer) {
   });
 }
 
-// Motion remains optional; the image is a fully usable static composition on mobile.
+// The artwork and cable pulses share one frame, including every responsive crop.
 const signatureHero = document.querySelector('.signature-hero');
 const motionButton = document.querySelector('[data-motion-toggle]');
 let motionPaused = false;
 if (signatureHero && motionButton) {
   const image = signatureHero.querySelector('.signature-art img');
+  const scene = signatureHero.querySelector('.signature-scene');
+  const energy = signatureHero.querySelector('.hero-energy');
+  function alignEnergy() {
+    if (!energy || !image.naturalWidth || !image.clientWidth || !image.clientHeight) return;
+    const width = image.clientWidth;
+    const height = image.clientHeight;
+    const scale = Math.max(width / image.naturalWidth, height / image.naturalHeight);
+    const renderedWidth = image.naturalWidth * scale;
+    const renderedHeight = image.naturalHeight * scale;
+    const [positionX, positionY] = getComputedStyle(image).objectPosition.split(' ').map(value => parseFloat(value) / 100);
+    Object.assign(energy.style, {
+      width: renderedWidth + 'px', height: renderedHeight + 'px',
+      left: (width - renderedWidth) * positionX + 'px',
+      top: (height - renderedHeight) * positionY + 'px'
+    });
+    energy.classList.add('is-aligned');
+  }
+  image.addEventListener('load', alignEnergy);
+  if (image.complete) alignEnergy();
+  if ('ResizeObserver' in window) new ResizeObserver(alignEnergy).observe(image);
+  else window.addEventListener('resize', alignEnergy);
   let ticking = false;
   const updateDepth = () => {
+    if (motionPaused) { ticking = false; return; }
     const visible = signatureHero.getBoundingClientRect().bottom > 0;
     const enabled = visible && !motionPaused && !reducedMotion.matches && window.innerWidth > 820;
-    image.style.setProperty('--hero-shift', enabled ? Math.min(window.scrollY * .055, 28) + 'px' : '0px');
+    scene.style.setProperty('--hero-shift', enabled ? Math.min(window.scrollY * .055, 28) + 'px' : '0px');
     ticking = false;
   };
   window.addEventListener('scroll', () => {
@@ -54,6 +76,7 @@ if (signatureHero && motionButton) {
     updateDepth();
   });
   reducedMotion.addEventListener('change', updateDepth);
+  document.addEventListener('visibilitychange', () => signatureHero.classList.toggle('tab-inactive', document.hidden));
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(entries => entries.forEach(entry => {
       entry.target.classList.toggle('outside-viewport', !entry.isIntersecting);

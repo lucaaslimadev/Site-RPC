@@ -7,9 +7,10 @@ A página inicial reúne uma abertura cinematográfica, um percurso entre energi
 - `premium_views.py`: composição e conteúdo da página inicial.
 - `public/premium.css`: direção visual, hierarquia, adaptações e transições.
 - `project-covers.json`: índice e posição da foto de capa de cada projeto. As imagens integrais permanecem nas galerias.
-- `public/app.js`: escolha de especialidades, teclado, movimento opcional e interações existentes.
+- `public/app.js`: escolha de especialidades, teclado, alinhamento da energia à imagem, movimento opcional e interações existentes.
+- `hero_energy.py`: trajetos dos pulsos sobre os fios, nas coordenadas originais de 1774 × 887 pixels.
 
-As transições respeitam `prefers-reduced-motion`. A abertura possui controle de pausa. O fluxo de sinal pausa quando está fora da tela. Não há rolagem controlada por JavaScript, som automático ou vídeo obrigatório. No celular, o enquadramento e a composição da abertura são próprios para a tela vertical.
+As transições respeitam `prefers-reduced-motion`. A abertura possui controle de pausa. Os pulsos luminosos acompanham os cabos verdes do piso, a ligação do motor e fios de cobre do painel em ciclos contínuos, com tons compatíveis com a arte original. A sobreposição SVG é alinhada ao mesmo enquadramento e transformações da imagem em cada largura. Não há download adicional de vídeo. Pausar preserva a posição dos pulsos, e a animação também pausa fora da tela ou com a aba oculta. A preferência de redução de movimento mantém a imagem estática. O fluxo de sinal pausa quando está fora da tela. Não há rolagem controlada por JavaScript, som automático ou vídeo obrigatório. No celular, o enquadramento e a composição da abertura são próprios para a tela vertical.
 
 ## Arte institucional
 
