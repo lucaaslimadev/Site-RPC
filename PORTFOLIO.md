@@ -26,7 +26,7 @@ Os 72 arquivos foram copiados sem edição ou geração de imagens. As telas e m
 - `portfolio_views.py`: HTML das capas, páginas, galerias, interfaces e documentação.
 - `public/portfolio.css` e `public/app.js`: aparência e interação.
 
-Cada item de `media` precisa de `src`, `width`, `height`, `kind`, `caption` e `alt`. Use `foto` para registros da execução, `interface` para telas ou mockups e `projeto` para desenhos e diagramas. Os campos `source`, `sourceName`, `bytes` e `sha256` documentam a origem da importação. A primeira mídia é a capa, e todas as mídias aparecem na galeria. A categoria do trabalho controla o filtro do portfólio; os tipos de mídia controlam o filtro dentro da galeria.
+Cada item de `media` precisa de `src`, `width`, `height`, `kind`, `caption` e `alt`. Use `foto` para registros da execução, `interface` para telas ou mockups e `projeto` para desenhos e diagramas. Os campos `source`, `sourceName`, `bytes` e `sha256` documentam a origem da importação. Por padrão, a primeira mídia é a capa. `project-covers.json` pode escolher outro índice da coleção e a posição do enquadramento apenas para as capas. Todas as mídias continuam integrais nas galerias. A categoria do trabalho controla o filtro do portfólio; os tipos de mídia controlam o filtro dentro da galeria.
 
 A ordem em `projects.json` define a sequência do portfólio. `related` relaciona trabalhos existentes; em `services.json`, a mesma chave define os exemplos de cada serviço. Projetos futuros podem ser acrescentados sem reescrever páginas HTML.
 

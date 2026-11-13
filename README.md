@@ -34,6 +34,12 @@ Páginas principais:
 - `/projetos/<identificador>/`: páginas dos dez trabalhos.
 - `/empresa/`, `/como-trabalhamos/` e `/contato/`.
 
+## Prévia visual
+
+![Página inicial da RP Caconde](docs/home-preview.png)
+
+[Prévia em celular e tablet](docs/responsive-preview.png). A direção visual e a origem da arte estão documentadas em `DESIGN.md`.
+
 ## Parar e retomar
 
 ```sh
@@ -57,6 +63,9 @@ docker compose down
 - `public/projects.json`: conteúdo e imagens dos trabalhos.
 - `public/style.css`: direção visual e adaptação ao celular.
 - `portfolio_views.py` e `public/portfolio.css`: apresentação do portfólio e das galerias.
+- `premium_views.py` e `public/premium.css`: composição da página inicial e refinamento visual.
+- `project-covers.json`: escolha e enquadramento das capas dos projetos.
+- `DESIGN.md` e `HERO-PROMPT.md`: direção visual, arte institucional e prompt final.
 - `PORTFOLIO-SOURCES.json`: registro dos textos e 72 arquivos originais, com SHA-256.
 - `PORTFOLIO.md`: estrutura, fontes e manutenção dos trabalhos.
 - `public/app.js`: menu, filtros, galeria, exemplo interativo e contato.
@@ -94,7 +103,7 @@ A verificação cobre páginas geradas, título principal único, IDs, links int
 
 ## Imagens e conteúdo
 
-As fotografias de projetos e o logotipo vieram do site público da RP Caconde. As imagens de indústria, oficina com painel, profissional com tablet e detalhe de terminais são ilustrações institucionais geradas; não representam instalações executadas nem pessoas da equipe. Os créditos no rodapé explicam essa distinção. O portfólio usa registros reais, com acesso aos arquivos completos nas galerias.
+As fotografias de projetos e o logotipo vieram do site público da RP Caconde. A composição da abertura com painel, motor e conexões e as imagens de indústria, oficina com painel, profissional com tablet e detalhe de terminais são ilustrações institucionais geradas; não representam instalações executadas nem pessoas da equipe. Os créditos no rodapé explicam essa distinção. O portfólio usa registros reais, com acesso aos arquivos completos nas galerias.
 
 Os PNGs originais foram preservados em `public/assets/`; o site carrega versões JPEG mais leves. A tipografia IBM Plex Sans é servida localmente, com licença OFL incluída. Não há necessidade de carregar fontes ou imagens de serviços externos durante a navegação.
 

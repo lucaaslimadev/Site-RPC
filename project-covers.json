@@ -1,0 +1,42 @@
+{
+  "inspecao-laudo-bancos-capacitores": {
+    "index": 0,
+    "position": "center 52%"
+  },
+  "sistema-gestao-integrada": {
+    "index": 0,
+    "position": "center"
+  },
+  "estacao-elevatoria-esgoto": {
+    "index": 2,
+    "position": "center 48%"
+  },
+  "estacao-pressurizadora-agua": {
+    "index": 0,
+    "position": "center"
+  },
+  "poco-artesiano-telemetria": {
+    "index": 0,
+    "position": "center 39%"
+  },
+  "secador-cafe": {
+    "index": 0,
+    "position": "center 52%"
+  },
+  "seladora-controle-temperatura": {
+    "index": 0,
+    "position": "center 47%"
+  },
+  "prensa-retrofit": {
+    "index": 8,
+    "position": "center"
+  },
+  "painel-bombas-revezamento": {
+    "index": 0,
+    "position": "center"
+  },
+  "painel-protecao-motor": {
+    "index": 0,
+    "position": "center 52%"
+  }
+}

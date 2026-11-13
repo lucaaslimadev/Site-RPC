@@ -1,5 +1,67 @@
 'use strict';
 // Shared navigation, portfolio and interactive examples. No data is stored or submitted to this server.
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+// Explore an engineering specialty without leaving the institutional presentation.
+const capabilityExplorer = document.querySelector('[data-capability-explorer]');
+if (capabilityExplorer) {
+  const tabs = [...capabilityExplorer.querySelectorAll('[data-capability]')];
+  const panels = [...capabilityExplorer.querySelectorAll('[role="tabpanel"]')];
+  function selectCapability(index, focus = false) {
+    tabs.forEach((tab, i) => {
+      tab.setAttribute('aria-selected', String(i === index));
+      tab.tabIndex = i === index ? 0 : -1;
+      panels[i].hidden = i !== index;
+    });
+    if (focus) tabs[index].focus();
+  }
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => selectCapability(index));
+    tab.addEventListener('keydown', event => {
+      let next;
+      if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+      if (event.key === 'ArrowLeft') next = (index + tabs.length - 1) % tabs.length;
+      if (event.key === 'Home') next = 0;
+      if (event.key === 'End') next = tabs.length - 1;
+      if (next !== undefined) { event.preventDefault(); selectCapability(next, true); }
+    });
+  });
+}
+
+// Motion remains optional; the image is a fully usable static composition on mobile.
+const signatureHero = document.querySelector('.signature-hero');
+const motionButton = document.querySelector('[data-motion-toggle]');
+let motionPaused = false;
+if (signatureHero && motionButton) {
+  const image = signatureHero.querySelector('.signature-art img');
+  let ticking = false;
+  const updateDepth = () => {
+    const visible = signatureHero.getBoundingClientRect().bottom > 0;
+    const enabled = visible && !motionPaused && !reducedMotion.matches && window.innerWidth > 820;
+    image.style.setProperty('--hero-shift', enabled ? Math.min(window.scrollY * .055, 28) + 'px' : '0px');
+    ticking = false;
+  };
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(updateDepth); ticking = true; }
+  }, { passive: true });
+  motionButton.addEventListener('click', () => {
+    motionPaused = !motionPaused;
+    document.body.classList.toggle('motion-paused', motionPaused);
+    motionButton.setAttribute('aria-pressed', String(motionPaused));
+    motionButton.setAttribute('aria-label', motionPaused ? 'Retomar movimento da apresentação' : 'Pausar movimento da apresentação');
+    motionButton.querySelector('[data-motion-label]').textContent = motionPaused ? 'Retomar movimento' : 'Pausar movimento';
+    motionButton.firstElementChild.textContent = motionPaused ? '▷' : 'Ⅱ';
+    updateDepth();
+  });
+  reducedMotion.addEventListener('change', updateDepth);
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+      entry.target.classList.toggle('outside-viewport', !entry.isIntersecting);
+    }));
+    document.querySelectorAll('.signature-hero, .signal-map').forEach(element => observer.observe(element));
+  }
+}
+
 const menu = document.querySelector('#solutions-menu');
 const menuButtons = [...document.querySelectorAll('[data-menu]')];
 function setMenu(open, restoreFocus=false) {
@@ -94,6 +156,9 @@ if(projectGallery){
  const thumbnails=[...projectGallery.querySelectorAll('[data-gallery-index]')];
  const galleryFilters=[...projectGallery.querySelectorAll('[data-gallery-filter]')];
  const mainImage=projectGallery.querySelector('.work-main-image');
+ mainImage.addEventListener('load',()=>{
+  if(!reducedMotion.matches)mainImage.animate([{opacity:.35},{opacity:1}],{duration:220,easing:'ease-out'});
+ });
  const mainOpen=projectGallery.querySelector('.work-main-open');
  const thumbnailRail=projectGallery.querySelector('.work-thumbnails');
  let galleryFilter='all';let selectedRecord=0;

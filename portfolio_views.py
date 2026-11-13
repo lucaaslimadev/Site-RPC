@@ -1,6 +1,8 @@
 """Portfolio presentation. Original descriptions and media live in projects.json."""
 import html,json
 from collections import Counter
+from pathlib import Path
+COVERS=json.loads((Path(__file__).parent/"project-covers.json").read_text())
 
 def e(value):return html.escape(str(value),quote=True)
 def href(p):return '/projetos/'+p['id']+'/'
@@ -14,9 +16,8 @@ def summary_count(p):
   if c[key]:parts.append(str(c[key])+' '+(singular if c[key]==1 else plural))
  return ' · '.join(parts)
 def render_project_card(p,wide=False):
- media=media_for(p);cover=media[0];previews=[m for m in media[1:] if m['kind']==cover['kind']][:2]
- rail=''.join(f'<span>{image(m)}</span>' for m in previews)
- return f'''<article class="project-card archive-card" data-category="{e(p['category'])}"><a href="{href(p)}" aria-labelledby="archive-title-{e(p['id'])}"><div class="archive-visual kind-{cover['kind']} {'has-rail' if len(previews)>1 else ''}"><div class="archive-cover">{image(cover)}</div>{f'<div class="archive-previews">{rail}</div>' if len(previews)>1 else ''}<span class="archive-year">{e(p['year'])}</span></div><div class="archive-card-meta"><span>{e(p['service'])}</span><span>{summary_count(p)}</span></div><div class="archive-title"><h3 id="archive-title-{e(p['id'])}">{e(p['title'])}</h3><span aria-hidden="true">↗</span></div><p class="archive-summary">{e(p['summary'])}</p><span class="archive-open">Conhecer o trabalho completo <span aria-hidden="true">↗</span></span></a></article>'''
+ media=media_for(p);direction=COVERS.get(p['id'],{});cover=media[direction.get('index',0)]
+ return f'''<article class="project-card archive-card" data-category="{e(p['category'])}"><a href="{href(p)}" aria-labelledby="archive-title-{e(p['id'])}"><div class="archive-visual kind-{cover['kind']}" style="--cover-position:{e(direction.get('position','center'))}"><div class="archive-cover">{image(cover)}</div><span class="archive-year">{e(p['year'])}</span><span class="archive-view-cue" aria-hidden="true">↗</span></div><div class="archive-card-meta"><span>{e(p['service'])}</span><span>{summary_count(p)}</span></div><div class="archive-title"><h3 id="archive-title-{e(p['id'])}">{e(p['title'])}</h3></div><p class="archive-summary">{e(p['summary'])}</p><span class="archive-open">Conhecer o trabalho <span aria-hidden="true">↗</span></span></a></article>'''
 
 def render_portfolio(projects):
  counts=Counter(p['category'] for p in projects)
