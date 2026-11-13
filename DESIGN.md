@@ -1,5 +1,7 @@
 # Direção visual RP Caconde
 
+A abertura usa “Potência. Controle. Inteligência.”, com uma palavra por linha e texto de apoio direto, sem travessões decorativos.
+
 A página inicial reúne uma abertura cinematográfica, um percurso entre energia, controle e informação, exploração interativa das quatro especialidades principais, apresentação do acompanhamento pelo celular, projetos em composição assimétrica, detalhes de execução e contato. Os oito serviços e dez casos continuam com páginas próprias.
 
 ## Implementação
