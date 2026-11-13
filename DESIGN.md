@@ -10,7 +10,15 @@ A página inicial reúne uma abertura cinematográfica, um percurso entre energi
 - `public/app.js`: escolha de especialidades, teclado, alinhamento da energia à imagem, movimento opcional e interações existentes.
 - `hero_energy.py`: trajetos dos pulsos sobre os fios, nas coordenadas originais de 1774 × 887 pixels.
 
-As transições respeitam `prefers-reduced-motion`. A abertura possui controle de pausa. Os pulsos luminosos acompanham os cabos verdes do piso, a ligação do motor e fios de cobre do painel em ciclos contínuos, com tons compatíveis com a arte original. A sobreposição SVG é alinhada ao mesmo enquadramento e transformações da imagem em cada largura. Não há download adicional de vídeo. Pausar preserva a posição dos pulsos, e a animação também pausa fora da tela ou com a aba oculta. A preferência de redução de movimento mantém a imagem estática. O fluxo de sinal pausa quando está fora da tela. Não há rolagem controlada por JavaScript, som automático ou vídeo obrigatório. No celular, o enquadramento e a composição da abertura são próprios para a tela vertical.
+As transições respeitam `prefers-reduced-motion`. A abertura possui controle de pausa conjunto para o pulso, as telas e os gráficos da IHM.
+
+O impulso luminoso repete a cada seis segundos: sai dos cabos do motor, percorre os circuitos do painel e segue pelos cabos verdes do piso. Os trajetos usam as coordenadas da imagem original; imagem, luz e IHM compartilham o enquadramento em cada largura.
+
+A IHM é projetada no vidro da porta, preservando a perspectiva e a moldura da arte. Alterna entre operação do motor, grandezas elétricas e produção, a cada seis segundos, em um ciclo de dezoito segundos. Os valores são demonstrativos; a tela possui a indicação “DEMO”. Os gráficos são animados junto com as telas.
+
+Pausar preserva o instante dos pulsos, gráficos e transições. As animações também pausam fora da tela ou com a aba oculta. Com redução de movimento, a IHM mantém a tela de operação estática e os pulsos ficam ocultos. Os detalhes iluminados aparecem após a decodificação da imagem para evitar que surjam sobre uma arte ainda não carregada.
+
+Não há download adicional de vídeo, rolagem controlada por JavaScript ou som automático. O celular possui composição vertical, e o enquadramento de tablet mantém a IHM visível.
 
 ## Arte institucional
 

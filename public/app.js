@@ -36,8 +36,9 @@ if (signatureHero && motionButton) {
   const image = signatureHero.querySelector('.signature-art img');
   const scene = signatureHero.querySelector('.signature-scene');
   const energy = signatureHero.querySelector('.hero-energy');
+  let artworkReady = false;
   function alignEnergy() {
-    if (!energy || !image.naturalWidth || !image.clientWidth || !image.clientHeight) return;
+    if (!artworkReady || !energy || !image.naturalWidth || !image.clientWidth || !image.clientHeight) return;
     const width = image.clientWidth;
     const height = image.clientHeight;
     const scale = Math.max(width / image.naturalWidth, height / image.naturalHeight);
@@ -51,8 +52,13 @@ if (signatureHero && motionButton) {
     });
     energy.classList.add('is-aligned');
   }
-  image.addEventListener('load', alignEnergy);
-  if (image.complete) alignEnergy();
+  function showArtworkDetails() {
+    // An async-decoded bitmap must be ready before illuminated details appear.
+    const decoded = image.decode ? image.decode() : Promise.resolve();
+    decoded.catch(() => {}).then(() => { artworkReady = true; alignEnergy(); });
+  }
+  image.addEventListener('load', showArtworkDetails);
+  if (image.complete && image.naturalWidth) showArtworkDetails();
   if ('ResizeObserver' in window) new ResizeObserver(alignEnergy).observe(image);
   else window.addEventListener('resize', alignEnergy);
   let ticking = false;

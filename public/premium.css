@@ -58,18 +58,36 @@ p{max-width:75ch}
 /* Energy follows the original cables; no extra image or video download. */
 .signature-scene{position:relative}
 .signature-scene>img{display:block;width:100%;height:100%;max-width:none;object-fit:inherit;object-position:inherit}
-.hero-energy{position:absolute;pointer-events:none;visibility:hidden;max-width:none;overflow:visible;mix-blend-mode:screen}
+/* A six-second impulse travels from the motor into the cabinet. */
+.hero-energy{position:absolute;pointer-events:none;visibility:hidden;max-width:none;overflow:visible}
 .hero-energy.is-aligned{visibility:visible}
-.energy-circuit{stroke-linecap:round;stroke-linejoin:round}
-.energy-pulse{stroke-dasharray:105 895;stroke-dashoffset:0;animation:energy-transit var(--energy-cycle,6.8s) linear var(--energy-phase,0s) infinite}
-.energy-lime{--energy-color:#cfff68;--energy-core:#f3ffd3}
-.energy-copper{--energy-color:#ffad47;--energy-core:#ffe3ac}
-.energy-bloom{stroke:var(--energy-color);stroke-width:10;opacity:.57;filter:url(#hero-energy-bloom)}
-.energy-filament{stroke:var(--energy-core);stroke-width:2.2;opacity:.96}
-.energy-tip{stroke:#fcffec;stroke-width:3.4;stroke-dasharray:2 998;opacity:.85}
-.energy-copper .energy-bloom{stroke-width:6;opacity:.48}
-.energy-copper .energy-filament{stroke-width:1.5;opacity:.8}
-.energy-copper .energy-tip{stroke-width:2;opacity:.75}
-.motion-paused .energy-pulse,.outside-viewport .energy-pulse,.tab-inactive .energy-pulse{animation-play-state:paused}
-@keyframes energy-transit{to{stroke-dashoffset:-1000}}
-@media(prefers-reduced-motion:reduce){.hero-energy{display:none}}
+.energy-circuit{stroke-linecap:round;stroke-linejoin:round;mix-blend-mode:screen}
+.energy-pulse{--pulse-opacity:1;opacity:0;stroke-dasharray:150 850;stroke-dashoffset:160;animation:energy-impulse var(--energy-cycle,6s) linear var(--energy-phase,0s) infinite both}
+.energy-lime{--energy-color:#d1ff70;--energy-core:#f5ffdc}
+.energy-copper{--energy-color:#ffbb61;--energy-core:#fff1c7}
+.energy-bloom{--pulse-opacity:.65;stroke:var(--energy-color);stroke-width:13;filter:url(#hero-energy-bloom)}
+.energy-filament{stroke:var(--energy-core);stroke-width:3}
+.energy-tip{stroke:#fffef3;stroke-width:4.5;stroke-dasharray:3 997}
+.energy-copper .energy-bloom{--pulse-opacity:.7;stroke-width:12}
+.energy-copper .energy-filament{stroke-width:3.2}
+.energy-copper .energy-tip{stroke-width:4.2}
+.energy-route-feed .energy-pulse{animation-name:energy-rise}
+.energy-lime .energy-pulse{animation-name:energy-outgoing}
+.energy-emission{opacity:0;transform-box:fill-box;transform-origin:center;animation:energy-source 6s linear infinite}
+.hmi-screen text{fill:#d6e6e8;font-family:Plex,Arial,sans-serif;font-weight:400;letter-spacing:0}
+.hmi-screen .hmi-value{font-size:20px;fill:#e3f6b5;font-weight:500}
+.hmi-page{opacity:0;animation:hmi-cycle 18s linear infinite}
+.hmi-page-electric{animation-delay:-12s}
+.hmi-page-production{animation-delay:-6s}
+.hmi-trend{stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;animation:hmi-draw 6s ease-in-out infinite}
+.motion-paused .hero-loop,.outside-viewport .hero-loop,.tab-inactive .hero-loop{animation-play-state:paused}
+@keyframes energy-impulse{0%{stroke-dashoffset:160;opacity:0}2%{opacity:var(--pulse-opacity)}20%{stroke-dashoffset:-1020;opacity:var(--pulse-opacity)}22%,100%{stroke-dashoffset:-1020;opacity:0}}
+@keyframes energy-rise{0%{stroke-dashoffset:160;opacity:0}2%{opacity:var(--pulse-opacity)}44%{stroke-dashoffset:-1020;opacity:var(--pulse-opacity)}46%,100%{stroke-dashoffset:-1020;opacity:0}}
+@keyframes energy-outgoing{0%{stroke-dashoffset:160;opacity:0}2%{opacity:var(--pulse-opacity)}30%{stroke-dashoffset:-1020;opacity:var(--pulse-opacity)}32%,100%{stroke-dashoffset:-1020;opacity:0}}
+@keyframes energy-source{0%{opacity:0;transform:scale(.6)}3%{opacity:.85}15%{opacity:0;transform:scale(2.5)}100%{opacity:0;transform:scale(2.5)}}
+@keyframes hmi-cycle{0%,30%{opacity:1}33.333%,97%{opacity:0}100%{opacity:1}}
+@keyframes hmi-draw{0%{stroke-dashoffset:100}45%,92%{stroke-dashoffset:0}100%{stroke-dashoffset:100}}
+@media(prefers-reduced-motion:reduce){.energy-circuit,.energy-emission{display:none}.hmi-page,.hmi-trend{animation:none!important}.hmi-page{opacity:0}.hmi-page-operation{opacity:1}.hmi-trend{stroke-dashoffset:0}}
+/* Keep the door display in frame when the hero is cropped on tablets. */
+@media(min-width:701px) and (max-width:820px){.signature-scene{object-position:95% center}.signature-content h1{font-size:clamp(62px,9.5vw,78px)}}
+@media(min-width:581px) and (max-width:700px){.signature-hero{min-height:1000px;height:auto;display:block}.signature-content{padding-top:140px;padding-bottom:0}.signature-content h1{font-size:64px}.signature-lead{font-size:14px;max-width:430px;line-height:1.8}.signature-art{top:385px;bottom:100px}.signature-scene{object-position:84% center;opacity:1}.signature-shade{background:linear-gradient(0deg,#102634,transparent 25%,transparent 45%,#102634 68%)}}
