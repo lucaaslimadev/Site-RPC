@@ -1,0 +1,1024 @@
+{
+  "sourcePortfolio": "https://www.rpcaconde.com.br/portfolio",
+  "projects": [
+    {
+      "id": "inspecao-laudo-bancos-capacitores",
+      "url": "https://www.rpcaconde.com.br/trabalhos/inspecao-laudo-bancos-capacitores",
+      "title": "Inspeção, diagnóstico e laudo de 6 bancos de capacitores",
+      "summary": "Medições célula a célula, conferência dos controladores e laudo técnico de cada banco de correção de fator de potência.",
+      "context": "Inspeção de seis bancos de capacitores de correção de fator de potência, em cabines secundárias e painéis de produção, em 380 V e 220 V. Medimos a corrente em cada fase de cada célula e as tensões entre fases, calculamos a capacidade real de cada posição em relação à placa e conferimos os controladores automáticos (TP, TC, ligação, faixa de fator de potência, tempos e estágios). No circuito com uma fase sem corrente, o disjuntor queimado foi substituído e o defeito foi localizado na contatora; as saídas com problema foram desabilitadas no controlador até a troca. Cada banco recebeu um laudo técnico assinado pelo engenheiro eletricista responsável, com memorial de cálculo, anexo fotográfico e a lista exata das peças a trocar.",
+      "deliverables": [
+        "6 laudos técnicos com memorial de cálculo e anexo fotográfico",
+        "Capacidade de cada célula medida e comparada com a placa (tolerância de ±5%)",
+        "Controladores WEG PFW01 e IMS Smart CONTROL PF conferidos, operando em automático",
+        "Disjuntor queimado substituído; contatora, células danificadas e fiação ressecada identificadas",
+        "Lista de compra com modelo, código e posição de cada peça"
+      ],
+      "media": [
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/bancos-capacitores-2026/01-painel-banco-1.jpg",
+          "src": "/assets/portfolio/bancos-capacitores-2026/01-painel-banco-1.jpg",
+          "bytes": 191264,
+          "sha256": "55875e46ed06f238bb8ec3bc4bd8a0112373d9c1533049870115f28e53913f83",
+          "width": 787,
+          "height": 1400,
+          "kind": "foto",
+          "caption": "Vista interna do banco de capacitores inspecionado",
+          "alt": "Vista interna do banco de capacitores inspecionado — Inspeção, diagnóstico e laudo de 6 bancos de capacitores",
+          "sourceName": "01-painel-banco-1.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/bancos-capacitores-2026/02-celulas-banco-1.jpg",
+          "src": "/assets/portfolio/bancos-capacitores-2026/02-celulas-banco-1.jpg",
+          "bytes": 132581,
+          "sha256": "61f8307f7775aec2ac4029d26e8879d1ffb83b0eb57fddb2bbea3adda0aaa6d0",
+          "width": 900,
+          "height": 1312,
+          "kind": "foto",
+          "caption": "Células do banco de capacitores",
+          "alt": "Células do banco de capacitores — Inspeção, diagnóstico e laudo de 6 bancos de capacitores",
+          "sourceName": "02-celulas-banco-1.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/bancos-capacitores-2026/03-controlador-pfw01.jpg",
+          "src": "/assets/portfolio/bancos-capacitores-2026/03-controlador-pfw01.jpg",
+          "bytes": 90745,
+          "sha256": "48a5443900b13db012175be5ec98f9e42e0bc3c9c97cb8252e61d111feb3b26c",
+          "width": 576,
+          "height": 1024,
+          "kind": "foto",
+          "caption": "Controlador automático WEG PFW01",
+          "alt": "Controlador automático WEG PFW01 — Inspeção, diagnóstico e laudo de 6 bancos de capacitores",
+          "sourceName": "03-controlador-pfw01.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/bancos-capacitores-2026/04-contatora-circuito-6.jpg",
+          "src": "/assets/portfolio/bancos-capacitores-2026/04-contatora-circuito-6.jpg",
+          "bytes": 154784,
+          "sha256": "2a4a32f8a9daf92c482c1d80547e8717443170ae344871c6c354d38af99d7430",
+          "width": 787,
+          "height": 1400,
+          "kind": "foto",
+          "caption": "Contatora do circuito 6 identificada no diagnóstico",
+          "alt": "Contatora do circuito 6 identificada no diagnóstico — Inspeção, diagnóstico e laudo de 6 bancos de capacitores",
+          "sourceName": "04-contatora-circuito-6.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/bancos-capacitores-2026/05-banco-cabine-maior.jpg",
+          "src": "/assets/portfolio/bancos-capacitores-2026/05-banco-cabine-maior.jpg",
+          "bytes": 167375,
+          "sha256": "6d89ae163257e51b92f1f97cec5a62d37c2deb507d30ce1904f9a94fcd6c8d17",
+          "width": 787,
+          "height": 1400,
+          "kind": "foto",
+          "caption": "Banco de capacitores da cabine maior",
+          "alt": "Banco de capacitores da cabine maior — Inspeção, diagnóstico e laudo de 6 bancos de capacitores",
+          "sourceName": "05-banco-cabine-maior.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/bancos-capacitores-2026/06-controlador-ims.jpg",
+          "src": "/assets/portfolio/bancos-capacitores-2026/06-controlador-ims.jpg",
+          "bytes": 122444,
+          "sha256": "033796d208fac42d78e6afe7cd442201bee04637bbcc5ed73d51a307ce593a52",
+          "width": 787,
+          "height": 1400,
+          "kind": "foto",
+          "caption": "Controlador IMS Smart CONTROL PF",
+          "alt": "Controlador IMS Smart CONTROL PF — Inspeção, diagnóstico e laudo de 6 bancos de capacitores",
+          "sourceName": "06-controlador-ims.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/bancos-capacitores-2026/07-banco-fiacao-ressecada.jpg",
+          "src": "/assets/portfolio/bancos-capacitores-2026/07-banco-fiacao-ressecada.jpg",
+          "bytes": 122784,
+          "sha256": "4e977023e4e9a0caf3e447b651d07e705e5bbabcbfe3d2868cdcba619db4001d",
+          "width": 1024,
+          "height": 576,
+          "kind": "foto",
+          "caption": "Banco com fiação ressecada identificado na inspeção",
+          "alt": "Banco com fiação ressecada identificado na inspeção — Inspeção, diagnóstico e laudo de 6 bancos de capacitores",
+          "sourceName": "07-banco-fiacao-ressecada.jpg"
+        }
+      ]
+    },
+    {
+      "id": "sistema-gestao-integrada",
+      "url": "https://www.rpcaconde.com.br/trabalhos/sistema-gestao-integrada",
+      "title": "Sistema de gestão integrada para empresa de engenharia",
+      "summary": "Comercial, serviços, estoque, compras e financeiro em uma só plataforma, no navegador e no celular.",
+      "context": "Implantação do nosso sistema de gestão para uma empresa de engenharia e serviços que controlava orçamentos, obras e contas em planilhas separadas. Tudo passou para uma plataforma única: cadastro de clientes e fornecedores, orçamentos com funil comercial, serviços com etapas, progresso e prazo de entrega, estoque e compras ligados aos serviços, financeiro com contas a pagar e a receber, documentos, relatórios e usuários com permissão por perfil. O painel inicial mostra o saldo projetado, o fluxo de caixa, a taxa de conversão das propostas e um radar com vencimentos, materiais pendentes e propostas sem retorno.",
+      "deliverables": [
+        "Fim das planilhas: comercial, serviços, estoque e financeiro integrados",
+        "Fluxo de caixa e saldo projetado em tempo real",
+        "Funil comercial com taxa de conversão das propostas",
+        "Serviços com etapas, progresso e alertas de material pendente",
+        "Acesso pelo navegador e pelo celular, com permissões por perfil"
+      ],
+      "media": [
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/sistema-gestao-integrada/01.jpg",
+          "src": "/assets/portfolio/sistema-gestao-integrada/01.jpg",
+          "bytes": 201253,
+          "sha256": "f0eddc0ef6ddd4547507cb1e8d7a7fdd68e45bff78e02be05af1d545ed9a05e9",
+          "width": 1600,
+          "height": 1480,
+          "kind": "interface",
+          "caption": "Visão geral do sistema de gestão integrada",
+          "alt": "Visão geral do sistema de gestão integrada — Sistema de gestão integrada para empresa de engenharia",
+          "sourceName": "01.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/sistema-gestao-integrada/02.jpg",
+          "src": "/assets/portfolio/sistema-gestao-integrada/02.jpg",
+          "bytes": 85726,
+          "sha256": "30b03ec355626134693f5a2f3dad4de08d9e68df866a6479f2270621c76ade57",
+          "width": 1314,
+          "height": 630,
+          "kind": "interface",
+          "caption": "Indicadores financeiros, fluxo de caixa e panorama comercial",
+          "alt": "Indicadores financeiros, fluxo de caixa e panorama comercial — Sistema de gestão integrada para empresa de engenharia",
+          "sourceName": "02.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/sistema-gestao-integrada/03.jpg",
+          "src": "/assets/portfolio/sistema-gestao-integrada/03.jpg",
+          "bytes": 66069,
+          "sha256": "482ce7cedd047a34f2a4ecfcf9ef84e88e8087d3144426825d5c5b61ed1c43e4",
+          "width": 1314,
+          "height": 564,
+          "kind": "interface",
+          "caption": "Serviços em andamento e radar de pendências",
+          "alt": "Serviços em andamento e radar de pendências — Sistema de gestão integrada para empresa de engenharia",
+          "sourceName": "03.jpg"
+        }
+      ]
+    },
+    {
+      "id": "estacao-elevatoria-esgoto",
+      "url": "https://www.rpcaconde.com.br/trabalhos/estacao-elevatoria-esgoto",
+      "title": "Estação elevatória de esgoto: projeto elétrico, CCM e automação",
+      "summary": "Projeto executivo, painéis CCM e CLP, gerador com transferência automática e operação local, automática e remota.",
+      "context": "Projeto executivo de elétrica e automação de uma estação elevatória de esgoto de condomínio residencial, seguindo o padrão da autarquia de saneamento. Dois conjuntos motobomba de 40 cv (um operando e um reserva) acionados por soft-starter, quadro de transferência automática ligado a um gerador a diesel, painel CCM com multimedidor de grandezas, horímetros e sinalização completa, e painel de automação com CLP Siemens, IHM e no-break para manter o controle e a telemetria por até 1 hora sem energia. O painel opera em modo manual local, automático por nível e remoto, com revezamento das bombas e modo manutenção. O projeto inclui entrada de energia, SPDA e aterramento conforme NBR 5410, NBR 5419 e NR-10.",
+      "deliverables": [
+        "2 motobombas de 40 cv com soft-starter e revezamento",
+        "CLP Siemens com IHM e no-break de 1 hora",
+        "Gerador com quadro de transferência automática",
+        "Modos manual, automático e remoto",
+        "Projeto executivo com SPDA e aterramento (NBR 5410, NBR 5419, NR-10)"
+      ],
+      "media": [
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/estacao-elevatoria-esgoto/01.jpg",
+          "src": "/assets/portfolio/estacao-elevatoria-esgoto/01.jpg",
+          "bytes": 150592,
+          "sha256": "1e927cdb41cdba7a24853e45d148d30d719e6d331351c3ccdd210dcece076f5a",
+          "width": 1600,
+          "height": 1201,
+          "kind": "foto",
+          "caption": "Vista geral da estação elevatória e do gerador",
+          "alt": "Vista geral da estação elevatória e do gerador — Estação elevatória de esgoto: projeto elétrico, CCM e automação",
+          "sourceName": "01.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/estacao-elevatoria-esgoto/02.jpg",
+          "src": "/assets/portfolio/estacao-elevatoria-esgoto/02.jpg",
+          "bytes": 162914,
+          "sha256": "50934649a33a02fdc5270f0cef0242ef59f335ae58eaea5a773b2d2d5f122b62",
+          "width": 1201,
+          "height": 1600,
+          "kind": "foto",
+          "caption": "Porta do painel CCM: instrumentos, comandos e sinalização",
+          "alt": "Porta do painel CCM: instrumentos, comandos e sinalização — Estação elevatória de esgoto: projeto elétrico, CCM e automação",
+          "sourceName": "02.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/estacao-elevatoria-esgoto/03.jpg",
+          "src": "/assets/portfolio/estacao-elevatoria-esgoto/03.jpg",
+          "bytes": 245782,
+          "sha256": "6c6799ff789c15281cf976144af29ce098e4e0c5a5c58db1c12d2c77ce1649ec",
+          "width": 1201,
+          "height": 1600,
+          "kind": "foto",
+          "caption": "Interior do CCM e acionamentos das motobombas",
+          "alt": "Interior do CCM e acionamentos das motobombas — Estação elevatória de esgoto: projeto elétrico, CCM e automação",
+          "sourceName": "03.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/estacao-elevatoria-esgoto/04.jpg",
+          "src": "/assets/portfolio/estacao-elevatoria-esgoto/04.jpg",
+          "bytes": 203661,
+          "sha256": "989e74b4efb5908726ed8208a82b9c1dff2c5cc39ffcc452c9699aa30b578db3",
+          "width": 1201,
+          "height": 1600,
+          "kind": "foto",
+          "caption": "Painel de automação aberto: controlador e conexões",
+          "alt": "Painel de automação aberto: controlador e conexões — Estação elevatória de esgoto: projeto elétrico, CCM e automação",
+          "sourceName": "04.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/estacao-elevatoria-esgoto/05.jpg",
+          "src": "/assets/portfolio/estacao-elevatoria-esgoto/05.jpg",
+          "bytes": 145324,
+          "sha256": "cff3a4322469795157e7f846a150ad0d6d50be64de158e16906b692aa28b145d",
+          "width": 899,
+          "height": 1599,
+          "kind": "foto",
+          "caption": "Programação e interface de operação em bancada",
+          "alt": "Programação e interface de operação em bancada — Estação elevatória de esgoto: projeto elétrico, CCM e automação",
+          "sourceName": "05.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/estacao-elevatoria-esgoto/06.jpg",
+          "src": "/assets/portfolio/estacao-elevatoria-esgoto/06.jpg",
+          "bytes": 257071,
+          "sha256": "d992af1e512d063459d71364059b16d15ab658692d77c037193e2e0db83cf36b",
+          "width": 1201,
+          "height": 1600,
+          "kind": "foto",
+          "caption": "Conjuntos de bombeamento na estação elevatória",
+          "alt": "Conjuntos de bombeamento na estação elevatória — Estação elevatória de esgoto: projeto elétrico, CCM e automação",
+          "sourceName": "06.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/estacao-elevatoria-esgoto/07.jpg",
+          "src": "/assets/portfolio/estacao-elevatoria-esgoto/07.jpg",
+          "bytes": 435408,
+          "sha256": "c38cb5a799c95db0797a7a19c0d4a9320ecdf4a5e3155a7685d0665ece5047ef",
+          "width": 1600,
+          "height": 1201,
+          "kind": "foto",
+          "caption": "Tubulações, válvulas e conexões da instalação",
+          "alt": "Tubulações, válvulas e conexões da instalação — Estação elevatória de esgoto: projeto elétrico, CCM e automação",
+          "sourceName": "07.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/estacao-elevatoria-esgoto/08.jpg",
+          "src": "/assets/portfolio/estacao-elevatoria-esgoto/08.jpg",
+          "bytes": 162700,
+          "sha256": "b461da048b28b1d1c9aa44379598ae9eb817c58365ce67bd7077714eb55dc145",
+          "width": 1600,
+          "height": 1201,
+          "kind": "foto",
+          "caption": "Gerador a diesel da estação",
+          "alt": "Gerador a diesel da estação — Estação elevatória de esgoto: projeto elétrico, CCM e automação",
+          "sourceName": "08.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/estacao-elevatoria-esgoto/09.jpg",
+          "src": "/assets/portfolio/estacao-elevatoria-esgoto/09.jpg",
+          "bytes": 240950,
+          "sha256": "d0c0f5e2a723cab717ea808028ea3af2184d45f354fdc02720aa9a85c016c9da",
+          "width": 1600,
+          "height": 1201,
+          "kind": "foto",
+          "caption": "Instalação externa, tubulações e grupo gerador",
+          "alt": "Instalação externa, tubulações e grupo gerador — Estação elevatória de esgoto: projeto elétrico, CCM e automação",
+          "sourceName": "09.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/estacao-elevatoria-esgoto/layout-painel.jpg",
+          "src": "/assets/portfolio/estacao-elevatoria-esgoto/layout-painel.jpg",
+          "bytes": 276600,
+          "sha256": "583e5b2e02a63fcb1bf7c3181dd8b60cf6ea1ce1f355eee4a3fb639bc5b14184",
+          "width": 2000,
+          "height": 1173,
+          "kind": "projeto",
+          "caption": "Layout do painel: vistas interna e externa",
+          "alt": "Layout do painel: vistas interna e externa — Estação elevatória de esgoto: projeto elétrico, CCM e automação",
+          "sourceName": "layout-painel.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/estacao-elevatoria-esgoto/diagrama-forca.jpg",
+          "src": "/assets/portfolio/estacao-elevatoria-esgoto/diagrama-forca.jpg",
+          "bytes": 221931,
+          "sha256": "7a877a2cb5c80d37d8943d830296f037967ccf8280d0be882893d3f7003a5244",
+          "width": 2000,
+          "height": 1173,
+          "kind": "projeto",
+          "caption": "Diagrama elétrico de força",
+          "alt": "Diagrama elétrico de força — Estação elevatória de esgoto: projeto elétrico, CCM e automação",
+          "sourceName": "diagrama-forca.jpg"
+        }
+      ]
+    },
+    {
+      "id": "estacao-pressurizadora-agua",
+      "url": "https://www.rpcaconde.com.br/trabalhos/estacao-pressurizadora-agua",
+      "title": "Estação pressurizadora de água tratada com reservatórios",
+      "summary": "Painel CCM com inversores em PID, revezamento por pressão e painel de automação com CLP e IHM.",
+      "context": "Reprojeto da parte elétrica e de automação de uma estação pressurizadora de água tratada, ao lado de dois reservatórios verticais. O projeto recebido tinha três quadros sem nenhum comando; o novo concentrou tudo em um CCM e um painel de comando elétrico (PCE). As bombas passaram a ser acionadas por inversor de frequência em controle PID de pressão, com revezamento automático por temporizador e transmissor de pressão, proteção de sucção para não operar com reservatório vazio, proteção contra falta de fase, horímetros, modo manutenção por bomba e habilitação de operação remota. O PCE recebeu CLP WEG PLC300, relés de interface, protetores de surto e IHM na porta para operação e visualização dos dados. Também foram previstos aquecimento anticondensação, ventilação e iluminação externa por fotocélula.",
+      "deliverables": [
+        "Bombas com inversor de frequência em controle PID de pressão",
+        "Revezamento automático e proteção de sucção",
+        "CLP WEG PLC300 com IHM na porta do painel",
+        "Operação local, automática e remota",
+        "Painel com anticondensação, ventilação e sinalização completa"
+      ],
+      "media": [
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/estacao-pressurizadora-agua/01.jpg",
+          "src": "/assets/portfolio/estacao-pressurizadora-agua/01.jpg",
+          "bytes": 115394,
+          "sha256": "392a9100de6e75450264b2b4a30b57ec82a974a5a84414a1a2d02278efc1d855",
+          "width": 1599,
+          "height": 899,
+          "kind": "foto",
+          "caption": "Conjuntos motobomba da estação pressurizadora",
+          "alt": "Conjuntos motobomba da estação pressurizadora — Estação pressurizadora de água tratada com reservatórios",
+          "sourceName": "01.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/estacao-pressurizadora-agua/02.jpg",
+          "src": "/assets/portfolio/estacao-pressurizadora-agua/02.jpg",
+          "bytes": 190454,
+          "sha256": "6e15fde6740146713ccfbe05bfdfbd4d73f7f950462b9592400dc4cc1888f819",
+          "width": 899,
+          "height": 1599,
+          "kind": "foto",
+          "caption": "Painel CCM aberto e acionamentos das bombas",
+          "alt": "Painel CCM aberto e acionamentos das bombas — Estação pressurizadora de água tratada com reservatórios",
+          "sourceName": "02.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/estacao-pressurizadora-agua/03.jpg",
+          "src": "/assets/portfolio/estacao-pressurizadora-agua/03.jpg",
+          "bytes": 74144,
+          "sha256": "f4580abd9e3373241eb481ddc7bb299393845a3afbd399d72b7e6afab686c2f5",
+          "width": 1280,
+          "height": 720,
+          "kind": "foto",
+          "caption": "Tubulações e conjunto de pressurização",
+          "alt": "Tubulações e conjunto de pressurização — Estação pressurizadora de água tratada com reservatórios",
+          "sourceName": "03.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/estacao-pressurizadora-agua/04.jpg",
+          "src": "/assets/portfolio/estacao-pressurizadora-agua/04.jpg",
+          "bytes": 185904,
+          "sha256": "227623aa16e5afe5e0f0439dfa32831aea4b094b1e1a1281a8252f7c4cc2f8e9",
+          "width": 899,
+          "height": 1599,
+          "kind": "foto",
+          "caption": "Içamento de reservatório na instalação",
+          "alt": "Içamento de reservatório na instalação — Estação pressurizadora de água tratada com reservatórios",
+          "sourceName": "04.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/estacao-pressurizadora-agua/05.jpg",
+          "src": "/assets/portfolio/estacao-pressurizadora-agua/05.jpg",
+          "bytes": 169013,
+          "sha256": "a33ed75e68ffb0ae7aa3efe313277edc9d1bb0c32c192c465c0d6f438c7b2cb0",
+          "width": 899,
+          "height": 1599,
+          "kind": "foto",
+          "caption": "Posicionamento do reservatório vertical",
+          "alt": "Posicionamento do reservatório vertical — Estação pressurizadora de água tratada com reservatórios",
+          "sourceName": "05.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/estacao-pressurizadora-agua/06.jpg",
+          "src": "/assets/portfolio/estacao-pressurizadora-agua/06.jpg",
+          "bytes": 209711,
+          "sha256": "91cb0dc1705d1f55b188a772aea8b5cabca50a39abd4cd3500c061daaa8eaac5",
+          "width": 1599,
+          "height": 899,
+          "kind": "foto",
+          "caption": "Reservatórios instalados ao lado da estação",
+          "alt": "Reservatórios instalados ao lado da estação — Estação pressurizadora de água tratada com reservatórios",
+          "sourceName": "06.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/estacao-pressurizadora-agua/07.jpg",
+          "src": "/assets/portfolio/estacao-pressurizadora-agua/07.jpg",
+          "bytes": 283309,
+          "sha256": "cd995baf0bb876342f9540ba7b392091ccf3fb996bb4874d07959a73e5a3a476",
+          "width": 1201,
+          "height": 1600,
+          "kind": "foto",
+          "caption": "Caixa de válvulas e conexões",
+          "alt": "Caixa de válvulas e conexões — Estação pressurizadora de água tratada com reservatórios",
+          "sourceName": "07.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/estacao-pressurizadora-agua/08.jpg",
+          "src": "/assets/portfolio/estacao-pressurizadora-agua/08.jpg",
+          "bytes": 160100,
+          "sha256": "f2aca0eaa14f92deade6e1be005536f678274f5a8011711d60c83c082598729b",
+          "width": 1599,
+          "height": 899,
+          "kind": "foto",
+          "caption": "Edificação da estação pressurizadora",
+          "alt": "Edificação da estação pressurizadora — Estação pressurizadora de água tratada com reservatórios",
+          "sourceName": "08.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/estacao-pressurizadora-agua/09.jpg",
+          "src": "/assets/portfolio/estacao-pressurizadora-agua/09.jpg",
+          "bytes": 101321,
+          "sha256": "983cae69e571e17385c66867e8afa5a8890be967cc53ac4e44049d164c054094",
+          "width": 899,
+          "height": 1599,
+          "kind": "foto",
+          "caption": "Painel, motobomba e infraestrutura interna da estação",
+          "alt": "Painel, motobomba e infraestrutura interna da estação — Estação pressurizadora de água tratada com reservatórios",
+          "sourceName": "09.jpg"
+        }
+      ]
+    },
+    {
+      "id": "poco-artesiano-telemetria",
+      "url": "https://www.rpcaconde.com.br/trabalhos/poco-artesiano-telemetria",
+      "title": "Poço artesiano com CLP e comunicação via rádio com o reservatório",
+      "summary": "Painel de acionamento com soft-starter, CLP, IHM e rádio que liga e desliga a bomba pelo nível de outro reservatório.",
+      "context": "Projeto e implantação do painel de acionamento de um poço artesiano novo, com bomba submersa de 32,5 cv partida por soft-starter. O poço trabalha junto com um poço e um reservatório já existentes: o nível do reservatório é lido no local e enviado por rádio, e o CLP do novo poço liga e desliga a bomba conforme a reservação. O painel tem CLP, IHM, multimedidor de grandezas elétricas e leitura de vazão em rede Ethernet, modo manual local e automático, além de entrada de energia, aterramento e SPDA.",
+      "deliverables": [
+        "Bomba submersa de 32,5 cv com soft-starter",
+        "CLP, IHM e multimedidor em rede Ethernet",
+        "Acionamento remoto via rádio pelo nível do reservatório",
+        "Leitura de vazão e grandezas elétricas",
+        "Projeto de entrada de energia, aterramento e SPDA"
+      ],
+      "media": [
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/poco-artesiano-telemetria/01.jpg",
+          "src": "/assets/portfolio/poco-artesiano-telemetria/01.jpg",
+          "bytes": 181177,
+          "sha256": "1ad26ad2022d72cb8bd0825a0bef0c1054a68141d044d4634d6d048d109a52e8",
+          "width": 1201,
+          "height": 1600,
+          "kind": "foto",
+          "caption": "Painel do poço: comandos, instrumentos e interface",
+          "alt": "Painel do poço: comandos, instrumentos e interface — Poço artesiano com CLP e comunicação via rádio com o reservatório",
+          "sourceName": "01.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/poco-artesiano-telemetria/02.jpg",
+          "src": "/assets/portfolio/poco-artesiano-telemetria/02.jpg",
+          "bytes": 297690,
+          "sha256": "e8356c40895773e8d3cd9069e7e96b6641ce8a026c40e48cd8db6aba316efd28",
+          "width": 1201,
+          "height": 1600,
+          "kind": "foto",
+          "caption": "Interior do painel de acionamento e automação",
+          "alt": "Interior do painel de acionamento e automação — Poço artesiano com CLP e comunicação via rádio com o reservatório",
+          "sourceName": "02.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/poco-artesiano-telemetria/03.jpg",
+          "src": "/assets/portfolio/poco-artesiano-telemetria/03.jpg",
+          "bytes": 171067,
+          "sha256": "081aecf29db9a039f34562e88f215d92f344a2da3582cb0cf67defa189204fa7",
+          "width": 1599,
+          "height": 899,
+          "kind": "foto",
+          "caption": "Área do poço e infraestrutura de comunicação",
+          "alt": "Área do poço e infraestrutura de comunicação — Poço artesiano com CLP e comunicação via rádio com o reservatório",
+          "sourceName": "03.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/poco-artesiano-telemetria/04.jpg",
+          "src": "/assets/portfolio/poco-artesiano-telemetria/04.jpg",
+          "bytes": 163468,
+          "sha256": "60c510c8e602ce0318e46ca4ebe4bafbc508ea0034602d165dfc0caffc61e9b3",
+          "width": 1599,
+          "height": 899,
+          "kind": "foto",
+          "caption": "Instalação do poço e comunicação por rádio",
+          "alt": "Instalação do poço e comunicação por rádio — Poço artesiano com CLP e comunicação via rádio com o reservatório",
+          "sourceName": "04.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/poco-artesiano-telemetria/05.jpg",
+          "src": "/assets/portfolio/poco-artesiano-telemetria/05.jpg",
+          "bytes": 298739,
+          "sha256": "c4246a3abfa52c60eecb5aac1cf9c5c7d4fab2cc41b6f2c6fb9125fe710e8343",
+          "width": 1201,
+          "height": 1600,
+          "kind": "foto",
+          "caption": "Tubulação de saída e instrumentação do poço",
+          "alt": "Tubulação de saída e instrumentação do poço — Poço artesiano com CLP e comunicação via rádio com o reservatório",
+          "sourceName": "05.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/poco-artesiano-telemetria/topologia-rede.jpg",
+          "src": "/assets/portfolio/poco-artesiano-telemetria/topologia-rede.jpg",
+          "bytes": 190662,
+          "sha256": "cad745641bd61f46d182515821867b9eaa4e9227afcfb9e61ac70504322391e5",
+          "width": 2000,
+          "height": 1173,
+          "kind": "projeto",
+          "caption": "Topologia da rede e comunicação dos equipamentos",
+          "alt": "Topologia da rede e comunicação dos equipamentos — Poço artesiano com CLP e comunicação via rádio com o reservatório",
+          "sourceName": "topologia-rede.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/poco-artesiano-telemetria/diagrama-forca.jpg",
+          "src": "/assets/portfolio/poco-artesiano-telemetria/diagrama-forca.jpg",
+          "bytes": 216071,
+          "sha256": "97dc5b975d200fb6f4b15b409607f97b9cf96560ac48adc21d36a7d0d396bd7f",
+          "width": 2000,
+          "height": 1173,
+          "kind": "projeto",
+          "caption": "Diagrama elétrico de força",
+          "alt": "Diagrama elétrico de força — Poço artesiano com CLP e comunicação via rádio com o reservatório",
+          "sourceName": "diagrama-forca.jpg"
+        }
+      ]
+    },
+    {
+      "id": "secador-cafe",
+      "url": "https://www.rpcaconde.com.br/trabalhos/secador-cafe",
+      "title": "Painel de comando para secador de café",
+      "summary": "Projeto e montagem do painel que comanda os 5 motores do secador, com controle de temperatura e modo automático.",
+      "context": "Projeto executivo e montagem do painel de controle elétrico de um secador de café. O painel aciona os cinco motores do conjunto (alimentador de palha, ventilador, secador, elevador e transporte), cada um com disjuntor-motor e contator dimensionados, em 220 V trifásico com entrada de 63 A. O comando tem modo manual e automático, controlador de temperatura, relé de falta de fase, botão de emergência, liga/desliga e sinalização de funcionamento e defeito por motor, além de chave inteligente para habilitar o funcionamento à distância. Foi entregue com layout, diagramas de força e comando, régua de bornes e plaquetas de identificação.",
+      "deliverables": [
+        "5 motores com disjuntor-motor e contator",
+        "Modo manual e automático com controle de temperatura",
+        "Falta de fase, emergência e sinalização de defeito por motor",
+        "Projeto com 13 folhas: layout, força, comando e bornes"
+      ],
+      "media": [
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/secador-cafe/01.jpg",
+          "src": "/assets/portfolio/secador-cafe/01.jpg",
+          "bytes": 141185,
+          "sha256": "9e09157aea82c76273619d2b66dc42dab7b149ba6b310068e9b129b3050cb349",
+          "width": 1280,
+          "height": 960,
+          "kind": "foto",
+          "caption": "Vista geral do painel de comando aberto",
+          "alt": "Vista geral do painel de comando aberto — Painel de comando para secador de café",
+          "sourceName": "01.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/secador-cafe/02.jpg",
+          "src": "/assets/portfolio/secador-cafe/02.jpg",
+          "bytes": 93770,
+          "sha256": "9e6c5f5ac4640958246a2cf9793ec9545de90e278603b0fdcdfd2c228185716c",
+          "width": 960,
+          "height": 1280,
+          "kind": "foto",
+          "caption": "Comandos e sinalização na porta do painel",
+          "alt": "Comandos e sinalização na porta do painel — Painel de comando para secador de café",
+          "sourceName": "02.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/secador-cafe/03.jpg",
+          "src": "/assets/portfolio/secador-cafe/03.jpg",
+          "bytes": 146497,
+          "sha256": "a579c52feec64f695604d7ef153c32d2e2f75448fda6e9d89ea68ef8e9fcdcc1",
+          "width": 1280,
+          "height": 960,
+          "kind": "foto",
+          "caption": "Circuitos internos e comandos do secador",
+          "alt": "Circuitos internos e comandos do secador — Painel de comando para secador de café",
+          "sourceName": "03.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/secador-cafe/04.jpg",
+          "src": "/assets/portfolio/secador-cafe/04.jpg",
+          "bytes": 108640,
+          "sha256": "8f1213af2d5e7279132bb387851a2966bdfe8f8d139496e5d29bcefedb6e678e",
+          "width": 1280,
+          "height": 960,
+          "kind": "foto",
+          "caption": "Régua de bornes com identificação dos circuitos",
+          "alt": "Régua de bornes com identificação dos circuitos — Painel de comando para secador de café",
+          "sourceName": "04.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/secador-cafe/05.jpg",
+          "src": "/assets/portfolio/secador-cafe/05.jpg",
+          "bytes": 137629,
+          "sha256": "5218157da16f48965ad5e3f6a17af20ef96b5feeb84629e74007c6acb7fc07ad",
+          "width": 960,
+          "height": 1280,
+          "kind": "foto",
+          "caption": "Ligações dos comandos e sinalizadores na porta",
+          "alt": "Ligações dos comandos e sinalizadores na porta — Painel de comando para secador de café",
+          "sourceName": "05.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/secador-cafe/06.jpg",
+          "src": "/assets/portfolio/secador-cafe/06.jpg",
+          "bytes": 122117,
+          "sha256": "3a7f41485b709b9a2382541fa51645f2506420568baa0870fb796e9716fae021",
+          "width": 960,
+          "height": 1280,
+          "kind": "foto",
+          "caption": "Proteções, contatores e organização interna do painel",
+          "alt": "Proteções, contatores e organização interna do painel — Painel de comando para secador de café",
+          "sourceName": "06.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/secador-cafe/07.jpg",
+          "src": "/assets/portfolio/secador-cafe/07.jpg",
+          "bytes": 93931,
+          "sha256": "746411ea6bf09566293d0644ba96e896b298d21e25c45ec5f47fd03da730db9d",
+          "width": 960,
+          "height": 1280,
+          "kind": "foto",
+          "caption": "Painel fechado com comandos dos cinco motores",
+          "alt": "Painel fechado com comandos dos cinco motores — Painel de comando para secador de café",
+          "sourceName": "07.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/secador-cafe/layout-painel.jpg",
+          "src": "/assets/portfolio/secador-cafe/layout-painel.jpg",
+          "bytes": 223186,
+          "sha256": "a4e06350145b16ce3403a3760b32606985db64ff2ce2213b2446c9237a03a43d",
+          "width": 2000,
+          "height": 1173,
+          "kind": "projeto",
+          "caption": "Layout do painel: vistas interna e externa",
+          "alt": "Layout do painel: vistas interna e externa — Painel de comando para secador de café",
+          "sourceName": "layout-painel.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/secador-cafe/diagrama-forca.jpg",
+          "src": "/assets/portfolio/secador-cafe/diagrama-forca.jpg",
+          "bytes": 241823,
+          "sha256": "be612b2f032ae1b09885c0cb7cf748be97d2f06b8b83a19a3e8b5ba7c5494dd7",
+          "width": 2000,
+          "height": 1173,
+          "kind": "projeto",
+          "caption": "Diagrama elétrico de força",
+          "alt": "Diagrama elétrico de força — Painel de comando para secador de café",
+          "sourceName": "diagrama-forca.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/secador-cafe/diagrama-comando.jpg",
+          "src": "/assets/portfolio/secador-cafe/diagrama-comando.jpg",
+          "bytes": 153691,
+          "sha256": "3cc3c02e17b4a645bd22f6ef495bb13b8779183ecebac4094ceaa259ed614cc7",
+          "width": 2000,
+          "height": 1173,
+          "kind": "projeto",
+          "caption": "Diagrama elétrico de comando",
+          "alt": "Diagrama elétrico de comando — Painel de comando para secador de café",
+          "sourceName": "diagrama-comando.jpg"
+        }
+      ]
+    },
+    {
+      "id": "seladora-controle-temperatura",
+      "url": "https://www.rpcaconde.com.br/trabalhos/seladora-controle-temperatura",
+      "title": "Placa eletrônica de controle para seladora",
+      "summary": "Placa própria com microcontrolador e TRIAC para aquecer a resistência da seladora com partida suave.",
+      "context": "Desenvolvimento de uma placa eletrônica dedicada para seladoras. Um microcontrolador PIC detecta a passagem da rede por zero e controla o disparo de um TRIAC por ângulo de fase, fazendo uma rampa de aquecimento suave da resistência em vez de ligar a carga de uma vez. A placa tem isolação óptica entre o comando e a potência, ajuste por potenciômetro e entrada para chave de acionamento e termostato. Fizemos o esquema, o desenho da placa, o programa do microcontrolador, a fabricação e os testes das unidades.",
+      "deliverables": [
+        "Placa de circuito impresso projetada e fabricada",
+        "Firmware próprio no microcontrolador PIC",
+        "Controle de potência por TRIAC com rampa de aquecimento",
+        "Isolação óptica entre comando e potência"
+      ],
+      "media": [
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/seladora-controle-temperatura/01.jpg",
+          "src": "/assets/portfolio/seladora-controle-temperatura/01.jpg",
+          "bytes": 97477,
+          "sha256": "9e01754c5dfb8da43ad5ae907013b593f0dbd093101c3379f65562f82a0d05a5",
+          "width": 719,
+          "height": 1280,
+          "kind": "foto",
+          "caption": "Unidades da placa eletrônica de controle da seladora",
+          "alt": "Unidades da placa eletrônica de controle da seladora — Placa eletrônica de controle para seladora",
+          "sourceName": "01.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/seladora-controle-temperatura/02.jpg",
+          "src": "/assets/portfolio/seladora-controle-temperatura/02.jpg",
+          "bytes": 125828,
+          "sha256": "46c275fc9c2e1fd8d9ee31d130e0da87418a77079c49974f8c487af64c7c8575",
+          "width": 719,
+          "height": 1280,
+          "kind": "foto",
+          "caption": "Placas montadas e materiais de desenvolvimento em bancada",
+          "alt": "Placas montadas e materiais de desenvolvimento em bancada — Placa eletrônica de controle para seladora",
+          "sourceName": "02.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/seladora-controle-temperatura/03.jpg",
+          "src": "/assets/portfolio/seladora-controle-temperatura/03.jpg",
+          "bytes": 103504,
+          "sha256": "16f3e520d736c71e409bb6cd35dbbc592317a1d759f8bc879903ae4ae4504fdb",
+          "width": 960,
+          "height": 1280,
+          "kind": "foto",
+          "caption": "Face de cobre da placa de circuito impresso",
+          "alt": "Face de cobre da placa de circuito impresso — Placa eletrônica de controle para seladora",
+          "sourceName": "03.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/seladora-controle-temperatura/04.jpg",
+          "src": "/assets/portfolio/seladora-controle-temperatura/04.jpg",
+          "bytes": 81256,
+          "sha256": "d2ab37808b51241069efda15c86f0d4d67f50701682be8e4c38ef46510facc45",
+          "width": 719,
+          "height": 1280,
+          "kind": "foto",
+          "caption": "Registro da placa de circuito impresso fabricada",
+          "alt": "Registro da placa de circuito impresso fabricada — Placa eletrônica de controle para seladora",
+          "sourceName": "04.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/seladora-controle-temperatura/placa-pci.jpg",
+          "src": "/assets/portfolio/seladora-controle-temperatura/placa-pci.jpg",
+          "bytes": 219790,
+          "sha256": "1d66a97b5231ca8437aa5f4308293a525a5fb210bfe2df615f2a4c30578afe8e",
+          "width": 1103,
+          "height": 1600,
+          "kind": "projeto",
+          "caption": "Desenho das trilhas da placa de circuito impresso",
+          "alt": "Desenho das trilhas da placa de circuito impresso — Placa eletrônica de controle para seladora",
+          "sourceName": "placa-pci.jpg"
+        }
+      ]
+    },
+    {
+      "id": "prensa-retrofit",
+      "url": "https://www.rpcaconde.com.br/trabalhos/prensa-retrofit",
+      "title": "Retrofit completo de prensa industrial de 1995",
+      "summary": "Prensa sucateada reprojetada e automatizada com CLP, painel novo e modos manual e automático.",
+      "context": "Uma prensa hidráulica para madeira, de 1995, estava parada com o painel danificado e componentes fora de linha. Refizemos todo o projeto elétrico e a automação conforme as diretrizes do cliente: painel novo com CLP, proteção contra surto e falta de fase, voltímetro e amperímetro, acionamento da bomba hidráulica, comando de velocidade do carregador e painel de operação com botoeiras e seletoras para prensa, empurrador, separador e carregador. A máquina ganhou ciclo automático e modo manual por conjunto, e foi entregue com diagramas, memorial descritivo e de funcionamento, e o programa do CLP.",
+      "deliverables": [
+        "Painel elétrico e de comando refeitos do zero",
+        "Automação com CLP: ciclo automático e modo manual",
+        "Proteções de surto, falta de fase e emergência",
+        "Diagramas, memorial descritivo e de funcionamento entregues"
+      ],
+      "media": [
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/prensa-retrofit/01.jpg",
+          "src": "/assets/portfolio/prensa-retrofit/01.jpg",
+          "bytes": 148031,
+          "sha256": "0e1f489a039ba3b4e204708da8d0b97657648baba7a8b0cd3b284abc77c84a1b",
+          "width": 1599,
+          "height": 899,
+          "kind": "foto",
+          "caption": "Vista geral da prensa e do conjunto de alimentação",
+          "alt": "Vista geral da prensa e do conjunto de alimentação — Retrofit completo de prensa industrial de 1995",
+          "sourceName": "01.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/prensa-retrofit/02.jpg",
+          "src": "/assets/portfolio/prensa-retrofit/02.jpg",
+          "bytes": 347696,
+          "sha256": "b6d46f0a19a811aec693c62c01817caddd71dc6372b5f2d6998affb665800d23",
+          "width": 1600,
+          "height": 1201,
+          "kind": "foto",
+          "caption": "Prensa hidráulica de madeira registrada no projeto",
+          "alt": "Prensa hidráulica de madeira registrada no projeto — Retrofit completo de prensa industrial de 1995",
+          "sourceName": "02.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/prensa-retrofit/03.jpg",
+          "src": "/assets/portfolio/prensa-retrofit/03.jpg",
+          "bytes": 252843,
+          "sha256": "746cb0a9a448505fdc2dcf1f854f2b5ee83dea0cf983d6e471b9767c96bd1830",
+          "width": 1600,
+          "height": 1201,
+          "kind": "foto",
+          "caption": "Estrutura e conjuntos da prensa",
+          "alt": "Estrutura e conjuntos da prensa — Retrofit completo de prensa industrial de 1995",
+          "sourceName": "03.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/prensa-retrofit/04.jpg",
+          "src": "/assets/portfolio/prensa-retrofit/04.jpg",
+          "bytes": 433180,
+          "sha256": "f79fbc2a6fab7dc990266ac10600ee0c3c24b7fbaffc7e88e02b1ea1b71a73c1",
+          "width": 1201,
+          "height": 1600,
+          "kind": "foto",
+          "caption": "Painel existente registrado no retrofit",
+          "alt": "Painel existente registrado no retrofit — Retrofit completo de prensa industrial de 1995",
+          "sourceName": "04.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/prensa-retrofit/05.jpg",
+          "src": "/assets/portfolio/prensa-retrofit/05.jpg",
+          "bytes": 180960,
+          "sha256": "8e9b1e839c6cb714dc7ece04b152569e648f4aef29b0d4ce79ed5872f6e4281d",
+          "width": 899,
+          "height": 1599,
+          "kind": "foto",
+          "caption": "Novo painel elétrico e de comando da prensa",
+          "alt": "Novo painel elétrico e de comando da prensa — Retrofit completo de prensa industrial de 1995",
+          "sourceName": "05.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/prensa-retrofit/06.jpg",
+          "src": "/assets/portfolio/prensa-retrofit/06.jpg",
+          "bytes": 122430,
+          "sha256": "611d62936b4cf0496810d4fd7322b5fc8f3a537b7c3e2923fd51498c0805bd8a",
+          "width": 888,
+          "height": 906,
+          "kind": "foto",
+          "caption": "Console de operação com botoeiras e seletoras",
+          "alt": "Console de operação com botoeiras e seletoras — Retrofit completo de prensa industrial de 1995",
+          "sourceName": "06.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/prensa-retrofit/07.jpg",
+          "src": "/assets/portfolio/prensa-retrofit/07.jpg",
+          "bytes": 192261,
+          "sha256": "5b1ce2eb60bd6593a78ddd03a13d37def50229db81dec45d373761d8e5d8cfb4",
+          "width": 1599,
+          "height": 899,
+          "kind": "foto",
+          "caption": "Conjunto da máquina e console de operação",
+          "alt": "Conjunto da máquina e console de operação — Retrofit completo de prensa industrial de 1995",
+          "sourceName": "07.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/prensa-retrofit/08.jpg",
+          "src": "/assets/portfolio/prensa-retrofit/08.jpg",
+          "bytes": 115348,
+          "sha256": "b7344932f21d07e98169d71917b3d2746d0321ff4baf182cf575ca99eec8f116",
+          "width": 899,
+          "height": 1599,
+          "kind": "foto",
+          "caption": "Detalhe do conjunto de alimentação da prensa",
+          "alt": "Detalhe do conjunto de alimentação da prensa — Retrofit completo de prensa industrial de 1995",
+          "sourceName": "08.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/prensa-retrofit/09.jpg",
+          "src": "/assets/portfolio/prensa-retrofit/09.jpg",
+          "bytes": 165952,
+          "sha256": "90ec7fa8016ad10872a7ef91f2306c4fa46bd769de046a4e017e508302e0a349",
+          "width": 1599,
+          "height": 899,
+          "kind": "foto",
+          "caption": "Prensa e novo console de comando",
+          "alt": "Prensa e novo console de comando — Retrofit completo de prensa industrial de 1995",
+          "sourceName": "09.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/prensa-retrofit/layout-painel.jpg",
+          "src": "/assets/portfolio/prensa-retrofit/layout-painel.jpg",
+          "bytes": 171227,
+          "sha256": "dc4e9b9e8bbf2b572f208709f514993f7016ec43c538b249cf4e2353e9a42562",
+          "width": 2000,
+          "height": 1173,
+          "kind": "projeto",
+          "caption": "Layout do painel: vistas interna e externa",
+          "alt": "Layout do painel: vistas interna e externa — Retrofit completo de prensa industrial de 1995",
+          "sourceName": "layout-painel.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/prensa-retrofit/diagrama-forca.jpg",
+          "src": "/assets/portfolio/prensa-retrofit/diagrama-forca.jpg",
+          "bytes": 229998,
+          "sha256": "762e51d26f06b8aaa99cfa1d280bab5049187fa60c73550937f0e0e7023bff9c",
+          "width": 2000,
+          "height": 1173,
+          "kind": "projeto",
+          "caption": "Diagrama elétrico de força",
+          "alt": "Diagrama elétrico de força — Retrofit completo de prensa industrial de 1995",
+          "sourceName": "diagrama-forca.jpg"
+        }
+      ]
+    },
+    {
+      "id": "painel-bombas-revezamento",
+      "url": "https://www.rpcaconde.com.br/trabalhos/painel-bombas-revezamento",
+      "title": "Painel de comando de 2 bombas com revezamento",
+      "summary": "Projeto e montagem de painel para duas bombas, com revezamento automático por boia e proteção por fase.",
+      "context": "Projeto e montagem de painel para dois conjuntos motobomba de 5 cv em 220 V. Cada bomba tem disjuntor-motor e contator próprios, com relé de falta de fase protegendo o conjunto. Em automático, as bombas trabalham por boias de nível superior e inferior e se revezam; em manual, são ligadas pelas botoeiras da porta. O painel tem chave geral, seletora manual/automático, sinaleiros de ligado e defeito, bornes identificados por circuito e cabos anilhados, e foi entregue com o diagrama elétrico.",
+      "deliverables": [
+        "2 motobombas de 5 cv com disjuntor-motor e contator",
+        "Revezamento automático por boias de nível",
+        "Relé de falta de fase e sinalização de defeito",
+        "Bornes identificados e diagrama entregue"
+      ],
+      "media": [
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/painel-bombas-revezamento/01.jpg",
+          "src": "/assets/portfolio/painel-bombas-revezamento/01.jpg",
+          "bytes": 156529,
+          "sha256": "998cb883e8f3bb0592e2dc5ea7fd6d8f8228b59d402ff90932875d23d3a28b97",
+          "width": 1280,
+          "height": 960,
+          "kind": "foto",
+          "caption": "Vista geral do painel de duas bombas aberto",
+          "alt": "Vista geral do painel de duas bombas aberto — Painel de comando de 2 bombas com revezamento",
+          "sourceName": "01.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/painel-bombas-revezamento/02.jpg",
+          "src": "/assets/portfolio/painel-bombas-revezamento/02.jpg",
+          "bytes": 170674,
+          "sha256": "3bd6f2c9bba230215c91711ba95a33e06296a6bcf9f0c061f7b7c0bba2f953aa",
+          "width": 960,
+          "height": 1280,
+          "kind": "foto",
+          "caption": "Proteções, contatores e circuitos internos",
+          "alt": "Proteções, contatores e circuitos internos — Painel de comando de 2 bombas com revezamento",
+          "sourceName": "02.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/painel-bombas-revezamento/03.jpg",
+          "src": "/assets/portfolio/painel-bombas-revezamento/03.jpg",
+          "bytes": 87466,
+          "sha256": "a15a1d2bc6e64d9cb39f77e00d930f23fc31164958ba03d57ec67252ae8d0128",
+          "width": 960,
+          "height": 1280,
+          "kind": "foto",
+          "caption": "Comandos e sinalização na porta do painel",
+          "alt": "Comandos e sinalização na porta do painel — Painel de comando de 2 bombas com revezamento",
+          "sourceName": "03.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/painel-bombas-revezamento/04.jpg",
+          "src": "/assets/portfolio/painel-bombas-revezamento/04.jpg",
+          "bytes": 128352,
+          "sha256": "45acc97b5386e7e8e0314ab60d91226326f0fdc2c6037e46bbfdb261451a4011",
+          "width": 1280,
+          "height": 960,
+          "kind": "foto",
+          "caption": "Bornes identificados dos circuitos das bombas",
+          "alt": "Bornes identificados dos circuitos das bombas — Painel de comando de 2 bombas com revezamento",
+          "sourceName": "04.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/painel-bombas-revezamento/05.jpg",
+          "src": "/assets/portfolio/painel-bombas-revezamento/05.jpg",
+          "bytes": 127203,
+          "sha256": "bd8d8f39c46089811bbcc494a8fae468d274ed49fd662d6ffed979a0cb180026",
+          "width": 1280,
+          "height": 960,
+          "kind": "foto",
+          "caption": "Detalhe da régua de bornes e identificação",
+          "alt": "Detalhe da régua de bornes e identificação — Painel de comando de 2 bombas com revezamento",
+          "sourceName": "05.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/painel-bombas-revezamento/06.jpg",
+          "src": "/assets/portfolio/painel-bombas-revezamento/06.jpg",
+          "bytes": 169722,
+          "sha256": "c683e871dd7349a25dda0827c1c15769b11b135f4bc940ebff9ee1d1dcafbe99",
+          "width": 1280,
+          "height": 960,
+          "kind": "foto",
+          "caption": "Painel montado com ligações da porta e componentes",
+          "alt": "Painel montado com ligações da porta e componentes — Painel de comando de 2 bombas com revezamento",
+          "sourceName": "06.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/painel-bombas-revezamento/diagrama-forca.jpg",
+          "src": "/assets/portfolio/painel-bombas-revezamento/diagrama-forca.jpg",
+          "bytes": 177168,
+          "sha256": "da19df4733ca57081886c9ac0eb9bb9e70e9da4a02672bb172d1aed26dce51ce",
+          "width": 2000,
+          "height": 1173,
+          "kind": "projeto",
+          "caption": "Diagrama elétrico de força",
+          "alt": "Diagrama elétrico de força — Painel de comando de 2 bombas com revezamento",
+          "sourceName": "diagrama-forca.jpg"
+        },
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/painel-bombas-revezamento/diagrama-comando.jpg",
+          "src": "/assets/portfolio/painel-bombas-revezamento/diagrama-comando.jpg",
+          "bytes": 138432,
+          "sha256": "3bd1eab3503e1402cf7793858a6679b559314677b6d66bccdf2f5c436f88014f",
+          "width": 2000,
+          "height": 1173,
+          "kind": "projeto",
+          "caption": "Diagrama elétrico de comando",
+          "alt": "Diagrama elétrico de comando — Painel de comando de 2 bombas com revezamento",
+          "sourceName": "diagrama-comando.jpg"
+        }
+      ]
+    },
+    {
+      "id": "painel-protecao-motor",
+      "url": "https://www.rpcaconde.com.br/trabalhos/painel-protecao-motor",
+      "title": "Painel de proteção e partida de motor",
+      "summary": "Partida direta com disjuntor-motor, contator, relé de falta de fase e botoeiras liga/desliga.",
+      "context": "Painel compacto para partida direta de motor trifásico, em caixa plástica com vedação. Disjuntor-motor para proteção contra sobrecarga e curto, contator, relé de proteção contra falta de fase, botoeiras de liga e desliga e sinaleiro na tampa, com toda a fiação anilhada.",
+      "deliverables": [
+        "Disjuntor-motor e contator dimensionados para o motor",
+        "Relé de proteção contra falta de fase",
+        "Botoeiras e sinaleiro na tampa",
+        "Fiação anilhada e identificada"
+      ],
+      "media": [
+        {
+          "source": "https://www.rpcaconde.com.br/images/servicos/painel-protecao-motor/01.jpg",
+          "src": "/assets/portfolio/painel-protecao-motor/01.jpg",
+          "bytes": 122576,
+          "sha256": "988e7503346b2250603173793b9a74a1c330bcf933ded120210757db7b5826e3",
+          "width": 1200,
+          "height": 1600,
+          "kind": "foto",
+          "caption": "Painel compacto aberto: proteção, partida e comandos do motor",
+          "alt": "Painel compacto aberto: proteção, partida e comandos do motor — Painel de proteção e partida de motor",
+          "sourceName": "01.jpg"
+        }
+      ]
+    }
+  ]
+}

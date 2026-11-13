@@ -1,0 +1,499 @@
+[
+  {
+    "slug": "sistemas",
+    "name": "Sistemas e software",
+    "group": "Dados e gestão",
+    "short": "Sistemas que trabalham do seu jeito.",
+    "title": "Seu processo.\nSeu sistema.",
+    "lead": "Desenvolvimento de sistemas para conectar o chão de fábrica, a operação e a gestão da empresa. Do supervisório ao aplicativo, a solução acompanha a lógica do seu negócio.",
+    "image": "/assets/sistema.jpg",
+    "imageType": "Interface demonstrativa do sistema",
+    "intro": "Informação que sai da máquina e chega à decisão.",
+    "description": "Integramos dados, organizamos rotinas e criamos interfaces para quem opera e para quem gerencia. A arquitetura pode reunir supervisão industrial, produção, manutenção e processos administrativos, com módulos definidos conforme o projeto.",
+    "deliverables": [
+      [
+        "Supervisão e SCADA",
+        "Telas de processo, alarmes, tendências e históricos para acompanhar a instalação."
+      ],
+      [
+        "Produção e MES",
+        "Ordens, apontamentos e indicadores para entender o andamento da produção."
+      ],
+      [
+        "Gestão empresarial",
+        "Comercial, serviços, estoque, compras e financeiro conectados conforme o escopo."
+      ],
+      [
+        "Aplicações sob medida",
+        "Sistemas web, cadastros, fluxos de trabalho e relatórios construídos para a sua operação."
+      ],
+      [
+        "Integração de dados",
+        "Conexão com CLPs, medidores, bancos de dados e sistemas existentes, conforme compatibilidade."
+      ],
+      [
+        "Acesso pelo celular",
+        "Interfaces responsivas, perfis de usuário e consultas para acompanhar a empresa à distância."
+      ]
+    ],
+    "situations": [
+      "Informações espalhadas entre planilhas e sistemas",
+      "Falta de visibilidade sobre produção, ordens ou manutenção",
+      "Rotinas administrativas que não conversam com a operação"
+    ],
+    "faq": [
+      [
+        "É preciso contratar todos os módulos?",
+        "Não. O levantamento define os módulos, integrações e interfaces necessários para o momento da empresa."
+      ],
+      [
+        "O sistema pode conversar com máquinas existentes?",
+        "A possibilidade depende dos controladores, protocolos e infraestrutura disponíveis. Essa avaliação faz parte do levantamento técnico."
+      ],
+      [
+        "O acesso pelo celular permite controlar máquinas?",
+        "Acompanhamento e controle são funções diferentes. Comandos remotos, quando fizerem parte do projeto, exigem definição de permissões, segurança e condições operacionais específicas."
+      ]
+    ],
+    "related": [
+      "sistema-gestao-integrada"
+    ],
+    "linkText": "Conversar sobre um sistema"
+  },
+  {
+    "slug": "automacao",
+    "name": "Automação industrial",
+    "group": "Máquinas e processos",
+    "short": "Controle para o processo acontecer.",
+    "title": "Mais controle.\nEm cada etapa.",
+    "lead": "Automação de máquinas, instalações e processos, integrando sensores, acionamentos, controladores e interfaces de operação.",
+    "image": "/assets/hero-industria.jpg",
+    "imageType": "Imagem institucional ilustrativa",
+    "intro": "A lógica certa começa pelo entendimento do processo.",
+    "description": "Partimos da sequência operacional, das condições da instalação e da rotina da equipe. Desenvolvemos o controle, integramos os equipamentos e acompanhamos os testes e a partida conforme o escopo contratado.",
+    "deliverables": [
+      [
+        "Programação de CLPs",
+        "Lógica de controle, sequências automáticas, intertravamentos e comunicação."
+      ],
+      [
+        "IHMs e supervisão",
+        "Interfaces para operar, consultar estados, acompanhar alarmes e ajustar parâmetros autorizados."
+      ],
+      [
+        "Acionamentos",
+        "Integração de motores, inversores de frequência e soft-starters ao controle."
+      ],
+      [
+        "Instrumentação",
+        "Integração de sinais de nível, pressão, temperatura e outras variáveis do processo."
+      ],
+      [
+        "Redes industriais",
+        "Comunicação entre equipamentos e sistemas conforme protocolos e compatibilidade."
+      ],
+      [
+        "Comissionamento",
+        "Testes, ajustes de funcionamento e acompanhamento da partida conforme critérios definidos."
+      ]
+    ],
+    "situations": [
+      "Operação manual com etapas repetitivas",
+      "Máquinas ou equipamentos que trabalham isolados",
+      "Necessidade de acompanhar estados, variáveis e eventos"
+    ],
+    "faq": [
+      [
+        "Vocês automatizam máquinas novas e existentes?",
+        "Sim. A avaliação inicial identifica as necessidades de uma máquina nova ou as possibilidades de integração e modernização de uma instalação existente."
+      ],
+      [
+        "É possível manter parte dos equipamentos?",
+        "O aproveitamento depende do estado, da compatibilidade e dos requisitos do projeto. Essa decisão é tomada após o levantamento."
+      ],
+      [
+        "A solução inclui a parte elétrica?",
+        "Podemos integrar projeto elétrico, painéis, controle e sistemas em uma mesma entrega, conforme o contrato."
+      ]
+    ],
+    "related": [
+      "estacao-elevatoria-esgoto",
+      "estacao-pressurizadora-agua",
+      "poco-artesiano-telemetria",
+      "secador-cafe",
+      "seladora-controle-temperatura"
+    ],
+    "linkText": "Conversar sobre automação"
+  },
+  {
+    "slug": "engenharia-eletrica",
+    "name": "Engenharia elétrica",
+    "group": "Infraestrutura e energia",
+    "short": "Engenharia desde o primeiro circuito.",
+    "title": "Uma base elétrica\npara evoluir.",
+    "lead": "Projetos, dimensionamento e documentação para construir, ampliar ou modernizar instalações elétricas, conectando infraestrutura, distribuição e controle.",
+    "image": "/assets/engenharia-paineis.jpg",
+    "imageType": "Imagem institucional ilustrativa",
+    "intro": "Antes da execução, decisões bem fundamentadas.",
+    "description": "O projeto precisa considerar as cargas, a forma de utilização e as necessidades de manutenção e expansão. Organizamos as informações técnicas para orientar a execução e a integração com os equipamentos da operação.",
+    "deliverables": [
+      [
+        "Levantamento técnico",
+        "Entendimento das cargas, dos circuitos e da infraestrutura disponível."
+      ],
+      [
+        "Dimensionamento",
+        "Definição de circuitos, condutores, proteções e distribuição conforme o projeto."
+      ],
+      [
+        "Projetos e diagramas",
+        "Plantas, diagramas unifilares, esquemas de força e comando, conforme a entrega."
+      ],
+      [
+        "Quadros e CCMs",
+        "Projeto dos conjuntos de distribuição e acionamento para os equipamentos."
+      ],
+      [
+        "Documentação",
+        "Memoriais, especificações e registros técnicos conforme o escopo."
+      ],
+      [
+        "Acompanhamento técnico",
+        "Apoio à execução, verificações e responsabilidade técnica com ART quando aplicável."
+      ]
+    ],
+    "situations": [
+      "Construção ou ampliação de instalações",
+      "Instalação de novas máquinas ou aumento de cargas",
+      "Necessidade de documentação para executar e manter"
+    ],
+    "faq": [
+      [
+        "Vocês fazem apenas o projeto?",
+        "É possível contratar o projeto ou integrar etapas como painéis, automação e acompanhamento técnico. A proposta delimita as responsabilidades."
+      ],
+      [
+        "A ART está incluída?",
+        "A responsabilidade técnica e os registros aplicáveis são definidos na proposta conforme a natureza do serviço."
+      ],
+      [
+        "Vocês trabalham com instalações existentes?",
+        "Sim. O levantamento técnico permite avaliar a instalação e definir o escopo de ampliação, atualização ou documentação."
+      ]
+    ],
+    "related": [
+      "painel-bombas-revezamento",
+      "painel-protecao-motor",
+      "estacao-elevatoria-esgoto",
+      "estacao-pressurizadora-agua"
+    ],
+    "linkText": "Planejar um projeto elétrico"
+  },
+  {
+    "slug": "paineis-eletricos",
+    "name": "Painéis elétricos",
+    "group": "Infraestrutura e controle",
+    "short": "Precisão que também se vê por dentro.",
+    "title": "Do diagrama\nao painel.",
+    "lead": "Projeto e montagem de painéis de comando, quadros e centros de controle de motores, integrados à lógica de operação e à documentação técnica.",
+    "image": "/assets/detalhe-painel.jpg",
+    "imageType": "Imagem institucional ilustrativa",
+    "intro": "Uma boa montagem começa em um bom projeto.",
+    "description": "Organização, identificação e coerência entre o diagrama e a montagem ajudam a operação e a manutenção. Desenvolvemos o painel a partir das cargas, dos acionamentos, do ambiente e das condições de uso.",
+    "deliverables": [
+      [
+        "Painéis de comando",
+        "Circuitos de força e comando para máquinas e instalações."
+      ],
+      [
+        "Centros de controle de motores",
+        "Integração de partidas, proteções e acionamentos em CCMs."
+      ],
+      [
+        "Painéis de automação",
+        "Controladores, interfaces, fontes e redes integrados ao conjunto."
+      ],
+      [
+        "Inversores e soft-starters",
+        "Acionamentos selecionados conforme as necessidades dos motores e do processo."
+      ],
+      [
+        "Identificação e documentação",
+        "Diagramas, identificação de componentes e registros conforme a entrega."
+      ],
+      [
+        "Testes e integração",
+        "Verificações em bancada e integração com a instalação conforme o plano de testes."
+      ]
+    ],
+    "situations": [
+      "Máquina nova ou modernização do comando",
+      "Painel antigo com manutenção difícil",
+      "Integração entre acionamentos e automação"
+    ],
+    "faq": [
+      [
+        "O painel pode incluir CLP e IHM?",
+        "Sim. A arquitetura do painel pode integrar CLP, IHM, acionamentos e comunicação conforme a necessidade."
+      ],
+      [
+        "Vocês entregam a programação também?",
+        "Projeto, montagem e programação podem fazer parte da mesma proposta, com escopo definido."
+      ],
+      [
+        "É possível reformar um painel existente?",
+        "A viabilidade depende da avaliação do conjunto, do estado dos componentes e das alterações necessárias."
+      ]
+    ],
+    "related": [
+      "painel-bombas-revezamento",
+      "painel-protecao-motor",
+      "secador-cafe",
+      "estacao-elevatoria-esgoto",
+      "poco-artesiano-telemetria"
+    ],
+    "linkText": "Conversar sobre um painel"
+  },
+  {
+    "slug": "laudos",
+    "name": "Laudos e diagnósticos",
+    "group": "Avaliação técnica",
+    "short": "Entender a instalação antes de intervir.",
+    "title": "Medição. Análise.\nDireção técnica.",
+    "lead": "Inspeções, medições e laudos para documentar as condições encontradas, identificar problemas e orientar as intervenções na instalação elétrica.",
+    "image": "/assets/inspecao-laudo-bancos-capacitores-2.jpg",
+    "imageType": "Registro real de trabalho da RP Caconde",
+    "intro": "O diagnóstico transforma sinais em decisões.",
+    "description": "Uma avaliação técnica reúne observação em campo, medições e análise do comportamento dos componentes. O escopo define os pontos avaliados, os métodos, os registros e os limites do diagnóstico.",
+    "deliverables": [
+      [
+        "Inspeções elétricas",
+        "Verificação das condições encontradas em painéis, componentes e circuitos abrangidos pelo serviço."
+      ],
+      [
+        "Medições e análise",
+        "Registro das grandezas relevantes ao diagnóstico e comparação com referências técnicas aplicáveis."
+      ],
+      [
+        "Bancos de capacitores",
+        "Avaliação de células, controladores, estágios e componentes associados."
+      ],
+      [
+        "Relatório fotográfico",
+        "Evidências das condições observadas com identificação dos pontos inspecionados."
+      ],
+      [
+        "Laudo e recomendações",
+        "Conclusões técnicas, intervenções recomendadas e limitações da avaliação."
+      ],
+      [
+        "Plano de intervenção",
+        "Identificação de componentes e prioridades para orientar manutenção e compra de peças."
+      ]
+    ],
+    "situations": [
+      "Falhas recorrentes ou desempenho fora do esperado",
+      "Dúvidas sobre o estado de painéis e componentes",
+      "Necessidade de documentar condições e orientar manutenção"
+    ],
+    "faq": [
+      [
+        "O laudo inclui a correção de todos os problemas?",
+        "Diagnóstico e execução de correções são escopos distintos. A proposta informa as intervenções incluídas e as recomendações que dependem de uma etapa posterior."
+      ],
+      [
+        "Vocês avaliam bancos de capacitores?",
+        "Sim. O portfólio inclui inspeção, medições e laudos de seis bancos de capacitores em uma indústria de vidros."
+      ],
+      [
+        "Que informações preciso enviar?",
+        "O objetivo da avaliação, a localização dos equipamentos e os sintomas observados ajudam a definir o levantamento. Documentos e registros existentes podem complementar a análise."
+      ]
+    ],
+    "related": [
+      "inspecao-laudo-bancos-capacitores"
+    ],
+    "linkText": "Solicitar uma avaliação técnica"
+  },
+  {
+    "slug": "retrofit",
+    "name": "Retrofit de máquinas",
+    "group": "Modernização",
+    "short": "Novos controles. Outra possibilidade.",
+    "title": "Sua máquina.\nUm novo capítulo.",
+    "lead": "Modernização de controles, acionamentos e interfaces para atualizar máquinas e instalações, avaliando o que pode ser preservado e o que precisa evoluir.",
+    "image": "/assets/hero-industria.jpg",
+    "imageType": "Imagem institucional ilustrativa",
+    "intro": "Evoluir a operação com critério técnico.",
+    "description": "O retrofit começa no entendimento do funcionamento atual. Mapeamos a sequência operacional, a documentação disponível e os componentes para definir uma estratégia de migração e testes compatível com a operação.",
+    "deliverables": [
+      [
+        "Levantamento da máquina",
+        "Mapeamento das funções, sinais, componentes e condições de operação."
+      ],
+      [
+        "Migração de controle",
+        "Atualização de CLPs, IHMs e lógica conforme a arquitetura proposta."
+      ],
+      [
+        "Acionamentos e painéis",
+        "Modernização dos pontos de comando e potência abrangidos pelo projeto."
+      ],
+      [
+        "Interfaces e comunicação",
+        "Novas formas de operação, consulta de estados e integração de dados."
+      ],
+      [
+        "Planejamento de testes",
+        "Verificações e critérios de aceitação antes e durante a partida."
+      ],
+      [
+        "Documentação e orientação",
+        "Atualização dos registros e preparação da equipe para o novo controle."
+      ]
+    ],
+    "situations": [
+      "Componentes obsoletos ou difíceis de repor",
+      "Comando antigo com pouca informação para a equipe",
+      "Necessidade de integrar uma máquina à supervisão"
+    ],
+    "faq": [
+      [
+        "O retrofit substitui a máquina inteira?",
+        "O objetivo é avaliar o aproveitamento do equipamento e modernizar os pontos necessários. A viabilidade depende do levantamento."
+      ],
+      [
+        "Quanto tempo a máquina precisa parar?",
+        "O prazo depende da complexidade, dos testes possíveis em bancada e da janela operacional. O planejamento é definido no projeto."
+      ],
+      [
+        "O retrofit garante adequação integral da máquina?",
+        "As responsabilidades e os requisitos abrangidos precisam estar explícitos no escopo. Uma intervenção em controle não equivale, por si só, a uma avaliação completa de todos os aspectos da máquina."
+      ]
+    ],
+    "related": [
+      "prensa-retrofit"
+    ],
+    "linkText": "Avaliar uma modernização"
+  },
+  {
+    "slug": "manutencao",
+    "name": "Manutenção e suporte",
+    "group": "Continuidade da operação",
+    "short": "Apoio técnico para seguir operando.",
+    "title": "Cuidar hoje.\nPreparar o amanhã.",
+    "lead": "Inspeções, diagnóstico de falhas e apoio à manutenção de sistemas elétricos e de automação, com intervenções e rotinas definidas para a sua instalação.",
+    "image": "/assets/operacao-conectada.jpg",
+    "imageType": "Imagem institucional ilustrativa",
+    "intro": "Manutenção com contexto e informação.",
+    "description": "Entender a causa de uma ocorrência é tão importante quanto restabelecer a função. Analisamos sinais, componentes e registros para orientar as ações e documentar o que foi encontrado.",
+    "deliverables": [
+      [
+        "Diagnóstico de falhas",
+        "Investigação dos circuitos, sinais e componentes envolvidos na ocorrência."
+      ],
+      [
+        "Inspeções planejadas",
+        "Verificações conforme os equipamentos e as prioridades da instalação."
+      ],
+      [
+        "Intervenções elétricas",
+        "Correções e substituições delimitadas pelo diagnóstico e pelo escopo."
+      ],
+      [
+        "Suporte à automação",
+        "Análise de lógica, comunicação, parâmetros e comportamento do controle."
+      ],
+      [
+        "Registros técnicos",
+        "Documentação do diagnóstico, das ações executadas e das pendências."
+      ],
+      [
+        "Continuidade técnica",
+        "Orientação para os próximos passos e definição das necessidades de acompanhamento."
+      ]
+    ],
+    "situations": [
+      "Falha de comando ou comunicação",
+      "Ocorrências repetidas sem causa esclarecida",
+      "Necessidade de organizar inspeções e intervenções"
+    ],
+    "faq": [
+      [
+        "É possível contratar uma visita pontual?",
+        "Sim. O atendimento pode começar por uma avaliação específica, com os próximos passos definidos a partir do cenário encontrado."
+      ],
+      [
+        "Existe suporte remoto?",
+        "A possibilidade depende da infraestrutura, dos acessos autorizados e da natureza do problema. Algumas verificações exigem presença em campo."
+      ],
+      [
+        "Como são definidos prazo e disponibilidade?",
+        "A equipe confirma as condições de atendimento conforme o local, a urgência, os recursos e o serviço solicitado."
+      ]
+    ],
+    "related": [
+      "inspecao-laudo-bancos-capacitores"
+    ],
+    "linkText": "Conversar sobre manutenção"
+  },
+  {
+    "slug": "treinamentos",
+    "name": "Treinamentos técnicos",
+    "group": "Pessoas e conhecimento",
+    "short": "Conhecimento para quem vive a operação.",
+    "title": "Tecnologia que\na equipe domina.",
+    "lead": "Capacitação para operar, acompanhar e manter os sistemas e equipamentos, com conteúdo conectado à realidade da equipe e ao escopo da solução.",
+    "image": "/assets/operacao-conectada.jpg",
+    "imageType": "Imagem institucional ilustrativa",
+    "intro": "A entrega também acontece no conhecimento.",
+    "description": "Uma interface só ajuda quando a equipe sabe utilizá-la. Organizamos a orientação sobre funções, rotinas e registros para apoiar a transição e o uso das soluções implantadas.",
+    "deliverables": [
+      [
+        "Operação de equipamentos",
+        "Funções, modos de operação e parâmetros autorizados conforme o projeto."
+      ],
+      [
+        "CLPs e IHMs",
+        "Entendimento das interfaces, estados, alarmes e procedimentos de consulta."
+      ],
+      [
+        "Sistemas de gestão",
+        "Utilização de cadastros, rotinas, indicadores e relatórios dos módulos implantados."
+      ],
+      [
+        "Rotinas de manutenção",
+        "Leitura da documentação e orientação sobre os pontos abrangidos pela solução."
+      ],
+      [
+        "Conteúdo sob medida",
+        "Programa definido conforme o público, a aplicação e os objetivos da capacitação."
+      ],
+      [
+        "Acompanhamento da adoção",
+        "Esclarecimento de dúvidas e alinhamento das rotinas previstas na entrega."
+      ]
+    ],
+    "situations": [
+      "Entrada de uma nova máquina ou sistema",
+      "Equipe nova ou mudança de rotinas",
+      "Dificuldade de aproveitar os recursos disponíveis"
+    ],
+    "faq": [
+      [
+        "O conteúdo pode usar a nossa própria instalação?",
+        "Sim. O programa pode ser organizado ao redor da aplicação e da documentação disponíveis, conforme o acordo."
+      ],
+      [
+        "O treinamento está incluído nos projetos?",
+        "A capacitação pode integrar a proposta de implantação. Conteúdo, participantes e duração precisam estar definidos no escopo."
+      ],
+      [
+        "Vocês oferecem certificações específicas?",
+        "Qualquer requisito de certificação, habilitação ou conteúdo obrigatório deve ser tratado expressamente na proposta. A capacitação de uso de um sistema não substitui outras qualificações exigíveis."
+      ]
+    ],
+    "related": [],
+    "linkText": "Planejar um treinamento"
+  }
+]

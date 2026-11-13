@@ -1,17 +1,5 @@
-FROM node:22-alpine AS dependencies
-WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm ci
-
-FROM node:22-alpine AS builder
-WORKDIR /app
-COPY --from=dependencies /app/node_modules ./node_modules
-COPY . .
-RUN npm run build
-
-FROM node:22-alpine AS runner
-WORKDIR /app
-ENV NODE_ENV=production
-COPY --from=builder /app ./
-EXPOSE 3000
-CMD ["npm", "run", "start", "--", "--host", "0.0.0.0"]
+FROM nginx:alpine
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY public /usr/share/nginx/html
+EXPOSE 8080
+HEALTHCHECK --interval=10s --timeout=3s --start-period=5s CMD wget -q -O /dev/null http://127.0.0.1:8080/ || exit 1
