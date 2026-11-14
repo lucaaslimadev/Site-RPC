@@ -8,6 +8,8 @@ ROOT = Path(__file__).resolve().parents[1]
 PUBLIC = ROOT / 'public'
 projects = json.loads((PUBLIC / 'projects.json').read_text())
 originals = json.loads((ROOT / 'PORTFOLIO-SOURCES.json').read_text())['projects']
+covers = json.loads((ROOT / 'project-covers.json').read_text())
+stories = json.loads((ROOT / 'project-stories.json').read_text())
 
 class GalleryPage(HTMLParser):
     def __init__(self):
@@ -16,9 +18,18 @@ class GalleryPage(HTMLParser):
         self.zoom = []
         self.gallery = ''
         self.in_gallery = False
+        self.initial = None
+        self.main_image = None
+        self.selected_thumbnail = None
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
+        if 'data-gallery-initial' in attrs:
+            self.initial = int(attrs['data-gallery-initial'])
+        if tag == 'img' and 'work-main-image' in attrs.get('class', '').split():
+            self.main_image = attrs['src']
+        if 'data-gallery-index' in attrs and attrs.get('aria-pressed') == 'true':
+            self.selected_thumbnail = int(attrs['data-gallery-index'])
         if 'data-zoom' in attrs:
             self.zoom.append(attrs['data-zoom'])
         if tag == 'script' and 'data-gallery-data' in attrs:
@@ -34,6 +45,7 @@ class GalleryPage(HTMLParser):
             self.gallery += data
 
 assert [p['id'] for p in projects] == [p['id'] for p in originals]
+assert set(stories) == {p['id'] for p in projects}
 total = 0
 for project, original in zip(projects, originals):
     page = GalleryPage()
@@ -47,6 +59,12 @@ for project, original in zip(projects, originals):
     assert page.zoom == [m['src'] for m in original['media']], project['id']
     gallery = json.loads(page.gallery)
     assert [m['src'] for m in gallery] == page.zoom, project['id']
+    cover = covers[project['id']]['index']
+    assert page.initial == page.selected_thumbnail == cover, project['id']
+    assert page.main_image == project['media'][cover]['src'], project['id']
+    for field in ('headline', 'challenge', 'solution', 'outcome', 'proof'):
+        assert stories[project['id']][field] in rendered, (project['id'], field)
+    assert 0 <= stories[project['id']]['evidence'] < len(project['media'])
     for media in original['media']:
         path = PUBLIC / media['src'].lstrip('/')
         data = path.read_bytes()

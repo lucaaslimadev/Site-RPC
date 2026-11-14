@@ -1,0 +1,92 @@
+{
+  "inspecao-laudo-bancos-capacitores": {
+    "headline": "Medir. Diagnosticar. Orientar a correção.",
+    "challenge": "Conhecer a condição real de seis bancos de capacitores, incluindo células, proteções, fiação e controladores automáticos.",
+    "solution": "Medições por fase e por célula, cálculo da capacidade disponível e conferência dos parâmetros dos controladores.",
+    "outcome": "Seis laudos assinados, com memorial de cálculo, registros fotográficos e a identificação das peças e posições que precisavam de intervenção.",
+    "proof": "6 bancos inspecionados",
+    "detail": 1,
+    "evidence": 4
+  },
+  "sistema-gestao-integrada": {
+    "headline": "Uma operação inteira na mesma visão.",
+    "challenge": "Orçamentos, serviços e contas eram acompanhados em planilhas separadas por uma empresa de engenharia e serviços.",
+    "solution": "Implantação de uma plataforma com comercial, execução dos serviços, estoque, compras e financeiro integrados, com acesso por perfil.",
+    "outcome": "A empresa passou a consultar fluxo de caixa, progresso dos serviços, pendências e propostas na mesma plataforma, pelo navegador e pelo celular.",
+    "proof": "Comercial, serviços e financeiro integrados",
+    "detail": 2,
+    "evidence": 1
+  },
+  "estacao-elevatoria-esgoto": {
+    "headline": "Da energia ao controle da estação.",
+    "challenge": "Reunir alimentação elétrica, acionamento das bombas e automação de uma estação elevatória conforme o padrão da autarquia de saneamento.",
+    "solution": "Projeto executivo, CCM, soft-starters, CLP Siemens e IHM, com revezamento das bombas e transferência automática para o gerador.",
+    "outcome": "Operação local, automática por nível e remota, com alimentação de reserva para o controle e a telemetria por até uma hora sem energia.",
+    "proof": "2 motobombas de 40 cv",
+    "detail": 3,
+    "evidence": 0
+  },
+  "estacao-pressurizadora-agua": {
+    "headline": "Pressão controlada. Comandos integrados.",
+    "challenge": "Reprojetar uma estação recebida com três quadros sem comando e integrar o acionamento das bombas aos reservatórios.",
+    "solution": "Concentração dos comandos em CCM e painel de automação, com inversores em controle PID, CLP WEG PLC300, IHM e leitura de pressão.",
+    "outcome": "Revezamento automático, proteção para não operar com o reservatório vazio e modos de operação local, automático e remoto.",
+    "proof": "Controle de pressão por inversor e PID",
+    "detail": 0,
+    "evidence": 5
+  },
+  "poco-artesiano-telemetria": {
+    "headline": "O nível do reservatório orienta o poço.",
+    "challenge": "Integrar um poço novo à reservação e ao poço existentes, com acompanhamento das variáveis do bombeamento.",
+    "solution": "Painel com soft-starter, CLP, IHM e comunicação por rádio para receber o nível do reservatório e comandar a bomba.",
+    "outcome": "Acionamento automático conforme a reservação, leitura de vazão e grandezas elétricas, com modo manual local disponível.",
+    "proof": "Bomba de 32,5 cv com telemetria por rádio",
+    "detail": 0,
+    "evidence": 3
+  },
+  "secador-cafe": {
+    "headline": "Cinco motores. Um comando organizado.",
+    "challenge": "Projetar e montar o comando dos motores do secador de café, reunindo controle de temperatura e modos de operação.",
+    "solution": "Painel com proteções e contatores por motor, comando manual e automático, emergência e sinalização de funcionamento e defeito.",
+    "outcome": "Comando dos cinco motores acompanhado por projeto de 13 folhas, com layout, diagramas de força e comando e identificação dos bornes.",
+    "proof": "5 motores e projeto com 13 folhas",
+    "detail": 3,
+    "evidence": 6
+  },
+  "seladora-controle-temperatura": {
+    "headline": "Eletrônica desenvolvida para a aplicação.",
+    "challenge": "Desenvolver um comando dedicado para aquecer a resistência da seladora de forma gradual.",
+    "solution": "Placa com microcontrolador PIC, detecção de passagem por zero, controle de potência por TRIAC e isolação óptica entre comando e potência.",
+    "outcome": "Esquema, placa, firmware, fabricação e testes das unidades, com rampa de aquecimento e ajuste por potenciômetro.",
+    "proof": "Placa e firmware próprios",
+    "detail": 2,
+    "evidence": 1
+  },
+  "prensa-retrofit": {
+    "headline": "Uma máquina de 1995. Um novo comando.",
+    "challenge": "Uma prensa hidráulica estava parada, com o painel danificado e componentes fora de linha.",
+    "solution": "Novo projeto elétrico, painel com CLP e console de operação, com comandos para prensa, empurrador, separador e carregador.",
+    "outcome": "Ciclo automático e operação manual por conjunto, acompanhados de diagramas, memorial de funcionamento e programa do CLP.",
+    "proof": "Retrofit elétrico e automação com CLP",
+    "detail": 4,
+    "evidence": 8
+  },
+  "painel-bombas-revezamento": {
+    "headline": "Bombeamento com revezamento e proteção.",
+    "challenge": "Reunir o acionamento de duas motobombas de 5 cv em um painel com comando por nível e operação manual.",
+    "solution": "Proteções individuais, contatores, relé de falta de fase e lógica de revezamento por boias de nível superior e inferior.",
+    "outcome": "Operação automática ou pelas botoeiras da porta, com sinalização de defeito, identificação dos circuitos e diagrama elétrico entregue.",
+    "proof": "2 bombas de 5 cv com revezamento",
+    "detail": 3,
+    "evidence": 5
+  },
+  "painel-protecao-motor": {
+    "headline": "Proteção e comando em um painel compacto.",
+    "challenge": "Organizar a partida direta e a proteção de um motor trifásico em uma caixa com vedação.",
+    "solution": "Disjuntor-motor, contator e relé de falta de fase, com botoeiras de liga e desliga e sinaleiro na tampa.",
+    "outcome": "Comando reunido em um conjunto compacto, com proteção contra sobrecarga e curto e fiação anilhada para identificação.",
+    "proof": "Partida, proteção e fiação identificada",
+    "detail": 0,
+    "evidence": 0
+  }
+}

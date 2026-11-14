@@ -190,7 +190,7 @@ if(projectGallery){
  });
  const mainOpen=projectGallery.querySelector('.work-main-open');
  const thumbnailRail=projectGallery.querySelector('.work-thumbnails');
- let galleryFilter='all';let selectedRecord=0;
+ let galleryFilter='all';let selectedRecord=Number(projectGallery.dataset.galleryInitial)||0;
  const visibleRecords=()=>records.map((record,index)=>({record,index})).filter(({record})=>galleryFilter==='all'||record.kind===galleryFilter).map(({index})=>index);
  function selectRecord(index,scroll=true){
   selectedRecord=index;
@@ -232,7 +232,7 @@ if(projectGallery){
   if(!visibleRecords().includes(index))selectFilter(records[index].kind);
   selectRecord(index,false);openImageAt(index,button);
  }));
- selectRecord(0,false);
+ selectRecord(selectedRecord,false);
 }
 
 if(imageItems.length>1){

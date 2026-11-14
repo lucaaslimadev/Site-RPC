@@ -1,42 +1,62 @@
 {
   "inspecao-laudo-bancos-capacitores": {
     "index": 0,
-    "position": "center 52%"
+    "position": "center 50%",
+    "fit": "contain",
+    "detail": 1
   },
   "sistema-gestao-integrada": {
-    "index": 0,
-    "position": "center"
+    "index": 1,
+    "position": "center",
+    "fit": "contain",
+    "detail": null
   },
   "estacao-elevatoria-esgoto": {
     "index": 2,
-    "position": "center 48%"
+    "position": "center 49%",
+    "fit": "contain",
+    "detail": 3
   },
   "estacao-pressurizadora-agua": {
-    "index": 0,
-    "position": "center"
+    "index": 1,
+    "position": "center 48%",
+    "fit": "contain",
+    "detail": 0
   },
   "poco-artesiano-telemetria": {
-    "index": 0,
-    "position": "center 39%"
+    "index": 1,
+    "position": "center 46%",
+    "fit": "contain",
+    "detail": 0
   },
   "secador-cafe": {
     "index": 0,
-    "position": "center 52%"
+    "position": "center 49%",
+    "fit": "cover",
+    "detail": 3
   },
   "seladora-controle-temperatura": {
     "index": 0,
-    "position": "center 47%"
+    "position": "center 44%",
+    "fit": "contain",
+    "detail": 2
   },
   "prensa-retrofit": {
     "index": 8,
-    "position": "center"
+    "position": "center 56%",
+    "fit": "cover",
+    "detail": 4
   },
   "painel-bombas-revezamento": {
     "index": 0,
-    "position": "center"
+    "position": "center 50%",
+    "fit": "cover",
+    "detail": 3
   },
   "painel-protecao-motor": {
     "index": 0,
-    "position": "center 52%"
+    "position": "center 50%",
+    "fit": "contain",
+    "detail": null
   }
 }

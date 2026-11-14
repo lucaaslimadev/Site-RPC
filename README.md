@@ -38,7 +38,7 @@ Páginas principais:
 
 ![Página inicial da RP Caconde](docs/home-preview.png)
 
-[Prévia no celular](docs/responsive-preview.png). A direção visual e a origem da arte estão documentadas em `DESIGN.md`.
+[Prévia no celular](docs/responsive-preview.png). A direção visual e a origem da arte estão documentadas em `DESIGN.md`. Consulte também [o refinamento do portfólio](docs/refinamento-4.md) e [as novas capas](docs/portfolio-preview.png).
 
 ## Parar e retomar
 
@@ -82,7 +82,7 @@ Depois, atualize o navegador. Mudanças em CSS, JavaScript e arquivos de imagem 
 
 ### Adicionar um novo trabalho
 
-Acrescente um objeto a `public/projects.json` seguindo o modelo existente. Use um `id` exclusivo, ano em texto, categoria (`automacao`, `sistemas`, `retrofit`, `projetos-eletricos` ou `manutencao`), título, resumo, contexto e entregas. A lista `media` reúne todos os arquivos e é a fonte das galerias: `src`, `width`, `height`, `kind` (`foto`, `interface` ou `projeto`), `caption` e `alt`. A primeira mídia é a capa e também permanece na galeria. Guarde os arquivos em `public/assets/portfolio/<pasta-do-trabalho>/`.
+Acrescente um objeto a `public/projects.json` seguindo o modelo existente. Use um `id` exclusivo, ano em texto, categoria (`automacao`, `sistemas`, `retrofit`, `projetos-eletricos` ou `manutencao`), título, resumo, contexto e entregas. A lista `media` reúne todos os arquivos e é a fonte das galerias: `src`, `width`, `height`, `kind` (`foto`, `interface` ou `projeto`), `caption` e `alt`. A coleção permanece na ordem original. Em `project-covers.json`, defina o índice da capa, o enquadramento, o ajuste (`cover` ou `contain`) e, opcionalmente, o índice de uma segunda foto de detalhe. A galeria abre na capa selecionada, mantendo todos os registros acessíveis. Em `project-stories.json`, inclua o desafio, a solução, a entrega e o índice da foto que acompanha a narrativa. Use somente fatos documentados do trabalho. Guarde os arquivos em `public/assets/portfolio/<pasta-do-trabalho>/`.
 
 Execute `python3 build.py`. O projeto ganha uma página própria e aparece no portfólio na ordem da lista. Para relacioná-lo a uma especialidade, acrescente seu identificador à lista `related` em `services.json`. Consulte `PORTFOLIO.md` para o detalhamento.
 
