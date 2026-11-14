@@ -1,0 +1,8 @@
+name: rpc-site-premium
+services:
+  website:
+    build: .
+    image: rpc-site-premium:${RPC_SITE_RELEASE:?Set RPC_SITE_RELEASE to the release name}
+    ports:
+      - "127.0.0.1:13021:8080"
+    restart: unless-stopped

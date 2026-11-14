@@ -1,30 +1,31 @@
 """Cable choreography and the HMI, in the artwork's 1774 × 887 coordinates."""
 
 def hmi_display():
-    # The affine projection matches the four corners of the glass inside the bezel.
-    return '''<g class="hero-hmi" transform="matrix(1.025 -.15 0 1 1450 280)">
-<defs><clipPath id="hero-hmi-window"><rect width="120" height="108" rx="2"/></clipPath><linearGradient id="hero-hmi-glass" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".12"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#a0d8e3" stop-opacity=".04"/></linearGradient></defs>
+    # Inset into the glass, clear of the bezel on all four sides.
+    # Artwork corners: (1453,282), (1563,268), (1563,357), (1453,371).
+    return '''<g class="hero-hmi" transform="matrix(.916667 -.116667 0 .824074 1453 282)">
+<defs><clipPath id="hero-hmi-window"><rect width="120" height="108" rx="2"/></clipPath><linearGradient id="hero-hmi-glass" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".12"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#dce6ca" stop-opacity=".04"/></linearGradient></defs>
 <g clip-path="url(#hero-hmi-window)" class="hmi-screen">
-<rect width="120" height="108" fill="#061c25"/><path d="M8 19H112M8 94H112" stroke="#28434b" stroke-width=".6"/>
+<rect width="120" height="108" fill="#101710"/><path d="M8 19H112M8 94H112" stroke="#3d3f3d" stroke-width=".6"/>
 <text x="8" y="12" font-size="6.5">RP Connect</text><circle cx="108" cy="9" r="2" fill="#cfeb83"/>
 <g class="hmi-page hmi-page-operation hero-loop" data-hmi-page="Operação">
 <text x="8" y="31" font-size="7">Motor em operação</text><text x="8" y="54" class="hmi-value">1.480</text><text x="66" y="54" font-size="7">rpm</text>
 <circle cx="100" cy="49" r="10" stroke="#5c7b4b" stroke-width="1.5"/><path d="M100 40V49L106 53" stroke="#cfeb83" stroke-width="1.7" stroke-linecap="round"/>
-<text x="8" y="68" font-size="5.5" fill="#94aeb5">Rotação do acionamento</text><path d="M8 87H112" stroke="#26434b" stroke-width=".6"/>
+<text x="8" y="68" font-size="5.5" fill="#a8aaa8">Rotação do acionamento</text><path d="M8 87H112" stroke="#3c3e3c" stroke-width=".6"/>
 <path class="hmi-trend hero-loop" d="M8 83L19 81L29 83L39 74L48 77L59 72L70 74L81 70L91 73L102 69L112 71" pathLength="100" stroke="#cfeb83" stroke-width="1.7"/>
 </g>
 <g class="hmi-page hmi-page-electric hero-loop" data-hmi-page="Energia">
-<text x="8" y="31" font-size="7">Grandezas elétricas</text><text x="8" y="54" class="hmi-value">380</text><text x="49" y="54" font-size="8">V</text><text x="8" y="66" font-size="5.5" fill="#94aeb5">Tensão entre fases</text>
+<text x="8" y="31" font-size="7">Grandezas elétricas</text><text x="8" y="54" class="hmi-value">380</text><text x="49" y="54" font-size="8">V</text><text x="8" y="66" font-size="5.5" fill="#a8aaa8">Tensão entre fases</text>
 <text x="8" y="78" font-size="5.5">L1</text><text x="8" y="88" font-size="5.5">L2</text><text x="65" y="78" font-size="5.5">L3</text>
-<path d="M21 76H52M21 86H51M78 76H108" stroke="#d4eb89" stroke-width="3" stroke-linecap="round"/><path d="M65 86H109" stroke="#24404b" stroke-width="3"/>
-<path class="hmi-trend hero-loop" d="M66 86L72 86L76 80L81 91L86 81L91 89L96 83L101 86H109" pathLength="100" stroke="#9ad2e0" stroke-width="1.2"/>
+<path d="M21 76H52M21 86H51M78 76H108" stroke="#d4eb89" stroke-width="3" stroke-linecap="round"/><path d="M65 86H109" stroke="#3a3c3a" stroke-width="3"/>
+<path class="hmi-trend hero-loop" d="M66 86L72 86L76 80L81 91L86 81L91 89L96 83L101 86H109" pathLength="100" stroke="#c8dc94" stroke-width="1.2"/>
 </g>
 <g class="hmi-page hmi-page-production hero-loop" data-hmi-page="Produção">
-<text x="8" y="31" font-size="7">Visão da produção</text><text x="8" y="54" class="hmi-value">96,2</text><text x="58" y="54" font-size="8">%</text><text x="8" y="66" font-size="5.5" fill="#94aeb5">Disponibilidade</text>
-<circle cx="98" cy="50" r="11" stroke="#28434b" stroke-width="3"/><circle cx="98" cy="50" r="11" stroke="#cfe983" stroke-width="3" stroke-dasharray="64 6" transform="rotate(-90 98 50)"/>
-<path d="M8 87H112" stroke="#28434b" stroke-width=".6"/><path class="hmi-trend hero-loop" d="M8 85L20 83L32 84L44 80L56 78L68 81L80 75L92 76L103 72L112 73" pathLength="100" stroke="#cfeb83" stroke-width="1.7"/>
+<text x="8" y="31" font-size="7">Visão da produção</text><text x="8" y="54" class="hmi-value">96,2</text><text x="58" y="54" font-size="8">%</text><text x="8" y="66" font-size="5.5" fill="#a8aaa8">Disponibilidade</text>
+<circle cx="98" cy="50" r="11" stroke="#3d3f3d" stroke-width="3"/><circle cx="98" cy="50" r="11" stroke="#cfe983" stroke-width="3" stroke-dasharray="64 6" transform="rotate(-90 98 50)"/>
+<path d="M8 87H112" stroke="#3d3f3d" stroke-width=".6"/><path class="hmi-trend hero-loop" d="M8 85L20 83L32 84L44 80L56 78L68 81L80 75L92 76L103 72L112 73" pathLength="100" stroke="#cfeb83" stroke-width="1.7"/>
 </g>
-<text x="8" y="103" font-size="5.2" fill="#9eb7be">Automático</text><text x="112" y="103" text-anchor="end" font-size="5.2" fill="#9eb7be">DEMO</text>
+<text x="8" y="103" font-size="5.2" fill="#b1b3b1">Automático</text><text x="112" y="103" text-anchor="end" font-size="5.2" fill="#b1b3b1">DEMO</text>
 <path d="M0 0H120L43 108H0Z" fill="url(#hero-hmi-glass)"/>
 </g></g>'''
 

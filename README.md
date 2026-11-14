@@ -1,6 +1,6 @@
-# RP Caconde — site institucional local
+# RP Caconde | Site institucional
 
-Reconstrução institucional com 26 páginas, oito áreas de serviço, portfólio independente, dez projetos detalhados, apresentação da empresa, processo de trabalho, contato e uma prévia interativa de acompanhamento pelo celular. Executado apenas no computador com Docker, sem integração de escrita com o site publicado ou com um VPS.
+Reconstrução institucional com 26 páginas, oito áreas de serviço, portfólio independente, dez projetos detalhados, apresentação da empresa, processo de trabalho, contato e uma prévia interativa de acompanhamento pelo celular. Prévia local com Docker e build separado para publicação na VPS. Site público: https://www.rpcaconde.com.br/.
 
 ## Abrir
 
@@ -38,7 +38,7 @@ Páginas principais:
 
 ![Página inicial da RP Caconde](docs/home-preview.png)
 
-[Prévia em celular e tablet](docs/responsive-preview.png). A direção visual e a origem da arte estão documentadas em `DESIGN.md`.
+[Prévia no celular](docs/responsive-preview.png). A direção visual e a origem da arte estão documentadas em `DESIGN.md`.
 
 ## Parar e retomar
 
@@ -114,3 +114,7 @@ O texto institucional é uma proposta editorial baseada nos serviços públicos 
 ## Ambiente
 
 Site estático servido pelo Nginx em Docker. Sem banco de dados, hospedagem externa, coleta de métricas ou publicação em produção. Esta prévia contém `noindex`; o isolamento local é feito pela porta vinculada a `127.0.0.1`.
+
+## Publicação na VPS
+
+A versão pública é gerada separadamente da prévia local. Consulte [deploy/README.md](deploy/README.md) para build, verificação e retorno à versão anterior. A identidade visual atual está documentada em [docs/black-green.md](docs/black-green.md).
